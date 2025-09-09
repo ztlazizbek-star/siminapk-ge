@@ -145,41 +145,58 @@ export default function Home() {
         setLoading(true)
 
         // Try to load from API first
-        const productsResponse = await fetch("/api/products.php")
+        try {
+          const productsResponse = await fetch("/api/products.php")
 
-        // Check if response is JSON
-        const contentType = productsResponse.headers.get("content-type")
-        if (contentType && contentType.includes("application/json")) {
-          const productsData = await productsResponse.json()
-          setMenuItems(
-            productsData.map((item: any) => ({
-              ...item,
-              isFeatured: item.is_featured === 1,
-            })),
-          )
-        } else {
-          throw new Error("API not available")
+          // Check if response is successful and JSON
+          if (productsResponse.ok && productsResponse.headers.get("content-type")?.includes("application/json")) {
+            const productsData = await productsResponse.json()
+            setMenuItems(
+              productsData.map((item: any) => ({
+                ...item,
+                isFeatured: item.is_featured === 1,
+              })),
+            )
+          } else {
+            throw new Error("API not available or returned non-JSON response")
+          }
+        } catch (error) {
+          console.log("Products API not available, using mock data")
+          setMenuItems(mockMenuItems)
         }
 
-        // Load categories
-        const categoriesResponse = await fetch("/api/categories.php?type=main")
-        if (categoriesResponse.headers.get("content-type")?.includes("application/json")) {
-          const categoriesData = await categoriesResponse.json()
-          setCategories(categoriesData)
-        } else {
+        // Load categories with proper error handling
+        try {
+          const categoriesResponse = await fetch("/api/categories.php?type=main")
+          if (categoriesResponse.ok && categoriesResponse.headers.get("content-type")?.includes("application/json")) {
+            const categoriesData = await categoriesResponse.json()
+            setCategories(categoriesData)
+          } else {
+            throw new Error("Categories API not available")
+          }
+        } catch (error) {
+          console.log("Categories API not available, using mock data")
           setCategories(mockCategories)
         }
 
-        // Load subcategories
-        const subcategoriesResponse = await fetch("/api/categories.php?type=sub")
-        if (subcategoriesResponse.headers.get("content-type")?.includes("application/json")) {
-          const subcategoriesData = await subcategoriesResponse.json()
-          setSubcategories(subcategoriesData)
-        } else {
+        // Load subcategories with proper error handling
+        try {
+          const subcategoriesResponse = await fetch("/api/categories.php?type=sub")
+          if (
+            subcategoriesResponse.ok &&
+            subcategoriesResponse.headers.get("content-type")?.includes("application/json")
+          ) {
+            const subcategoriesData = await subcategoriesResponse.json()
+            setSubcategories(subcategoriesData)
+          } else {
+            throw new Error("Subcategories API not available")
+          }
+        } catch (error) {
+          console.log("Subcategories API not available, using mock data")
           setSubcategories(mockSubcategories)
         }
-      } catch (apiError) {
-        console.log("API not available, using mock data")
+      } catch (generalError) {
+        console.log("General error loading data, using all mock data")
         setMenuItems(mockMenuItems)
         setCategories(mockCategories)
         setSubcategories(mockSubcategories)
