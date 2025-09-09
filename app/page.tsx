@@ -1,6 +1,5 @@
 "use client"
 
-import "@/app/globals.css"
 import { useState, useEffect } from "react"
 import Header from "@/components/Header"
 import Stories from "@/components/Stories"
