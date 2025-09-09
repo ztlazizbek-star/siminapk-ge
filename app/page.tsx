@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import "../styles/globals.css"
 import Header from "@/components/Header"
 import Stories from "@/components/Stories"
 import Categories from "@/components/Categories"
