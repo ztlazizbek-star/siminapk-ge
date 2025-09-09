@@ -70,57 +70,57 @@ const mockStories = [
   },
 ]
 
-const mockCategories = [
-  { slug: "all", name: "Всё", icon: "https://img.icons8.com/color/48/000000/menu--v1.png" },
-  { slug: "kids", name: "Для детей", icon: "https://img.icons8.com/color/48/000000/duck.png" },
-  {
-    slug: "group",
-    name: "На компанию",
-    icon: "https://avatars.mds.yandex.net/i?id=f29ab152846000ab011a0b8d9c21749c5f996a3f-5229055-images-thumbs&n=13",
-  },
-  { slug: "new", name: "Новинки", icon: "https://img.icons8.com/color/48/000000/sparkling.png" },
-  {
-    slug: "hot",
-    name: "Хиты",
-    icon: "https://avatars.mds.yandex.net/i?id=4e2311b5083f396f4a0fdce60dd6c211972ac3f3-12644621-images-thumbs&n=13",
-  },
-]
-
-const mockSubcategories = [
-  { slug: "all", name: "Всё" },
-  { slug: "burger", name: "Бургер" },
-  { slug: "drink", name: "Напитки" },
-  { slug: "combo", name: "Комбо" },
-  { slug: "snack", name: "Баскет" },
-  { slug: "pors", name: "Порцы" },
-]
-
 const mockMenuItems: MenuItem[] = [
   {
     id: 1,
     name: "Биг Мак",
-    description: "Два мясных котлета, специальный соус, салат, сыр, соленые огурчики, лук на булочке с кунжутом",
-    price: "25.50 TJS",
+    description: "Классический бургер с двумя котлетами",
+    price: "25.00 TJS",
     image: "/big-mac-burger.jpg",
-    category: "burger",
+    category: "burgers",
     isFeatured: true,
   },
   {
     id: 2,
-    name: "Кока-Кола",
-    description: "Освежающий газированный напиток",
-    price: "8.00 TJS",
-    image: "/refreshing-cola.png",
-    category: "drink",
+    name: "Чизбургер",
+    description: "Сочный бургер с сыром",
+    price: "20.00 TJS",
+    image: "/classic-cheeseburger.png",
+    category: "burgers",
+    isFeatured: false,
   },
   {
     id: 3,
-    name: "Картофель Фри",
-    description: "Золотистый картофель фри с хрустящей корочкой",
+    name: "Картофель фри",
+    description: "Хрустящий картофель фри",
     price: "12.00 TJS",
     image: "/crispy-french-fries.png",
-    category: "snack",
+    category: "sides",
+    isFeatured: true,
   },
+  {
+    id: 4,
+    name: "Кока-Кола",
+    description: "Освежающий напиток",
+    price: "8.00 TJS",
+    image: "/refreshing-cola.png",
+    category: "drinks",
+    isFeatured: false,
+  },
+]
+
+const mockCategories = [
+  { id: 1, name: "Бургеры", slug: "burgers", icon: "🍔" },
+  { id: 2, name: "Гарниры", slug: "sides", icon: "🍟" },
+  { id: 3, name: "Напитки", slug: "drinks", icon: "🥤" },
+  { id: 4, name: "Десерты", slug: "desserts", icon: "🍰" },
+]
+
+const mockSubcategories = [
+  { id: 1, name: "Классические", slug: "classic", parent: "burgers" },
+  { id: 2, name: "Острые", slug: "spicy", parent: "burgers" },
+  { id: 3, name: "Холодные", slug: "cold", parent: "drinks" },
+  { id: 4, name: "Горячие", slug: "hot", parent: "drinks" },
 ]
 
 export default function Home() {
@@ -134,6 +134,62 @@ export default function Home() {
   const [selectedStory, setSelectedStory] = useState("")
   const [selectedItem, setSelectedItem] = useState<MenuItem | null>(null)
   const [notification, setNotification] = useState<NotificationState>({ show: false, message: "", type: "" })
+  const [menuItems, setMenuItems] = useState<MenuItem[]>([])
+  const [categories, setCategories] = useState<any[]>([])
+  const [subcategories, setSubcategories] = useState<any[]>([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        setLoading(true)
+
+        // Try to load from API first
+        const productsResponse = await fetch("/api/products.php")
+
+        // Check if response is JSON
+        const contentType = productsResponse.headers.get("content-type")
+        if (contentType && contentType.includes("application/json")) {
+          const productsData = await productsResponse.json()
+          setMenuItems(
+            productsData.map((item: any) => ({
+              ...item,
+              isFeatured: item.is_featured === 1,
+            })),
+          )
+        } else {
+          throw new Error("API not available")
+        }
+
+        // Load categories
+        const categoriesResponse = await fetch("/api/categories.php?type=main")
+        if (categoriesResponse.headers.get("content-type")?.includes("application/json")) {
+          const categoriesData = await categoriesResponse.json()
+          setCategories(categoriesData)
+        } else {
+          setCategories(mockCategories)
+        }
+
+        // Load subcategories
+        const subcategoriesResponse = await fetch("/api/categories.php?type=sub")
+        if (subcategoriesResponse.headers.get("content-type")?.includes("application/json")) {
+          const subcategoriesData = await subcategoriesResponse.json()
+          setSubcategories(subcategoriesData)
+        } else {
+          setSubcategories(mockSubcategories)
+        }
+      } catch (apiError) {
+        console.log("API not available, using mock data")
+        setMenuItems(mockMenuItems)
+        setCategories(mockCategories)
+        setSubcategories(mockSubcategories)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    loadData()
+  }, [])
 
   // Load cart from localStorage
   useEffect(() => {
@@ -177,10 +233,21 @@ export default function Home() {
     setShowItemModal(true)
   }
 
-  const filteredItems = mockMenuItems.filter((item) => {
+  const filteredItems = menuItems.filter((item) => {
     if (activeCategory !== "all" && item.category !== activeCategory) return false
     return true
   })
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500 mx-auto mb-4"></div>
+          <p>Загрузка...</p>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div>
@@ -190,8 +257,8 @@ export default function Home() {
         <Stories stories={mockStories} onStoryClick={openStory} />
 
         <Categories
-          categories={mockCategories}
-          subcategories={mockSubcategories}
+          categories={categories}
+          subcategories={subcategories}
           activeCategory={activeCategory}
           activeSubcategory={activeSubcategory}
           onCategoryChange={setActiveCategory}

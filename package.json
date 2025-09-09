@@ -1,7 +1,9 @@
 {
-  "name": "my-v0-project",
-  "version": "0.1.0",
+  "name": "cafe-simin",
+  "version": "1.0.0",
   "private": true,
+  "description": "Modern cafe ordering app with React and Next.js",
+  "type": "module",
   "scripts": {
     "build": "next build",
     "dev": "next dev",
