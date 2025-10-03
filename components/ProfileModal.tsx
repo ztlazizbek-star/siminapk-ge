@@ -3,6 +3,7 @@
 import type React from "react"
 
 import { useState } from "react"
+import { useUser } from "@/app/contexts/UserContext"
 
 interface User {
   name: string
@@ -20,16 +21,26 @@ interface ProfileModalProps {
 
 export default function ProfileModal({ show, user, onClose, onSave }: ProfileModalProps) {
   const [formData, setFormData] = useState(user)
+  const { logout } = useUser()
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
+    console.log("[v0] ProfileModal: Form submitted")
+    console.log("[v0] ProfileModal: Form data:", formData)
     onSave(formData)
+  }
+
+  const handleLogout = () => {
+    if (confirm("Вы уверены, что хотите выйти?")) {
+      logout()
+      onClose()
+    }
   }
 
   if (!show) return null
 
   return (
-    <div className="modal" id="profileModal">
+    <div className="modal" id="profileModal" style={{ display: "flex" }}>
       <div className="modal-content">
         <span className="close-btn" onClick={onClose}>
           <i className="fas fa-times-circle"></i>
@@ -95,6 +106,9 @@ export default function ProfileModal({ show, user, onClose, onSave }: ProfileMod
           </button>
           <button type="button" className="cancel-btn" onClick={onClose}>
             <i className="fas fa-times"></i> Отмена
+          </button>
+          <button type="button" className="cancel-btn" onClick={handleLogout} style={{ marginTop: "8px" }}>
+            <i className="fas fa-sign-out-alt"></i> Выйти
           </button>
         </form>
       </div>

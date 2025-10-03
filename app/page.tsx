@@ -2,6 +2,8 @@
 
 import "../styles/globals.css"
 import { useState, useEffect } from "react"
+import { useRouter } from "next/navigation"
+import { useUser } from "@/app/contexts/UserContext"
 import Header from "@/components/Header"
 import Stories from "@/components/Stories"
 import Categories from "@/components/Categories"
@@ -97,7 +99,8 @@ const mockSubcategories = [
 ]
 
 export default function Home() {
-  const [user, setUser] = useState<User>(mockUser)
+  const router = useRouter()
+  const { user, isRegistered, isLoading, setUser } = useUser()
   const [cart, setCart] = useState<CartItem[]>([])
   const [activeCategory, setActiveCategory] = useState("all")
   const [activeSubcategory, setActiveSubcategory] = useState("all")
@@ -109,6 +112,12 @@ export default function Home() {
   const [notification, setNotification] = useState<NotificationState>({ show: false, message: "", type: "" })
   const [products, setProducts] = useState<Product[]>([])
   const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    if (!isLoading && !isRegistered) {
+      router.push("/register")
+    }
+  }, [isRegistered, isLoading, router])
 
   useEffect(() => {
     const loadProducts = async () => {
@@ -166,9 +175,35 @@ export default function Home() {
     activeSubcategory !== "all" ? activeSubcategory : activeCategory,
   )
 
+  const handleProfileClick = () => {
+    setShowProfileModal(true)
+  }
+
+  if (isLoading) {
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+          flexDirection: "column",
+          gap: "16px",
+        }}
+      >
+        <i className="fas fa-spinner fa-spin" style={{ fontSize: "3rem", color: "#ff6200" }}></i>
+        <p style={{ color: "#666", fontSize: "1.1rem" }}>Загрузка...</p>
+      </div>
+    )
+  }
+
+  if (!isRegistered || !user) {
+    return null
+  }
+
   return (
     <div>
-      <Header user={user} onProfileClick={() => setShowProfileModal(true)} />
+      <Header user={user} onProfileClick={handleProfileClick} />
 
       <div className="container">
         <Stories stories={mockStories} onStoryClick={openStory} />
@@ -202,10 +237,38 @@ export default function Home() {
         show={showProfileModal}
         user={user}
         onClose={() => setShowProfileModal(false)}
-        onSave={(updatedUser) => {
-          setUser(updatedUser)
-          setShowProfileModal(false)
-          showNotification("Профиль успешно обновлен", "success")
+        onSave={async (updatedUser) => {
+          console.log("[v0] onSave called with data:", updatedUser)
+          try {
+            console.log("[v0] Sending POST request to /api/user/update")
+            const response = await fetch("/api/user/update", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(updatedUser),
+            })
+
+            console.log("[v0] Response status:", response.status)
+            console.log("[v0] Response ok:", response.ok)
+
+            const data = await response.json()
+            console.log("[v0] Response data:", data)
+
+            if (data.success) {
+              console.log("[v0] Update successful, updating local state")
+              setUser(updatedUser)
+              localStorage.setItem("user", JSON.stringify(updatedUser))
+              setShowProfileModal(false)
+              showNotification("Профиль успешно обновлен", "success")
+            } else {
+              console.log("[v0] Update failed:", data.message || "Unknown error")
+              showNotification("Ошибка обновления профиля", "error")
+            }
+          } catch (error) {
+            console.error("[v0] Error updating profile:", error)
+            showNotification("Ошибка обновления профиля", "error")
+          }
         }}
       />
 
