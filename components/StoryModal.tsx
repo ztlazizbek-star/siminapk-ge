@@ -16,6 +16,13 @@ export default function StoryModal({ show, images, onClose, title }: StoryModalP
   useEffect(() => {
     if (show) {
       setCurrentIndex(0)
+      document.body.style.overflow = "hidden"
+    } else {
+      document.body.style.overflow = "unset"
+    }
+
+    return () => {
+      document.body.style.overflow = "unset"
     }
   }, [show])
 
@@ -46,7 +53,7 @@ export default function StoryModal({ show, images, onClose, title }: StoryModalP
   }
 
   return (
-    <div className="story-modal-instagram" id="storyModal">
+    <div className="story-modal-instagram" style={{ display: "flex" }}>
       <div className="story-modal-content-instagram">
         <button className="story-close-button-top-left" onClick={onClose} aria-label="Close">
           <i className="fas fa-times"></i>
