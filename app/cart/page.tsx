@@ -197,9 +197,7 @@ export default function CartPage() {
     <div className="app">
       {/* Header */}
       <header className="header">
-        <button className="close-btn" onClick={() => router.push("/")}>
-          
-        </button>
+        
         <h1 className="title">Корзина</h1>
         <button className="trash-btn" onClick={() => setShowClearModal(true)}>
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
