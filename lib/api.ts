@@ -14,7 +14,14 @@ export interface Product {
 
 export async function fetchProducts(category = "all"): Promise<Product[]> {
   try {
-    const response = await fetch(`/api/products?category=${category}`, {
+    const apiUrl =
+      category === "all"
+        ? "https://tajstore.ru/simin/index.php"
+        : `https://tajstore.ru/simin/index.php?category=${category}`
+
+    console.log("[v0] Fetching from API:", apiUrl)
+
+    const response = await fetch(apiUrl, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -22,19 +29,23 @@ export async function fetchProducts(category = "all"): Promise<Product[]> {
       cache: "no-store",
     })
 
+    console.log("[v0] API response status:", response.status)
+
     if (!response.ok) {
+      console.error("[v0] API responded with status:", response.status)
       throw new Error(`Failed to fetch products: ${response.status}`)
     }
 
     const data = await response.json()
+    console.log("[v0] API data received:", data)
 
     // Handle error response from API
-    if (data.error) {
-      throw new Error(data.message || "Failed to fetch products")
+    if (!data.success) {
+      throw new Error(data.error || "Failed to fetch products")
     }
 
-    // Ensure data is an array
-    const products = Array.isArray(data) ? data : data.products || []
+    // Get products from data.data
+    const products = Array.isArray(data.data) ? data.data : []
 
     // Set first product as featured
     return products.map((product: Product, index: number) => ({
