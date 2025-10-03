@@ -25,13 +25,17 @@ export function UserProvider({ children }: { children: ReactNode }) {
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
+    if (typeof window === "undefined") {
+      setIsLoading(false)
+      return
+    }
+
     const checkUser = async () => {
       const savedUser = localStorage.getItem("cafe_user")
 
       if (savedUser) {
         const userData = JSON.parse(savedUser)
 
-        // Проверяем существует ли пользователь в базе данных
         try {
           const response = await fetch("/api/user/verify", {
             method: "POST",
@@ -44,19 +48,16 @@ export function UserProvider({ children }: { children: ReactNode }) {
           const data = await response.json()
 
           if (data.success && data.exists) {
-            // Пользователь существует в БД, обновляем данные
             setUserState(data.user)
             setIsRegistered(true)
             localStorage.setItem("cafe_user", JSON.stringify(data.user))
           } else {
-            // Пользователя нет в БД, очищаем localStorage
             localStorage.removeItem("cafe_user")
             setUserState(null)
             setIsRegistered(false)
           }
         } catch (error) {
           console.error("Error verifying user:", error)
-          // В случае ошибки используем данные из localStorage
           setUserState(userData)
           setIsRegistered(true)
         }
@@ -71,14 +72,18 @@ export function UserProvider({ children }: { children: ReactNode }) {
   const setUser = (newUser: User) => {
     setUserState(newUser)
     setIsRegistered(true)
-    localStorage.setItem("cafe_user", JSON.stringify(newUser))
+    if (typeof window !== "undefined") {
+      localStorage.setItem("cafe_user", JSON.stringify(newUser))
+    }
   }
 
   const logout = () => {
     setUserState(null)
     setIsRegistered(false)
-    localStorage.removeItem("cafe_user")
-    localStorage.removeItem("cart")
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("cafe_user")
+      localStorage.removeItem("cart")
+    }
   }
 
   return (

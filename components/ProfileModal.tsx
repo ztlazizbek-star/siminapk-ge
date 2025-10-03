@@ -98,8 +98,8 @@ export default function ProfileModal({ show, user, onClose, onSave }: ProfileMod
             <i className="fas fa-lock"></i>
           </div>
           <div className="form-group">
-            <label htmlFor="profile_photo">Фото профиля:</label>
-            <input type="file" name="profile_photo" id="profile_photo" accept="image/jpeg,image/png,image/gif" />
+            
+            
           </div>
           <button type="submit" className="submit-btn">
             <i className="fas fa-save"></i> Сохранить
@@ -107,9 +107,7 @@ export default function ProfileModal({ show, user, onClose, onSave }: ProfileMod
           <button type="button" className="cancel-btn" onClick={onClose}>
             <i className="fas fa-times"></i> Отмена
           </button>
-          <button type="button" className="cancel-btn" onClick={handleLogout} style={{ marginTop: "8px" }}>
-            <i className="fas fa-sign-out-alt"></i> Выйти
-          </button>
+          
         </form>
       </div>
     </div>

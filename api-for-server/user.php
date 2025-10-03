@@ -30,7 +30,11 @@ try {
 $input = file_get_contents('php://input');
 $data = json_decode($input, true);
 
+error_log("[v0] PHP received input: " . $input);
+error_log("[v0] PHP decoded data: " . print_r($data, true));
+
 $action = $data['action'] ?? '';
+error_log("[v0] PHP action: " . $action);
 
 switch ($action) {
     case 'register':
@@ -97,9 +101,12 @@ switch ($action) {
         break;
 
     case 'update':
+        error_log("[v0] PHP update case triggered");
         $phone = $data['phone'] ?? '';
         $name = $data['name'] ?? '';
         $address = $data['address'] ?? '';
+
+        error_log("[v0] PHP update data - phone: $phone, name: $name, address: $address");
 
         if (empty($phone) || empty($name) || empty($address)) {
             echo json_encode(['success' => false, 'error' => 'Все поля обязательны']);
@@ -110,17 +117,21 @@ switch ($action) {
             $stmt = $pdo->prepare('UPDATE users SET name = ?, address = ? WHERE phone = ?');
             $stmt->execute([$name, $address, $phone]);
 
+            error_log("[v0] PHP rows affected: " . $stmt->rowCount());
+
             if ($stmt->rowCount() > 0) {
                 echo json_encode(['success' => true, 'message' => 'Данные успешно обновлены']);
             } else {
                 echo json_encode(['success' => false, 'error' => 'Пользователь не найден']);
             }
         } catch (PDOException $e) {
+            error_log("[v0] PHP update error: " . $e->getMessage());
             echo json_encode(['success' => false, 'error' => 'Ошибка обновления данных']);
         }
         break;
 
     default:
+        error_log("[v0] PHP unknown action, received: " . $action);
         echo json_encode(['success' => false, 'error' => 'Неизвестное действие']);
         break;
 }

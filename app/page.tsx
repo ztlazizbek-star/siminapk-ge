@@ -131,6 +131,8 @@ export default function Home() {
   }, [])
 
   useEffect(() => {
+    if (typeof window === "undefined") return
+
     const savedCart = localStorage.getItem("cart")
     if (savedCart) {
       setCart(JSON.parse(savedCart))
@@ -138,6 +140,8 @@ export default function Home() {
   }, [])
 
   useEffect(() => {
+    if (typeof window === "undefined") return
+
     localStorage.setItem("cart", JSON.stringify(cart))
   }, [cart])
 
