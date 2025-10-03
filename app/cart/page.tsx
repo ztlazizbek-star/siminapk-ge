@@ -186,7 +186,9 @@ export default function CartPage() {
       {/* Header */}
       <header className="header">
         <button className="close-btn" onClick={() => router.push("/")}>
-          ×
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M19 12H5M12 19l-7-7 7-7" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
         </button>
         <h1 className="title">Корзина</h1>
         <button className="trash-btn" onClick={() => setShowClearModal(true)}>
@@ -356,6 +358,7 @@ function CheckoutModal({
 }) {
   const [orderType, setOrderType] = useState("")
   const [paymentType, setPaymentType] = useState("")
+  const [isLoading, setIsLoading] = useState(false)
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -367,17 +370,17 @@ function CheckoutModal({
     const comment = formData.get("comment") as string
 
     if (!name || !phone || !orderType || !paymentType) {
-      alert("Пожалуйста, заполните все обязательные поля")
+      showNotification("Пожалуйста, заполните все обязательные поля", "error")
       return
     }
 
     if (!/^\d{9}$/.test(phone)) {
-      alert("Номер телефона должен содержать ровно 9 цифр")
+      showNotification("Номер телефона должен содержать ровно 9 цифр", "error")
       return
     }
 
     if (orderType === "delivery" && !deliveryAddress) {
-      alert("Пожалуйста, введите адрес доставки")
+      showNotification("Пожалуйста, введите адрес доставки", "error")
       return
     }
 
@@ -404,6 +407,8 @@ ${isPromoApplied ? "Скидка: 10%" : ""}
 Общая сумма: ${totalPrice.toFixed(2)} TJS
     `
 
+    setIsLoading(true)
+
     try {
       const response = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
         method: "POST",
@@ -417,15 +422,29 @@ ${isPromoApplied ? "Скидка: 10%" : ""}
 
       const result = await response.json()
       if (result.ok) {
-        alert("Заказ успешно оформлен! Ждите звонка.")
         onSuccess()
       } else {
-        alert("Ошибка при отправке заказа")
+        setIsLoading(false)
+        showNotification("Ошибка при отправке заказа", "error")
       }
     } catch (error) {
       console.error("Error sending to Telegram:", error)
-      alert("Ошибка при отправке заказа")
+      setIsLoading(false)
+      showNotification("Ошибка при отправке заказа", "error")
     }
+  }
+
+  const showNotification = (message: string, type: "success" | "error" = "success") => {
+    const notification = document.createElement("div")
+    notification.style.cssText = `
+      position: fixed; top: 80px; left: 50%; transform: translateX(-50%);
+      background: ${type === "success" ? "#4CAF50" : "#f44336"}; color: white;
+      padding: 12px 24px; border-radius: 8px; z-index: 10000;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    `
+    notification.textContent = message
+    document.body.appendChild(notification)
+    setTimeout(() => notification.remove(), 2700)
   }
 
   return (
@@ -433,6 +452,7 @@ ${isPromoApplied ? "Скидка: 10%" : ""}
       <div className="modal-content">
         <h2>Оформление заказа</h2>
         <form id="checkout-form" onSubmit={handleSubmit}>
+          {/* ... existing form fields ... */}
           <div className="input-group">
             <svg
               className="input-icon"
@@ -543,21 +563,30 @@ ${isPromoApplied ? "Скидка: 10%" : ""}
               stroke="currentColor"
               strokeWidth="2"
             >
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <path d="M14 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
               <polyline points="7 10 12 15 17 10"></polyline>
               <line x1="12" y1="15" x2="12" y2="3"></line>
             </svg>
             <textarea name="comment" placeholder="Ваш комментарий (необязательно)"></textarea>
           </div>
           <div className="form-actions">
-            <button type="button" className="cancel-btn" onClick={onClose}>
+            <button type="button" className="cancel-btn" onClick={onClose} disabled={isLoading}>
               Отмена
             </button>
-            <button type="submit" className="submit-btn">
-              Отправить заказ
+            <button type="submit" className="submit-btn" disabled={isLoading}>
+              {isLoading ? "Отправка..." : "Отправить заказ"}
             </button>
           </div>
         </form>
+
+        {isLoading && (
+          <div className="loading-overlay">
+            <div className="loading-spinner">
+              <div className="spinner"></div>
+              <p>Отправка заказа...</p>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   )
