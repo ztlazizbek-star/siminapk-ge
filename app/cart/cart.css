@@ -18,13 +18,13 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 16px 20px;
+  /* Reduced horizontal padding to position buttons closer to corners */
+  padding: 16px 8px;
   background-color: white;
   border-bottom: 1px solid #eee;
   position: sticky;
   top: 0;
   z-index: 100;
-  /* Added gap to ensure proper spacing between elements */
   gap: 16px;
 }
 
@@ -37,9 +37,7 @@
   padding: 8px;
   border-radius: 50%;
   transition: background-color 0.2s;
-  /* Added flex-shrink to prevent buttons from shrinking */
   flex-shrink: 0;
-  /* Added fixed width and height for consistent button size */
   width: 40px;
   height: 40px;
   display: flex;
@@ -55,7 +53,6 @@
 .title {
   font-size: 18px;
   font-weight: 600;
-  /* Added flex: 1 to center the title between buttons */
   flex: 1;
   text-align: center;
 }
@@ -606,6 +603,63 @@
   color: #333;
 }
 
+/* Notification Styles */
+.notification {
+  position: fixed;
+  top: 70px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-20px);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 20px;
+  border-radius: 12px;
+  z-index: 10000;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(10px);
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  max-width: 90%;
+  pointer-events: none;
+}
+
+.notification.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.notification.success {
+  background: linear-gradient(135deg, rgba(76, 175, 80, 0.95) 0%, rgba(69, 160, 73, 0.95) 100%);
+  color: white;
+}
+
+.notification.error {
+  background: linear-gradient(135deg, rgba(244, 67, 54, 0.95) 0%, rgba(229, 57, 53, 0.95) 100%);
+  color: white;
+}
+
+.notification-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  animation: iconPop 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.notification-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.notification-text {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+/* Animations */
 @keyframes spin {
   0% {
     transform: rotate(0deg);
@@ -615,7 +669,6 @@
   }
 }
 
-/* Animations */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -656,6 +709,18 @@
 @keyframes strokeCheck {
   to {
     stroke-dashoffset: 0;
+  }
+}
+
+@keyframes iconPop {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
   }
 }
 

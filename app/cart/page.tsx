@@ -156,17 +156,29 @@ export default function CartPage() {
   }
 
   const showNotification = (message: string, type: "success" | "error" = "success") => {
-    // Simple notification implementation
     const notification = document.createElement("div")
-    notification.style.cssText = `
-      position: fixed; top: 80px; left: 50%; transform: translateX(-50%);
-      background: ${type === "success" ? "#4CAF50" : "#f44336"}; color: white;
-      padding: 12px 24px; border-radius: 8px; z-index: 1000;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    `
-    notification.textContent = message
+    notification.className = `notification ${type}`
+
+    const icon = document.createElement("div")
+    icon.className = "notification-icon"
+    icon.innerHTML =
+      type === "success"
+        ? '<svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M16.667 5L7.5 14.167 3.333 10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>'
+        : '<svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 6v4m0 4h.01M10 18a8 8 0 100-16 8 8 0 000 16z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>'
+
+    const text = document.createElement("span")
+    text.className = "notification-text"
+    text.textContent = message
+
+    notification.appendChild(icon)
+    notification.appendChild(text)
     document.body.appendChild(notification)
-    setTimeout(() => notification.remove(), 2700)
+
+    setTimeout(() => notification.classList.add("show"), 10)
+    setTimeout(() => {
+      notification.classList.remove("show")
+      setTimeout(() => notification.remove(), 300)
+    }, 2700)
   }
 
   const calculateTotal = () => {
@@ -186,9 +198,7 @@ export default function CartPage() {
       {/* Header */}
       <header className="header">
         <button className="close-btn" onClick={() => router.push("/")}>
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M19 12H5M12 19l-7-7 7-7" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
+          
         </button>
         <h1 className="title">Корзина</h1>
         <button className="trash-btn" onClick={() => setShowClearModal(true)}>
@@ -436,15 +446,28 @@ ${isPromoApplied ? "Скидка: 10%" : ""}
 
   const showNotification = (message: string, type: "success" | "error" = "success") => {
     const notification = document.createElement("div")
-    notification.style.cssText = `
-      position: fixed; top: 80px; left: 50%; transform: translateX(-50%);
-      background: ${type === "success" ? "#4CAF50" : "#f44336"}; color: white;
-      padding: 12px 24px; border-radius: 8px; z-index: 10000;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    `
-    notification.textContent = message
+    notification.className = `notification ${type}`
+
+    const icon = document.createElement("div")
+    icon.className = "notification-icon"
+    icon.innerHTML =
+      type === "success"
+        ? '<svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M16.667 5L7.5 14.167 3.333 10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>'
+        : '<svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 6v4m0 4h.01M10 18a8 8 0 100-16 8 8 0 000 16z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>'
+
+    const text = document.createElement("span")
+    text.className = "notification-text"
+    text.textContent = message
+
+    notification.appendChild(icon)
+    notification.appendChild(text)
     document.body.appendChild(notification)
-    setTimeout(() => notification.remove(), 2700)
+
+    setTimeout(() => notification.classList.add("show"), 10)
+    setTimeout(() => {
+      notification.classList.remove("show")
+      setTimeout(() => notification.remove(), 300)
+    }, 2700)
   }
 
   return (
