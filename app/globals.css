@@ -916,3 +916,57 @@ input:focus + i {
 
 /* Добавляем стили для страницы регистрации */
 @import "./register/styles.css";
+
+/* Instagram-style story progress bars */
+.story-progress-bars {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 4px;
+  width: 90%;
+  max-width: 400px;
+  z-index: 10;
+}
+
+.story-progress-bar {
+  flex: 1;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
+  overflow: hidden;
+  position: relative;
+}
+
+.story-progress-bar.completed {
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.story-progress-bar.active {
+  background: rgba(255, 255, 255, 0.9);
+}
+
+/* Story image container and counter */
+.story-image-container {
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.story-counter {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 6px 12px;
+  border-radius: 20px;
+  z-index: 10;
+}

@@ -52,24 +52,24 @@ const mockUser: User = {
 
 const mockStories = [
   {
-    image: "https://axe-tech.ru/images/cms/data/164187825561dd12ef13669.jpg",
-    fullImage: "https://example.com/story1_full.jpg",
+    image: "/story-burger-preview.jpg",
+    images: ["/story-burger-full.jpg", "/juicy-beef-burger-with-fries.jpg"],
   },
   {
-    image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1b/91/68/7c/caption.jpg?w=800&h=500&s=1",
-    fullImage: "https://example.com/story2_full.jpg",
+    image: "/story-pizza-preview.jpg",
+    images: ["/story-pizza-full.jpg", "/hot-pizza-with-melted-cheese.jpg"],
   },
   {
-    image: "https://steamuserimages-a.akamaihd.net/ugc/2053113256292034683/69B12E63AB5082327061A20DA737941BED8C5892/",
-    fullImage: "https://example.com/story3_full.jpg",
+    image: "/story-salad-preview.jpg",
+    images: ["/story-salad-full.jpg", "/fresh-vegetable-salad-bowl.jpg"],
   },
   {
-    image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1b/91/68/7c/caption.jpg?w=800&h=500&s=1",
-    fullImage: "https://example.com/story4_full.jpg",
+    image: "/story-dessert-preview.jpg",
+    images: ["/story-dessert-full.jpg", "/chocolate-cake-with-cream.jpg"],
   },
   {
-    image: "https://avatars.mds.yandex.net/i?id=eac24a40ca9c5823dd83356b78a38b8bcf8b0ebf-3796663-images-thumbs&n=13",
-    fullImage: "https://example.com/story5_full.jpg",
+    image: "/story-drink-preview.jpg",
+    images: ["/story-drink-full.jpg", "/cold-refreshing-drink.jpg"],
   },
 ]
 
@@ -107,7 +107,7 @@ export default function Home() {
   const [showProfileModal, setShowProfileModal] = useState(false)
   const [showStoryModal, setShowStoryModal] = useState(false)
   const [showItemModal, setShowItemModal] = useState(false)
-  const [selectedStory, setSelectedStory] = useState("")
+  const [selectedStoryImages, setSelectedStoryImages] = useState<string[]>([])
   const [selectedItem, setSelectedItem] = useState<MenuItem | null>(null)
   const [notification, setNotification] = useState<NotificationState>({ show: false, message: "", type: "" })
   const [products, setProducts] = useState<Product[]>([])
@@ -164,8 +164,8 @@ export default function Home() {
     showNotification("Товар добавлен в корзину", "success")
   }
 
-  const openStory = (fullImage: string) => {
-    setSelectedStory(fullImage)
+  const openStory = (images: string[]) => {
+    setSelectedStoryImages(images)
     setShowStoryModal(true)
   }
 
@@ -276,7 +276,7 @@ export default function Home() {
         }}
       />
 
-      <StoryModal show={showStoryModal} image={selectedStory} onClose={() => setShowStoryModal(false)} />
+      <StoryModal show={showStoryModal} images={selectedStoryImages} onClose={() => setShowStoryModal(false)} />
 
       <ItemModal
         show={showItemModal}
