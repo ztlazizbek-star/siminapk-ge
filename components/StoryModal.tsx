@@ -1,16 +1,16 @@
 "use client"
 
 import type React from "react"
-
 import { useState, useEffect } from "react"
 
 interface StoryModalProps {
   show: boolean
   images: string[]
   onClose: () => void
+  title?: string
 }
 
-export default function StoryModal({ show, images, onClose }: StoryModalProps) {
+export default function StoryModal({ show, images, onClose, title }: StoryModalProps) {
   const [currentIndex, setCurrentIndex] = useState(0)
 
   useEffect(() => {
@@ -29,7 +29,7 @@ export default function StoryModal({ show, images, onClose }: StoryModalProps) {
     if (currentIndex < images.length - 1) {
       setCurrentIndex((prev) => prev + 1)
     } else {
-      onClose() // Close modal when reaching the end
+      onClose()
     }
   }
 
@@ -46,28 +46,31 @@ export default function StoryModal({ show, images, onClose }: StoryModalProps) {
   }
 
   return (
-    <div className="story-modal" id="storyModal">
-      <div className="story-modal-content">
-        <div className="story-progress-bars">
+    <div className="story-modal-instagram" id="storyModal">
+      <div className="story-modal-content-instagram">
+        <button className="story-close-button-top-left" onClick={onClose} aria-label="Close">
+          <i className="fas fa-times"></i>
+        </button>
+
+        {/* Progress bars */}
+        <div className="story-progress-bars-instagram">
           {images.map((_, index) => (
             <div
               key={index}
-              className={`story-progress-bar ${index < currentIndex ? "completed" : ""} ${
+              className={`story-progress-bar-instagram ${index < currentIndex ? "completed" : ""} ${
                 index === currentIndex ? "active" : ""
               }`}
             />
           ))}
         </div>
 
-        <span className="story-close-btn" onClick={onClose}>
-          <i className="fas fa-times-circle"></i>
-        </span>
-
-        <div className="story-image-container" onClick={handleImageClick}>
-          <img id="storyImage" src={images[currentIndex] || "/placeholder.svg"} alt="Story Fullscreen" />
+        {/* Image container with click navigation */}
+        <div className="story-image-container-instagram" onClick={handleImageClick}>
+          <img src={images[currentIndex] || "/placeholder.svg"} alt="Story" />
         </div>
 
-        <div className="story-counter">
+        {/* Counter */}
+        <div className="story-counter-instagram">
           {currentIndex + 1} / {images.length}
         </div>
       </div>

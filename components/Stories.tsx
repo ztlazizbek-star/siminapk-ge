@@ -1,13 +1,14 @@
 "use client"
 
 interface Story {
+  title?: string
   image: string
-  images: string[] // Added array of images for full story
+  images: string[]
 }
 
 interface StoriesProps {
   stories: Story[]
-  onStoryClick: (images: string[]) => void // Pass array of images
+  onStoryClick: (images: string[]) => void
 }
 
 export default function Stories({ stories, onStoryClick }: StoriesProps) {

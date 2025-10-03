@@ -52,24 +52,44 @@ const mockUser: User = {
 
 const mockStories = [
   {
-    image: "/story-burger-preview.jpg",
-    images: ["/story-burger-full.jpg", "/juicy-beef-burger-with-fries.jpg"],
+    title: "Пицца",
+    image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=200&h=200&fit=crop",
+    images: [
+      "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=800&h=1200&fit=crop",
+      "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=800&h=1200&fit=crop",
+    ],
   },
   {
-    image: "/story-pizza-preview.jpg",
-    images: ["/story-pizza-full.jpg", "/hot-pizza-with-melted-cheese.jpg"],
+    title: "Бургер",
+    image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=200&h=200&fit=crop",
+    images: [
+      "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800&h=1200&fit=crop",
+      "https://images.unsplash.com/photo-1550547660-d9450f859349?w=800&h=1200&fit=crop",
+    ],
   },
   {
-    image: "/story-salad-preview.jpg",
-    images: ["/story-salad-full.jpg", "/fresh-vegetable-salad-bowl.jpg"],
+    title: "Напитки",
+    image: "https://images.unsplash.com/photo-1437418747212-8d9709afab22?w=200&h=200&fit=crop",
+    images: [
+      "https://images.unsplash.com/photo-1437418747212-8d9709afab22?w=800&h=1200&fit=crop",
+      "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=800&h=1200&fit=crop",
+    ],
   },
   {
-    image: "/story-dessert-preview.jpg",
-    images: ["/story-dessert-full.jpg", "/chocolate-cake-with-cream.jpg"],
+    title: "Десерты",
+    image: "https://images.unsplash.com/photo-1551024506-0bccd828d307?w=200&h=200&fit=crop",
+    images: [
+      "https://images.unsplash.com/photo-1551024506-0bccd828d307?w=800&h=1200&fit=crop",
+      "https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=800&h=1200&fit=crop",
+    ],
   },
   {
-    image: "/story-drink-preview.jpg",
-    images: ["/story-drink-full.jpg", "/cold-refreshing-drink.jpg"],
+    title: "Салаты",
+    image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=200&h=200&fit=crop",
+    images: [
+      "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=800&h=1200&fit=crop",
+      "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800&h=1200&fit=crop",
+    ],
   },
 ]
 
