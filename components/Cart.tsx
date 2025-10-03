@@ -1,5 +1,7 @@
 "use client"
 
+import { formatPrice } from "@/lib/utils"
+
 interface CartItem {
   id: number
   name: string
@@ -36,7 +38,7 @@ export default function Cart({ cart, onCartClick }: CartProps) {
       <div className="cart-icon" onClick={onCartClick}>
         <i className="fas fa-shopping-bag"></i>
         <span id="cartTotal" className="cart-total">
-          {totalPrice.toFixed(2)} TJS
+          {formatPrice(`${totalPrice} TJS`)}
         </span>
       </div>
     </div>

@@ -11,6 +11,7 @@ import ProfileModal from "@/components/ProfileModal"
 import StoryModal from "@/components/StoryModal"
 import ItemModal from "@/components/ItemModal"
 import Notification from "@/components/Notification"
+import { fetchProducts, filterProductsByCategory, type Product } from "@/lib/api"
 
 interface User {
   name: string
@@ -95,34 +96,6 @@ const mockSubcategories = [
   { slug: "pors", name: "Порцы" },
 ]
 
-const mockMenuItems: MenuItem[] = [
-  {
-    id: 1,
-    name: "Биг Мак",
-    description: "Два мясных котлета, специальный соус, салат, сыр, соленые огурчики, лук на булочке с кунжутом",
-    price: "25.50 TJS",
-    image: "/big-mac-burger.jpg",
-    category: "burger",
-    isFeatured: true,
-  },
-  {
-    id: 2,
-    name: "Кока-Кола",
-    description: "Освежающий газированный напиток",
-    price: "8.00 TJS",
-    image: "/refreshing-cola.png",
-    category: "drink",
-  },
-  {
-    id: 3,
-    name: "Картофель Фри",
-    description: "Золотистый картофель фри с хрустящей корочкой",
-    price: "12.00 TJS",
-    image: "/crispy-french-fries.png",
-    category: "snack",
-  },
-]
-
 export default function Home() {
   const [user, setUser] = useState<User>(mockUser)
   const [cart, setCart] = useState<CartItem[]>([])
@@ -134,8 +107,20 @@ export default function Home() {
   const [selectedStory, setSelectedStory] = useState("")
   const [selectedItem, setSelectedItem] = useState<MenuItem | null>(null)
   const [notification, setNotification] = useState<NotificationState>({ show: false, message: "", type: "" })
+  const [products, setProducts] = useState<Product[]>([])
+  const [loading, setLoading] = useState(true)
 
-  // Load cart from localStorage
+  useEffect(() => {
+    const loadProducts = async () => {
+      setLoading(true)
+      const fetchedProducts = await fetchProducts("all")
+      setProducts(fetchedProducts)
+      setLoading(false)
+    }
+
+    loadProducts()
+  }, [])
+
   useEffect(() => {
     const savedCart = localStorage.getItem("cart")
     if (savedCart) {
@@ -143,7 +128,6 @@ export default function Home() {
     }
   }, [])
 
-  // Save cart to localStorage
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart))
   }, [cart])
@@ -177,10 +161,10 @@ export default function Home() {
     setShowItemModal(true)
   }
 
-  const filteredItems = mockMenuItems.filter((item) => {
-    if (activeCategory !== "all" && item.category !== activeCategory) return false
-    return true
-  })
+  const filteredItems = filterProductsByCategory(
+    products,
+    activeSubcategory !== "all" ? activeSubcategory : activeCategory,
+  )
 
   return (
     <div>
@@ -198,7 +182,18 @@ export default function Home() {
           onSubcategoryChange={setActiveSubcategory}
         />
 
-        <MenuItems items={filteredItems} onItemClick={openItemModal} />
+        {loading ? (
+          <div style={{ textAlign: "center", padding: "40px", color: "#666" }}>
+            <i className="fas fa-spinner fa-spin" style={{ fontSize: "2rem", color: "#ff6200" }}></i>
+            <p style={{ marginTop: "16px" }}>Загрузка товаров...</p>
+          </div>
+        ) : filteredItems.length === 0 ? (
+          <div style={{ textAlign: "center", padding: "40px", color: "#666" }}>
+            <p>Товары не найдены</p>
+          </div>
+        ) : (
+          <MenuItems items={filteredItems} onItemClick={openItemModal} />
+        )}
       </div>
 
       <Cart cart={cart} onCartClick={() => (window.location.href = "/cart")} />

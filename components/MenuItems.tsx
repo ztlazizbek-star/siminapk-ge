@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { formatPrice } from "@/lib/utils"
 
 interface MenuItem {
   id: number
@@ -58,10 +59,10 @@ export default function MenuItems({ items, onItemClick }: MenuItemsProps) {
 
   return (
     <div className="menu-items" id="menuItems">
-      {items.map((item) => (
+      {items.map((item, index) => (
         <div
           key={item.id}
-          className={item.isFeatured ? "featured-item" : "menu-item"}
+          className={`${item.isFeatured ? "featured-item" : "menu-item"} ${index === 0 ? "first-item" : ""}`}
           onClick={() => onItemClick(item)}
         >
           {item.isFeatured ? (
@@ -78,7 +79,7 @@ export default function MenuItems({ items, onItemClick }: MenuItemsProps) {
               <div className="featured-item-content">
                 <h3>{item.name}</h3>
                 <p className="featured-item-description">{item.description}</p>
-                <p className="featured-item-price">{item.price}</p>
+                <p className="featured-item-price">{formatPrice(item.price)}</p>
               </div>
             </>
           ) : (
@@ -95,7 +96,7 @@ export default function MenuItems({ items, onItemClick }: MenuItemsProps) {
               <div className="menu-item-content">
                 <h3>{item.name}</h3>
                 <p className="menu-item-description">{item.description}</p>
-                <p className="menu-item-price">{item.price}</p>
+                <p className="menu-item-price">{formatPrice(item.price)}</p>
               </div>
             </>
           )}

@@ -28,6 +28,8 @@ export default function Categories({
   onCategoryChange,
   onSubcategoryChange,
 }: CategoriesProps) {
+  const shouldShowSubcategories = activeCategory === "all" || activeCategory === ""
+
   return (
     <>
       <div className="top-categories-container">
@@ -45,17 +47,19 @@ export default function Categories({
         ))}
       </div>
 
-      <div className="subcategories-container" id="subcategoriesContainer">
-        {subcategories.map((subcategory) => (
-          <button
-            key={subcategory.slug}
-            className={`subcategory-btn ${activeSubcategory === subcategory.slug ? "active" : ""}`}
-            onClick={() => onSubcategoryChange(subcategory.slug)}
-          >
-            <span>{subcategory.name}</span>
-          </button>
-        ))}
-      </div>
+      {shouldShowSubcategories && (
+        <div className="subcategories-container" id="subcategoriesContainer">
+          {subcategories.map((subcategory) => (
+            <button
+              key={subcategory.slug}
+              className={`subcategory-btn ${activeSubcategory === subcategory.slug ? "active" : ""}`}
+              onClick={() => onSubcategoryChange(subcategory.slug)}
+            >
+              <span>{subcategory.name}</span>
+            </button>
+          ))}
+        </div>
+      )}
     </>
   )
 }
