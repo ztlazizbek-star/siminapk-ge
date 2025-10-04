@@ -5,6 +5,8 @@ export interface Product {
   price: string
   image: string
   category: string
+  top_category?: string
+  subcategory?: string
   isFeatured?: boolean
   isForKids?: boolean
   isForGroup?: boolean
@@ -32,6 +34,7 @@ export const productsData: Product[] = [
     price: "25.50 TJS",
     image: "big-mac-burger.jpg", // Updated to use filename only
     category: "burger",
+    top_category: "fastfood",
     isFeatured: true,
     isHit: true,
   },
@@ -42,6 +45,7 @@ export const productsData: Product[] = [
     price: "8.00 TJS",
     image: "refreshing-cola.png", // Updated to use filename only
     category: "drink",
+    top_category: "beverages",
     isForKids: true,
   },
   {
@@ -51,6 +55,7 @@ export const productsData: Product[] = [
     price: "12.00 TJS",
     image: "crispy-french-fries.png", // Updated to use filename only
     category: "snack",
+    top_category: "fastfood",
     isForKids: true,
     isHit: true,
   },
@@ -61,6 +66,7 @@ export const productsData: Product[] = [
     price: "18.00 TJS",
     image: "cheeseburger.jpg", // Updated to use filename only
     category: "burger",
+    top_category: "fastfood",
     isNew: true,
   },
   {
@@ -70,6 +76,7 @@ export const productsData: Product[] = [
     price: "15.00 TJS",
     image: "chicken-nuggets.jpg", // Updated to use filename only
     category: "snack",
+    top_category: "fastfood",
     isForKids: true,
   },
   {
@@ -79,6 +86,7 @@ export const productsData: Product[] = [
     price: "10.00 TJS",
     image: "orange-juice.jpg", // Updated to use filename only
     category: "drink",
+    top_category: "beverages",
     isForKids: true,
     isNew: true,
   },
@@ -89,6 +97,7 @@ export const productsData: Product[] = [
     price: "40.00 TJS",
     image: "mega-combo.jpg", // Updated to use filename only
     category: "combo",
+    top_category: "fastfood",
     isFeatured: false,
     isForGroup: true,
     isHit: true,
@@ -100,6 +109,7 @@ export const productsData: Product[] = [
     price: "22.00 TJS",
     image: "fish-burger.jpg", // Updated to use filename only
     category: "burger",
+    top_category: "fastfood",
     isNew: true,
   },
   {
@@ -109,6 +119,7 @@ export const productsData: Product[] = [
     price: "12.00 TJS",
     image: "milkshake.jpg", // Updated to use filename only
     category: "drink",
+    top_category: "beverages",
     isForKids: true,
   },
   {
@@ -118,15 +129,23 @@ export const productsData: Product[] = [
     price: "20.00 TJS",
     image: "buffalo-wings.jpg", // Updated to use filename only
     category: "pors",
+    top_category: "fastfood",
     isForGroup: true,
     isHit: true,
   },
 ]
 
-export const getProductsByCategory = (category: string): Product[] => {
+export const getProductsByCategory = (category: string, subcategory?: string): Product[] => {
   let filteredProducts: Product[] = []
 
-  if (category === "all") {
+  // If subcategory is provided and not "all", filter by subcategory
+  if (subcategory && subcategory !== "all") {
+    filteredProducts = productsData.filter(
+      (product) => product.subcategory === subcategory || product.category === subcategory,
+    )
+  }
+  // Otherwise filter by top_category or category
+  else if (category === "all") {
     filteredProducts = [...productsData]
   } else if (category === "kids") {
     filteredProducts = productsData.filter((product) => product.isForKids)
@@ -137,7 +156,10 @@ export const getProductsByCategory = (category: string): Product[] => {
   } else if (category === "hot") {
     filteredProducts = productsData.filter((product) => product.isHit)
   } else {
-    filteredProducts = productsData.filter((product) => product.category === category)
+    // Filter by top_category or category
+    filteredProducts = productsData.filter(
+      (product) => product.top_category === category || product.category === category,
+    )
   }
 
   // Set first product as featured, reset others

@@ -5,11 +5,16 @@ export interface Product {
   price: string
   image: string
   category: string
+  top_category?: string
+  subcategory?: string
   isFeatured?: boolean
   isForKids?: boolean
   isForGroup?: boolean
   isNew?: boolean
   isHit?: boolean
+  available?: number
+  created_at?: string
+  updated_at?: string
 }
 
 export async function fetchProducts(category = "all"): Promise<Product[]> {
@@ -39,15 +44,12 @@ export async function fetchProducts(category = "all"): Promise<Product[]> {
     const data = await response.json()
     console.log("[v0] API data received:", data)
 
-    // Handle error response from API
     if (!data.success) {
       throw new Error(data.error || "Failed to fetch products")
     }
 
-    // Get products from data.data
     const products = Array.isArray(data.data) ? data.data : []
 
-    // Set first product as featured
     return products.map((product: Product, index: number) => ({
       ...product,
       isFeatured: index === 0,
@@ -58,21 +60,23 @@ export async function fetchProducts(category = "all"): Promise<Product[]> {
   }
 }
 
-export function filterProductsByCategory(products: Product[], category: string): Product[] {
+export function filterProductsByCategory(products: Product[], category: string, subcategory?: string): Product[] {
   let filteredProducts: Product[] = []
 
+  // First filter by top category
   if (category === "all") {
     filteredProducts = [...products]
-  } else if (category === "kids") {
-    filteredProducts = products.filter((product) => product.isForKids)
-  } else if (category === "group") {
-    filteredProducts = products.filter((product) => product.isForGroup)
-  } else if (category === "new") {
-    filteredProducts = products.filter((product) => product.isNew)
-  } else if (category === "hot") {
-    filteredProducts = products.filter((product) => product.isHit)
+  } else if (category === "kids" || category === "group" || category === "new" || category === "hot") {
+    // Filter by top_category field from database
+    filteredProducts = products.filter((product) => product.top_category === category)
   } else {
+    // Fallback to category field
     filteredProducts = products.filter((product) => product.category === category)
+  }
+
+  // Then filter by subcategory if provided
+  if (subcategory && subcategory !== "all") {
+    filteredProducts = filteredProducts.filter((product) => product.subcategory === subcategory)
   }
 
   // Set first product as featured

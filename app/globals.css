@@ -591,6 +591,73 @@ input:focus + i {
   }
 }
 
+/* Increased size of featured (first) product image */
+.featured-item {
+  padding: 16px;
+  border-top-left-radius: 180px;
+  border-top-right-radius: 180px;
+  border-bottom-left-radius: 24px;
+  border-bottom-right-radius: 24px;
+  background: linear-gradient(135deg, #fff5f0 0%, #ffffff 100%);
+  box-shadow: 0 8px 24px rgba(255, 98, 0, 0.15);
+  margin-bottom: 20px;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.featured-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(255, 98, 0, 0.25);
+}
+
+.featured-item-image-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  min-height: 320px;
+}
+
+.featured-item-image {
+  max-width: 100%;
+  height: auto;
+  max-height: 350px;
+  object-fit: contain;
+  padding: 40px 40px 0 40px;
+  transition: opacity 0.5s ease-in-out, transform 0.3s;
+}
+
+.featured-item-image:hover {
+  transform: scale(1.05);
+}
+
+/* Increased modal image size */
+.item-modal-image-new {
+  width: 100%;
+  max-width: 450px;
+  height: auto;
+  margin: 0 auto 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.item-modal-image-new img {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  max-height: 450px;
+  object-fit: contain;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s;
+}
+
+.item-modal-image-new img:hover {
+  transform: scale(1.02);
+}
+
 @media (max-width: 600px) {
   .header {
     padding: 8px 12px;
@@ -735,77 +802,30 @@ input:focus + i {
   }
 
   .featured-item {
-    padding: 12px;
-    border-top-left-radius: 150px;
-    border-top-right-radius: 150px;
+    padding: 14px;
+    border-top-left-radius: 160px;
+    border-top-right-radius: 160px;
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
   }
 
+  .featured-item-image-container {
+    min-height: 280px;
+  }
+
   .featured-item-image {
-    max-width: 250px;
-    padding: 30px 30px 0 30px;
+    max-height: 300px;
+    padding: 35px 35px 0 35px;
   }
 
-  .featured-item-content {
-    padding: 16px;
+  .item-modal-image-new {
+    max-width: 100%;
+    margin-bottom: 20px;
   }
 
-  .featured-item-content h3 {
-    font-size: 1.3rem;
-  }
-
-  .featured-item-description {
-    font-size: 0.85rem;
-  }
-
-  .featured-item-price {
-    font-size: 0.9rem;
-    padding: 12px;
-  }
-
-  .item-modal-image-container {
-    width: 80%;
-    max-width: 250px;
-    top: 35%;
-  }
-
-  .item-modal-text-container {
-    bottom: 100px;
-    padding: 16px;
-  }
-
-  .item-modal-title {
-    font-size: clamp(1.3rem, 4vw, 1.6rem);
-  }
-
-  .item-modal-description {
-    font-size: clamp(0.9rem, 2.5vw, 1rem);
-  }
-
-  .item-modal-footer {
-    padding: 16px;
-    padding-bottom: calc(16px + env(safe-area-inset-bottom));
-  }
-
-  .item-modal-add-btn {
-    background-color: #ff6a00;
-    color: white;
-    font-size: 18px;
-    font-weight: bold;
-    padding: 14px 32px;
-    border: none;
-    border-radius: 50px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s ease;
-  }
-
-  .item-modal-add-btn i {
-    font-size: 18px;
+  .item-modal-image-new img {
+    max-width: 90%;
+    max-height: 380px;
   }
 }
 
@@ -1186,58 +1206,4 @@ input:focus + i {
 
 .story-close-button-top-left:active {
   transform: scale(0.95);
-}
-
-/* Mobile responsive */
-@media (max-width: 600px) {
-  .story-modal-content-instagram {
-    max-width: 100%;
-  }
-
-  .story-progress-bars-instagram {
-    padding: 0 15px;
-  }
-
-  .story-header-instagram {
-    padding: 0 15px;
-  }
-
-  .story-cafe-logo {
-    width: 36px;
-    height: 36px;
-  }
-
-  .story-cafe-logo i {
-    font-size: 18px;
-  }
-
-  .cafe-name {
-    font-size: 13px;
-  }
-
-  .story-title {
-    font-size: 11px;
-  }
-
-  .story-image-container-instagram {
-    height: 75vh;
-  }
-
-  .story-counter-instagram {
-    bottom: 30px;
-    font-size: 12px;
-    padding: 6px 12px;
-  }
-
-  /* Mobile responsive for close button */
-  .story-close-button-top-left {
-    top: 15px;
-    left: 15px;
-    width: 32px;
-    height: 32px;
-  }
-
-  .story-close-button-top-left i {
-    font-size: 16px;
-  }
 }

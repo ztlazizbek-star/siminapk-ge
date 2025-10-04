@@ -56,7 +56,7 @@ const mockStories = [
     image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=200&h=200&fit=crop",
     images: [
       "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=800&h=1200&fit=crop",
-      "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=800&h=1200&fit=crop",
+      "https://images.unsplash.com/photo-1574071346375-23c9450c58cd?w=800&h=1200&fit=crop",
     ],
   },
   {
@@ -196,7 +196,8 @@ export default function Home() {
 
   const filteredItems = filterProductsByCategory(
     products,
-    activeSubcategory !== "all" ? activeSubcategory : activeCategory,
+    activeCategory,
+    activeSubcategory !== "all" ? activeSubcategory : undefined,
   )
 
   const handleProfileClick = () => {
