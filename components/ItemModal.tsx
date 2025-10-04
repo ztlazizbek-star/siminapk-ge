@@ -17,6 +17,12 @@ interface ItemModalProps {
   onAddToCart: (item: MenuItem) => void
 }
 
+const getImageUrl = (imagePath: string | undefined): string => {
+  if (!imagePath) return "/placeholder.svg"
+  if (imagePath.startsWith("http")) return imagePath
+  return `https://tajstore.ru/simin/file/${imagePath}`
+}
+
 export default function ItemModal({ show, item, onClose, onAddToCart }: ItemModalProps) {
   if (!show || !item) {
     return null
@@ -35,7 +41,7 @@ export default function ItemModal({ show, item, onClose, onAddToCart }: ItemModa
         </button>
 
         <div className="item-modal-image-new">
-          <img src={item.image || "/placeholder.svg"} alt={item.name} />
+          <img src={getImageUrl(item.image) || "/placeholder.svg"} alt={item.name} />
         </div>
 
         <h2 className="item-modal-title-new">{item.name}</h2>

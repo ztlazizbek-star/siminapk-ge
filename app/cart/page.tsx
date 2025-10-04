@@ -6,6 +6,16 @@ import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import "./cart.css"
 
+const IMAGE_BASE_URL = "https://tajstore.ru/simin/file/"
+
+const getImageUrl = (imagePath: string): string => {
+  if (!imagePath) return "/placeholder.svg"
+  if (imagePath.startsWith("http://") || imagePath.startsWith("https://")) {
+    return imagePath
+  }
+  return `${IMAGE_BASE_URL}${imagePath}`
+}
+
 interface CartItem {
   id: number
   name: string
@@ -197,7 +207,11 @@ export default function CartPage() {
     <div className="app">
       {/* Header */}
       <header className="header">
-        
+        <button className="close-btn" onClick={() => router.push("/")}>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M19 12H5M12 19l-7-7 7-7" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </button>
         <h1 className="title">Корзина</h1>
         <button className="trash-btn" onClick={() => setShowClearModal(true)}>
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -230,7 +244,7 @@ export default function CartPage() {
           cart.map((item, index) => (
             <div key={index} className="cart-item">
               <div className="item-image">
-                <img src={item.image || "/placeholder.svg?height=80&width=80"} alt={item.name} className="food-image" />
+                <img src={getImageUrl(item.image) || "/placeholder.svg"} alt={item.name} className="food-image" />
               </div>
               <div className="item-details">
                 <h3 className="item-name">{item.name}</h3>
@@ -259,7 +273,7 @@ export default function CartPage() {
         <div className="suggestions">
           {suggestions.map((item) => (
             <div key={item.id} className="suggestion-item" onClick={() => addToCart(item.id)}>
-              <img src={item.image || "/placeholder.svg"} alt={item.name} className="suggestion-image" />
+              <img src={getImageUrl(item.image) || "/placeholder.svg"} alt={item.name} className="suggestion-image" />
               <h4 className="suggestion-name">{item.name}</h4>
               <p className="suggestion-description">{item.description}</p>
               <span className="suggestion-price">{item.price.toFixed(2)} TJS</span>
