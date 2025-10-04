@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { formatPrice } from "@/lib/utils"
+import { getImageUrl } from "@/data/products" // Import helper function
 
 interface MenuItem {
   id: number
@@ -48,7 +49,7 @@ export default function MenuItems({ items, onItemClick }: MenuItemsProps) {
             return newSet
           })
         }
-        img.src = item.image || "/placeholder.svg"
+        img.src = getImageUrl(item.image) || "/placeholder.svg"
       }
     }
 
@@ -70,7 +71,7 @@ export default function MenuItems({ items, onItemClick }: MenuItemsProps) {
               <div className="featured-item-image-container">
                 {loadingImages.has(item.id) && <div className="image-skeleton featured-skeleton"></div>}
                 <img
-                  src={item.image || "/placeholder.svg"}
+                  src={getImageUrl(item.image) || "/placeholder.svg"} // Use getImageUrl helper
                   alt={item.name}
                   className={`featured-item-image ${loadedImages.has(item.id) ? "image-loaded" : "image-loading"}`}
                   style={{ opacity: loadedImages.has(item.id) ? 1 : 0 }}
@@ -87,7 +88,7 @@ export default function MenuItems({ items, onItemClick }: MenuItemsProps) {
               <div className="photo-item-image-container">
                 {loadingImages.has(item.id) && <div className="image-skeleton regular-skeleton"></div>}
                 <img
-                  src={item.image || "/placeholder.svg"}
+                  src={getImageUrl(item.image) || "/placeholder.svg"} // Use getImageUrl helper
                   alt={item.name}
                   className={`photo-item-image ${loadedImages.has(item.id) ? "image-loaded" : "image-loading"}`}
                   style={{ opacity: loadedImages.has(item.id) ? 1 : 0 }}

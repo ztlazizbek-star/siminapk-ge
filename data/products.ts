@@ -12,13 +12,25 @@ export interface Product {
   isHit?: boolean
 }
 
+export const IMAGE_BASE_URL = "https://tajstore.ru/simin/file/"
+
+export const getImageUrl = (imagePath: string): string => {
+  // If image path already starts with http/https, return as is
+  if (imagePath.startsWith("http://") || imagePath.startsWith("https://")) {
+    return imagePath
+  }
+  // Remove leading slash if present
+  const cleanPath = imagePath.startsWith("/") ? imagePath.slice(1) : imagePath
+  return `${IMAGE_BASE_URL}${cleanPath}`
+}
+
 export const productsData: Product[] = [
   {
     id: 1,
     name: "Биг Мак",
     description: "Два мясных котлета, специальный соус, салат, сыр, соленые огурчики, лук на булочке с кунжутом",
     price: "25.50 TJS",
-    image: "/big-mac-burger.jpg",
+    image: "big-mac-burger.jpg", // Updated to use filename only
     category: "burger",
     isFeatured: true,
     isHit: true,
@@ -28,7 +40,7 @@ export const productsData: Product[] = [
     name: "Кока-Кола",
     description: "Освежающий газированный напиток",
     price: "8.00 TJS",
-    image: "/refreshing-cola.png",
+    image: "refreshing-cola.png", // Updated to use filename only
     category: "drink",
     isForKids: true,
   },
@@ -37,7 +49,7 @@ export const productsData: Product[] = [
     name: "Картофель Фри",
     description: "Золотистый картофель фри с хрустящей корочкой",
     price: "12.00 TJS",
-    image: "/crispy-french-fries.png",
+    image: "crispy-french-fries.png", // Updated to use filename only
     category: "snack",
     isForKids: true,
     isHit: true,
@@ -47,7 +59,7 @@ export const productsData: Product[] = [
     name: "Чизбургер",
     description: "Сочный мясной котлет с расплавленным сыром и свежими овощами",
     price: "18.00 TJS",
-    image: "/cheeseburger.jpg",
+    image: "cheeseburger.jpg", // Updated to use filename only
     category: "burger",
     isNew: true,
   },
@@ -56,7 +68,7 @@ export const productsData: Product[] = [
     name: "Куриные Наггетсы",
     description: "Хрустящие куриные кусочки в золотистой панировке",
     price: "15.00 TJS",
-    image: "/chicken-nuggets.jpg",
+    image: "chicken-nuggets.jpg", // Updated to use filename only
     category: "snack",
     isForKids: true,
   },
@@ -65,7 +77,7 @@ export const productsData: Product[] = [
     name: "Апельсиновый Сок",
     description: "Свежевыжатый апельсиновый сок",
     price: "10.00 TJS",
-    image: "/orange-juice.jpg",
+    image: "orange-juice.jpg", // Updated to use filename only
     category: "drink",
     isForKids: true,
     isNew: true,
@@ -75,7 +87,7 @@ export const productsData: Product[] = [
     name: "Комбо Мега",
     description: "Биг Мак + Картофель Фри + Кока-Кола",
     price: "40.00 TJS",
-    image: "/mega-combo.jpg",
+    image: "mega-combo.jpg", // Updated to use filename only
     category: "combo",
     isFeatured: false,
     isForGroup: true,
@@ -86,7 +98,7 @@ export const productsData: Product[] = [
     name: "Рыбный Бургер",
     description: "Филе рыбы в хрустящей панировке с соусом тартар",
     price: "22.00 TJS",
-    image: "/fish-burger.jpg",
+    image: "fish-burger.jpg", // Updated to use filename only
     category: "burger",
     isNew: true,
   },
@@ -95,7 +107,7 @@ export const productsData: Product[] = [
     name: "Молочный Коктейль",
     description: "Густой молочный коктейль с ванильным вкусом",
     price: "12.00 TJS",
-    image: "/milkshake.jpg",
+    image: "milkshake.jpg", // Updated to use filename only
     category: "drink",
     isForKids: true,
   },
@@ -104,7 +116,7 @@ export const productsData: Product[] = [
     name: "Крылышки Баффало",
     description: "Острые куриные крылышки в соусе баффало",
     price: "20.00 TJS",
-    image: "/buffalo-wings.jpg",
+    image: "buffalo-wings.jpg", // Updated to use filename only
     category: "pors",
     isForGroup: true,
     isHit: true,
