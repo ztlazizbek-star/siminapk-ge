@@ -632,10 +632,10 @@ input:focus + i {
   transform: scale(1.05);
 }
 
-/* Increased modal image size */
+/* Increased modal image size and removed border/frame */
 .item-modal-image-new {
   width: 100%;
-  max-width: 450px;
+  max-width: 100%;
   height: auto;
   margin: 0 auto 24px;
   display: flex;
@@ -645,12 +645,12 @@ input:focus + i {
 
 .item-modal-image-new img {
   width: 100%;
-  max-width: 400px;
+  max-width: 100%;
   height: auto;
-  max-height: 450px;
+  max-height: 500px;
   object-fit: contain;
-  border-radius: 16px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  border-radius: 0;
+  box-shadow: none;
   transition: transform 0.3s;
 }
 
@@ -823,9 +823,12 @@ input:focus + i {
     margin-bottom: 20px;
   }
 
+  /* Increased mobile modal image size and removed border */
   .item-modal-image-new img {
-    max-width: 90%;
-    max-height: 380px;
+    max-width: 100%;
+    max-height: 450px;
+    border-radius: 0;
+    box-shadow: none;
   }
 }
 
