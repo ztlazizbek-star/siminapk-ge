@@ -1,5 +1,13 @@
 import { NextResponse } from "next/server"
 
+const normalizePhoneNumber = (phone: string): string => {
+  let normalized = phone.replace(/\D/g, "")
+  if (normalized.startsWith("992")) {
+    normalized = normalized.slice(3)
+  }
+  return normalized
+}
+
 export async function POST(request: Request) {
   try {
     const { phone, code } = await request.json()
@@ -8,10 +16,13 @@ export async function POST(request: Request) {
     console.log("[v0] Phone:", phone)
     console.log("[v0] Code:", code)
 
+    const normalizedPhone = normalizePhoneNumber(phone)
+    console.log("[v0] Normalized phone:", normalizedPhone)
+
     const smsApiUrl = "https://tajstore.ru/simin/sms.php"
 
     const requestBody = {
-      phone: phone,
+      phone: normalizedPhone, // Используем нормализованный номер
       code: code,
       type: "verification",
     }

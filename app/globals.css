@@ -3,6 +3,42 @@
 
 @custom-variant dark (&:is(.dark *));
 
+:root {
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --radius: 0.625rem;
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+}
+
 .dark {
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
@@ -39,6 +75,7 @@
 }
 
 @theme inline {
+  /* optional: --font-sans, --font-serif, --font-mono if they are applied in the layout.tsx */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -828,396 +865,4 @@ input:focus + i {
     padding: 0;
     border-radius: 10px;
   }
-
-  .item-modal-image-new {
-    max-width: 100%;
-    margin-bottom: 20px;
-  }
-
-  /* Increased mobile modal image size and removed border */
-  .item-modal-image-new img {
-    max-width: 100%;
-    max-height: 450px;
-    border-radius: 0;
-    box-shadow: none;
-  }
-}
-
-@media (max-width: 480px) {
-  .cart-icon {
-    padding: 8px 14px;
-    min-width: 90px;
-    height: 45px;
-    gap: 2px;
-  }
-
-  .cart-icon i {
-    font-size: 14px;
-  }
-
-  .cart-total {
-    font-size: 13px;
-  }
-}
-
-@keyframes slideDown {
-  from {
-    transform: translateY(-100%);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes slideUpModal {
-  0% {
-    transform: translateY(100%) scale(0.9);
-    opacity: 0;
-  }
-  70% {
-    transform: translateY(-10%) scale(1.02);
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(0) scale(1);
-    opacity: 1;
-  }
-}
-
-@keyframes bounceIn {
-  0% {
-    transform: translateX(-50%) translateY(-100px);
-    opacity: 0;
-  }
-  60% {
-    transform: translateX(-50%) translateY(30px);
-    opacity: 1;
-  }
-  80% {
-    transform: translateX(-50%) translateY(10px);
-  }
-  100% {
-    transform: translateX(-50%) translateY(20px);
-  }
-}
-
-@keyframes zoomIn {
-  0% {
-    transform: scale(0.8);
-    opacity: 0;
-  }
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-
-@keyframes fadeOut {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-}
-
-@keyframes itemModalOpen {
-  0% {
-    transform: scale(0.7);
-    opacity: 0;
-  }
-  70% {
-    transform: scale(1.05);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-
-/* Добавляем стили для страницы регистрации */
-@import "./register/styles.css";
-
-/* Instagram-style story progress bars */
-.story-progress-bars {
-  position: absolute;
-  top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 4px;
-  width: 90%;
-  max-width: 400px;
-  z-index: 10;
-}
-
-.story-progress-bar {
-  flex: 1;
-  height: 3px;
-  background: rgba(255, 255, 255, 0.3);
-  border-radius: 2px;
-  overflow: hidden;
-  position: relative;
-}
-
-.story-progress-bar.completed {
-  background: rgba(255, 255, 255, 0.9);
-}
-
-.story-progress-bar.active {
-  background: rgba(255, 255, 255, 0.9);
-}
-
-/* Updated Instagram-style story modal with beautiful design */
-.story-modal-instagram {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.95);
-  justify-content: center;
-  align-items: center;
-  z-index: 3000;
-  animation: fadeIn 0.3s ease-in;
-}
-
-.story-modal-content-instagram {
-  position: relative;
-  width: 100%;
-  max-width: 500px;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background: linear-gradient(135deg, rgba(255, 98, 0, 0.1) 0%, rgba(0, 0, 0, 0.3) 100%);
-}
-
-/* Progress bars at the top */
-.story-progress-bars-instagram {
-  position: absolute;
-  top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 6px;
-  width: 90%;
-  max-width: 450px;
-  z-index: 10;
-  padding: 0 20px;
-}
-
-.story-progress-bar-instagram {
-  flex: 1;
-  height: 3px;
-  background: rgba(255, 255, 255, 0.3);
-  border-radius: 2px;
-  overflow: hidden;
-  position: relative;
-  transition: all 0.3s ease;
-}
-
-.story-progress-bar-instagram.completed {
-  background: rgba(255, 255, 255, 1);
-}
-
-.story-progress-bar-instagram.active {
-  background: rgba(255, 255, 255, 0.9);
-  animation: progressFill 3s linear;
-}
-
-@keyframes progressFill {
-  from {
-    width: 0%;
-  }
-  to {
-    width: 100%;
-  }
-}
-
-/* Header with cafe info */
-.story-header-instagram {
-  position: absolute;
-  top: 40px;
-  left: 0;
-  right: 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 20px;
-  z-index: 10;
-}
-
-.story-cafe-info {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.story-cafe-logo {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #ff6200, #ffcc00);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 2px solid white;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-}
-
-.story-cafe-logo i {
-  color: white;
-  font-size: 20px;
-}
-
-.story-cafe-name {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.cafe-name {
-  color: white;
-  font-weight: 600;
-  font-size: 14px;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
-}
-
-.story-title {
-  color: rgba(255, 255, 255, 0.8);
-  font-size: 12px;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
-}
-
-.story-close-btn-instagram {
-  width: 32px;
-  height: 32px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  transition: transform 0.3s, opacity 0.3s;
-}
-
-.story-close-btn-instagram i {
-  color: white;
-  font-size: 24px;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-}
-
-.story-close-btn-instagram:hover {
-  transform: scale(1.1);
-  opacity: 0.8;
-}
-
-/* Image container */
-.story-image-container-instagram {
-  cursor: pointer;
-  width: 100%;
-  max-width: 500px;
-  height: 80vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-}
-
-.story-image-container-instagram img {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
-  border-radius: 12px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-  animation: storyImageZoom 0.4s ease-out;
-}
-
-@keyframes storyImageZoom {
-  0% {
-    transform: scale(0.9);
-    opacity: 0;
-  }
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-
-/* Counter at the bottom */
-.story-counter-instagram {
-  position: absolute;
-  bottom: 40px;
-  left: 50%;
-  transform: translateX(-50%);
-  color: white;
-  font-size: 14px;
-  font-weight: 600;
-  background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(10px);
-  padding: 8px 16px;
-  border-radius: 20px;
-  z-index: 10;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-}
-
-/* Story label under the circle */
-.story-label {
-  margin-top: 6px;
-  font-size: 12px;
-  color: #333;
-  font-weight: 500;
-  text-align: center;
-  max-width: 100px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-/* Added close button in top left corner for story modal */
-.story-close-button-top-left {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  width: 36px;
-  height: 36px;
-  background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(10px);
-  border: none;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  z-index: 20;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-}
-
-.story-close-button-top-left i {
-  color: white;
-  font-size: 18px;
-}
-
-.story-close-button-top-left:hover {
-  background: rgba(255, 98, 0, 0.9);
-  transform: scale(1.1);
-}
-
-.story-close-button-top-left:active {
-  transform: scale(0.95);
 }

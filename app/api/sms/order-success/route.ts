@@ -1,5 +1,13 @@
 import { NextResponse } from "next/server"
 
+const normalizePhoneNumber = (phone: string): string => {
+  let normalized = phone.replace(/\D/g, "")
+  if (normalized.startsWith("992")) {
+    normalized = normalized.slice(3)
+  }
+  return normalized
+}
+
 export async function POST(request: Request) {
   try {
     const { phone, orderDetails } = await request.json()
@@ -7,14 +15,17 @@ export async function POST(request: Request) {
     console.log("[v0] Order Success SMS API called with phone:", phone)
     console.log("[v0] Order details:", orderDetails)
 
+    const normalizedPhone = normalizePhoneNumber(phone)
+    console.log("[v0] Normalized phone:", normalizedPhone)
+
     const message = `Ваш заказ успешно оформлен! Общая сумма: ${orderDetails.totalPrice} TJS. Cafe Simin благодарит вас!`
 
     const smsApiUrl = "https://tajstore.ru/simin/sms.php"
 
     const requestBody = {
-      phone: phone,
-      message: message, // Используем поле 'message' для уведомлений
-      type: "notification", // Указываем тип уведомления
+      phone: normalizedPhone,
+      code: message,
+      type: "notification",
     }
 
     console.log("[v0] Sending SMS request with body:", JSON.stringify(requestBody))
@@ -31,14 +42,37 @@ export async function POST(request: Request) {
     console.log("[v0] Order Success SMS API response status:", response.status)
     console.log("[v0] Order Success SMS API response:", JSON.stringify(data))
 
+    const isDevMode =
+      data.dev_mode === true || data.status === "ok" || (data.message && data.message.includes("DEV MODE"))
+
+    if (isDevMode) {
+      console.warn("[v0] SMS API is in DEV MODE - SMS will not be sent. Code:", data.code || message)
+      return NextResponse.json({
+        success: true,
+        dev_mode: true,
+        message: "Заказ оформлен (SMS в режиме разработки)",
+      })
+    }
+
     if (data.success) {
-      return NextResponse.json({ success: true })
+      console.log("[v0] SMS sent successfully")
+      return NextResponse.json({ success: true, message: "Заказ оформлен успешно" })
     } else {
-      console.error("[v0] SMS API returned error:", data.error)
-      return NextResponse.json({ success: false, error: data.error || "Ошибка отправки SMS" }, { status: 400 })
+      // Логируем ошибку, но всё равно возвращаем успех
+      const errorMessage = data.error || data.message || "Ошибка отправки SMS"
+      console.warn("[v0] SMS sending failed:", errorMessage, "- but order is still successful")
+      return NextResponse.json({
+        success: true,
+        sms_failed: true,
+        message: "Заказ оформлен успешно (SMS не отправлено)",
+      })
     }
   } catch (error) {
-    console.error("[v0] Order Success SMS API error:", error)
-    return NextResponse.json({ success: false, error: "Ошибка сервера" }, { status: 500 })
+    console.error("[v0] Order Success SMS API error:", error, "- but order is still successful")
+    return NextResponse.json({
+      success: true,
+      sms_failed: true,
+      message: "Заказ оформлен успешно (SMS не отправлено)",
+    })
   }
 }
