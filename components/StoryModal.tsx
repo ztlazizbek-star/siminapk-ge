@@ -12,10 +12,38 @@ interface StoryModalProps {
 
 export default function StoryModal({ show, images, onClose, title }: StoryModalProps) {
   const [currentIndex, setCurrentIndex] = useState(0)
+  const [progress, setProgress] = useState(0)
+
+  useEffect(() => {
+    if (!show) return
+
+    const duration = 5000 // 5 seconds per story
+    const interval = 50 // Update progress every 50ms
+    const increment = (interval / duration) * 100
+
+    const timer = setInterval(() => {
+      setProgress((prev) => {
+        if (prev >= 100) {
+          // Move to next story
+          if (currentIndex < images.length - 1) {
+            setCurrentIndex((prev) => prev + 1)
+            return 0
+          } else {
+            onClose()
+            return 0
+          }
+        }
+        return prev + increment
+      })
+    }, interval)
+
+    return () => clearInterval(timer)
+  }, [show, currentIndex, images.length, onClose])
 
   useEffect(() => {
     if (show) {
       setCurrentIndex(0)
+      setProgress(0)
       document.body.style.overflow = "hidden"
     } else {
       document.body.style.overflow = "unset"
@@ -30,11 +58,13 @@ export default function StoryModal({ show, images, onClose, title }: StoryModalP
 
   const handlePrevious = () => {
     setCurrentIndex((prev) => (prev > 0 ? prev - 1 : prev))
+    setProgress(0)
   }
 
   const handleNext = () => {
     if (currentIndex < images.length - 1) {
       setCurrentIndex((prev) => prev + 1)
+      setProgress(0)
     } else {
       onClose()
     }
@@ -67,7 +97,9 @@ export default function StoryModal({ show, images, onClose, title }: StoryModalP
               className={`story-progress-bar-instagram ${index < currentIndex ? "completed" : ""} ${
                 index === currentIndex ? "active" : ""
               }`}
-            />
+            >
+              {index === currentIndex && <div className="story-progress-fill" style={{ width: `${progress}%` }} />}
+            </div>
           ))}
         </div>
 
