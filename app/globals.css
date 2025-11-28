@@ -464,15 +464,67 @@ input:focus + i {
   box-shadow: 0 4px 12px rgba(255, 149, 0, 0.3);
 }
 
+/* Added logout button styles */
+.logout-btn {
+  background: linear-gradient(45deg, #007aff, #5ac8fa);
+  color: #fff;
+  padding: 14px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: clamp(0.95rem, 2.5vw, 1.1rem);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  justify-content: center;
+  transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+  box-shadow: 0 4px 12px rgba(0, 122, 255, 0.3);
+  margin-top: 10px;
+}
+
+.logout-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0, 122, 255, 0.4);
+  background: linear-gradient(45deg, #0051d5, #3fa9f5);
+}
+
+/* Added delete account button styles */
+.delete-account-btn {
+  background: linear-gradient(45deg, #ff3b30, #ff2d55);
+  color: #fff;
+  padding: 14px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: clamp(0.95rem, 2.5vw, 1.1rem);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  justify-content: center;
+  transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+  box-shadow: 0 4px 12px rgba(255, 59, 48, 0.3);
+  margin-top: 10px;
+}
+
+.delete-account-btn:hover:not(:disabled) {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(255, 59, 48, 0.4);
+  background: linear-gradient(45deg, #d70015, #e3003a);
+}
+
+.delete-account-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 .submit-btn:hover,
 .cancel-btn:hover {
   transform: translateY(-3px);
   box-shadow: 0 6px 16px rgba(255, 98, 0, 0.4);
-}
-
-.submit-btn:hover i,
-.cancel-btn:hover i {
-  transform: scale(1.2);
 }
 
 .item-modal-add-btn:active {

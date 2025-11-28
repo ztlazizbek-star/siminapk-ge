@@ -22,6 +22,7 @@ interface ProfileModalProps {
 export default function ProfileModal({ show, user, onClose, onSave }: ProfileModalProps) {
   const [formData, setFormData] = useState(user)
   const { logout } = useUser()
+  const [isDeleting, setIsDeleting] = useState(false)
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -34,6 +35,43 @@ export default function ProfileModal({ show, user, onClose, onSave }: ProfileMod
     if (confirm("Вы уверены, что хотите выйти?")) {
       logout()
       onClose()
+    }
+  }
+
+  const handleDeleteAccount = async () => {
+    if (!confirm("Вы уверены, что хотите удалить аккаунт? Это действие нельзя отменить.")) {
+      return
+    }
+
+    if (!confirm("Это действие удалит все ваши данные навсегда. Продолжить?")) {
+      return
+    }
+
+    setIsDeleting(true)
+
+    try {
+      const response = await fetch("/api/user/delete", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ phone: user.phone }),
+      })
+
+      const data = await response.json()
+
+      if (data.success) {
+        alert("Ваш аккаунт успешно удален")
+        logout()
+        onClose()
+      } else {
+        alert("Ошибка при удалении аккаунта: " + (data.error || "Неизвестная ошибка"))
+      }
+    } catch (error) {
+      console.error("[v0] Error deleting account:", error)
+      alert("Ошибка при удалении аккаунта")
+    } finally {
+      setIsDeleting(false)
     }
   }
 
@@ -97,17 +135,21 @@ export default function ProfileModal({ show, user, onClose, onSave }: ProfileMod
             <input type="password" name="confirm_password" id="confirmPassword" placeholder="Подтвердите пароль" />
             <i className="fas fa-lock"></i>
           </div>
-          <div className="form-group">
-            
-            
-          </div>
+          <div className="form-group"></div>
           <button type="submit" className="submit-btn">
             <i className="fas fa-save"></i> Сохранить
           </button>
           <button type="button" className="cancel-btn" onClick={onClose}>
             <i className="fas fa-times"></i> Отмена
           </button>
-          
+
+          <button type="button" className="logout-btn" onClick={handleLogout}>
+            <i className="fas fa-sign-out-alt"></i> Выйти из аккаунта
+          </button>
+
+          <button type="button" className="delete-account-btn" onClick={handleDeleteAccount} disabled={isDeleting}>
+            <i className="fas fa-trash-alt"></i> {isDeleting ? "Удаление..." : "Удалить аккаунт"}
+          </button>
         </form>
       </div>
     </div>
