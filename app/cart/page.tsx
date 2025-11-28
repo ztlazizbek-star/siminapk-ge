@@ -207,7 +207,6 @@ export default function CartPage() {
     <div className="app">
       {/* Header */}
       <header className="header">
-        
         <h1 className="title">Корзина</h1>
         <button className="trash-btn" onClick={() => setShowClearModal(true)}>
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -440,6 +439,23 @@ ${isPromoApplied ? "Скидка: 10%" : ""}
 
       const result = await response.json()
       if (result.ok) {
+        try {
+          await fetch("/api/sms/order-success", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              phone: `992${phone}`,
+              orderDetails: {
+                totalPrice: totalPrice.toFixed(2),
+                orderType: orderType === "delivery" ? "Доставка" : "Собой",
+              },
+            }),
+          })
+        } catch (smsError) {
+          console.error("Error sending SMS notification:", smsError)
+          // Продолжаем даже если SMS не отправилась
+        }
+
         onSuccess()
       } else {
         setIsLoading(false)

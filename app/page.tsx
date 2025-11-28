@@ -135,7 +135,7 @@ export default function Home() {
 
   useEffect(() => {
     if (!isLoading && !isRegistered) {
-      router.push("/register")
+      router.push("/login")
     }
   }, [isRegistered, isLoading, router])
 
