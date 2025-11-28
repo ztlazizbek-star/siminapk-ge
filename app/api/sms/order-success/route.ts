@@ -5,29 +5,36 @@ export async function POST(request: Request) {
     const { phone, orderDetails } = await request.json()
 
     console.log("[v0] Order Success SMS API called with phone:", phone)
+    console.log("[v0] Order details:", orderDetails)
 
-    // Формируем сообщение для SMS
-    const message = `Ваш заказ успешно оформлен! Общая сумма: ${orderDetails.totalPrice} TJS. Cafe Simin благодарит вас!`
+    // так как серверный PHP файл ожидает поле 'code'
+    const message = `Заказ успешно оформлен! Общая сумма: ${orderDetails.totalPrice} TJS. Cafe Simin благодарит вас!`
 
     const smsApiUrl = "https://tajstore.ru/simin/sms.php"
+
+    const requestBody = {
+      phone: phone,
+      code: message, // Используем поле 'code' для совместимости с существующим API
+    }
+
+    console.log("[v0] Sending SMS request with body:", JSON.stringify(requestBody))
 
     const response = await fetch(smsApiUrl, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        phone: phone,
-        message: message,
-      }),
+      body: JSON.stringify(requestBody),
     })
 
     const data = await response.json()
-    console.log("[v0] Order Success SMS API response:", data)
+    console.log("[v0] Order Success SMS API response status:", response.status)
+    console.log("[v0] Order Success SMS API response:", JSON.stringify(data))
 
     if (data.success) {
       return NextResponse.json({ success: true })
     } else {
+      console.error("[v0] SMS API returned error:", data.error)
       return NextResponse.json({ success: false, error: data.error || "Ошибка отправки SMS" }, { status: 400 })
     }
   } catch (error) {

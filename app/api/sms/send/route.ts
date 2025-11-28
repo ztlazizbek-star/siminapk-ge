@@ -16,6 +16,7 @@ export async function POST(request: Request) {
       body: JSON.stringify({
         phone: phone,
         code: code,
+        type: "verification", // Указываем тип для кодов верификации
       }),
     })
 
