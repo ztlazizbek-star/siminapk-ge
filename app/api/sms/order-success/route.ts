@@ -7,14 +7,14 @@ export async function POST(request: Request) {
     console.log("[v0] Order Success SMS API called with phone:", phone)
     console.log("[v0] Order details:", orderDetails)
 
-    // так как серверный PHP файл ожидает поле 'code'
-    const message = `Заказ успешно оформлен! Общая сумма: ${orderDetails.totalPrice} TJS. Cafe Simin благодарит вас!`
+    const message = `Ваш заказ успешно оформлен! Общая сумма: ${orderDetails.totalPrice} TJS. Cafe Simin благодарит вас!`
 
     const smsApiUrl = "https://tajstore.ru/simin/sms.php"
 
     const requestBody = {
       phone: phone,
-      code: message, // Используем поле 'code' для совместимости с существующим API
+      message: message, // Используем поле 'message' для уведомлений
+      type: "notification", // Указываем тип уведомления
     }
 
     console.log("[v0] Sending SMS request with body:", JSON.stringify(requestBody))

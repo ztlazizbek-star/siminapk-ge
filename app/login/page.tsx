@@ -39,6 +39,8 @@ export default function LoginPage() {
     try {
       const normalizedPhone = normalizePhoneNumber(phone)
 
+      console.log("[v0] Normalized phone:", normalizedPhone)
+
       if (normalizedPhone.length !== 9) {
         setError("Введите корректный номер телефона")
         setLoading(false)
@@ -48,6 +50,9 @@ export default function LoginPage() {
       // Generate and send SMS code
       const code = Math.floor(1000 + Math.random() * 9000).toString()
       setSentCode(code)
+
+      console.log("[v0] Generated code:", code)
+      console.log("[v0] Sending SMS to:", normalizedPhone)
 
       const response = await fetch("/api/sms/send", {
         method: "POST",
@@ -60,7 +65,11 @@ export default function LoginPage() {
         }),
       })
 
+      console.log("[v0] SMS API response status:", response.status)
+
       const data = await response.json()
+
+      console.log("[v0] SMS API response data:", data)
 
       if (data.success) {
         setPhone(normalizedPhone)
@@ -69,7 +78,7 @@ export default function LoginPage() {
         setError(data.error || "Ошибка отправки SMS")
       }
     } catch (err) {
-      console.error("Phone submit error:", err)
+      console.error("[v0] Phone submit error:", err)
       setError("Ошибка отправки SMS-кода")
     } finally {
       setLoading(false)
