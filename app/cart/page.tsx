@@ -1,8 +1,8 @@
 "use client"
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
-import useCart from "@/hooks/useCart"
-import useUser from "@/hooks/useUser"
+import { useUser } from "@/app/contexts/UserContext"
+import { useCart } from "@/app/contexts/CartContext" // Import useCart hook
 import "./cart.css"
 import CheckoutModal from "@/components/CheckoutModal"
 import SuccessModal from "@/components/SuccessModal"
