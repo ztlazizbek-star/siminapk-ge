@@ -13,6 +13,11 @@ export async function POST(request: NextRequest) {
     }
 
     console.log("[v0] Delete API: Connecting to database...")
+    if (!process.env.DB_HOST || !process.env.DB_USER || !process.env.DB_NAME) {
+      console.error("[v0] Database environment variables are missing")
+      return NextResponse.json({ success: false, error: "Ошибка конфигурации сервера" }, { status: 500 })
+    }
+
     const connection = await mysql.createConnection({
       host: process.env.DB_HOST,
       user: process.env.DB_USER,
@@ -21,22 +26,46 @@ export async function POST(request: NextRequest) {
       port: Number.parseInt(process.env.DB_PORT || "3306"),
     })
 
-    console.log("[v0] Delete API: Executing DELETE query...")
-    // Delete user from database
-    const [result] = await connection.execute("DELETE FROM users WHERE phone = ?", [phone])
+    console.log("[v0] Delete API: Database connected successfully")
+    console.log("[v0] Delete API: Executing DELETE query for phone:", phone)
 
-    console.log("[v0] Delete API: Query result:", result)
+    const [result]: any = await connection.execute("DELETE FROM users WHERE phone = ?", [phone])
+
+    console.log("[v0] Delete API: Query executed")
+    console.log("[v0] Delete API: Affected rows:", result.affectedRows)
+    console.log("[v0] Delete API: Full result:", JSON.stringify(result))
 
     await connection.end()
+
+    if (result.affectedRows === 0) {
+      console.log("[v0] Delete API: No user found with phone:", phone)
+      return NextResponse.json(
+        {
+          success: false,
+          error: "Пользователь не найден",
+        },
+        { status: 404 },
+      )
+    }
+
     console.log("[v0] Delete API: User deleted successfully")
 
     return NextResponse.json({
       success: true,
       message: "Аккаунт успешно удален",
+      deletedRows: result.affectedRows,
     })
   } catch (error) {
     console.error("[v0] Error deleting user:", error)
+    console.error("[v0] Error stack:", error instanceof Error ? error.stack : "No stack trace")
     console.error("[v0] Error details:", error instanceof Error ? error.message : "Unknown error")
-    return NextResponse.json({ success: false, error: "Ошибка при удалении аккаунта" }, { status: 500 })
+
+    return NextResponse.json(
+      {
+        success: false,
+        error: `Ошибка при удалении аккаунта: ${error instanceof Error ? error.message : "Неизвестная ошибка"}`,
+      },
+      { status: 500 },
+    )
   }
 }
