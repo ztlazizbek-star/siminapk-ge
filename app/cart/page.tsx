@@ -82,8 +82,8 @@ export default function CartPage(): ReactElement {
     const fallbackSuggestions: SuggestionItem[] = [
       {
         id: 3,
-        name: "Додстер",
-        price: 26,
+        name: "шашлык",
+        price: 56,
         image: "https://media.dodostatic.net/image/r:292x292/11eed74f9e684d30b1ac51e4eb470c07.avif",
         description: "1 шт",
       },
