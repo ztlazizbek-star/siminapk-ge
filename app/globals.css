@@ -324,6 +324,7 @@ body {
 }
 
 /* New beautiful Stories design with orange theme */
+/* Reverting to simple Stories design without gradients */
 .stories-container-new {
   display: flex;
   gap: 12px;
@@ -333,7 +334,6 @@ body {
   scrollbar-width: none;
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
-  background: linear-gradient(to bottom, rgba(255, 98, 0, 0.03), transparent);
 }
 
 .stories-container-new::-webkit-scrollbar {
@@ -363,25 +363,21 @@ body {
   position: relative;
   width: 110px;
   height: 160px;
-  padding: 3px;
-  background: linear-gradient(135deg, #ff6b35 0%, #f7931e 50%, #ffcc00 100%);
   border-radius: 16px;
-  box-shadow: 0 4px 16px rgba(255, 107, 53, 0.3);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   transition: all 0.3s ease;
+  overflow: hidden;
 }
 
 .story-circle-new:hover {
-  box-shadow: 0 8px 24px rgba(255, 107, 53, 0.5);
-  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
 }
 
 .story-image-wrapper {
   width: 100%;
   height: 100%;
-  background: white;
-  border-radius: 13px;
   overflow: hidden;
-  position: relative;
+  border-radius: 16px;
 }
 
 .story-image-wrapper img {
@@ -389,17 +385,6 @@ body {
   height: 100%;
   object-fit: cover;
   display: block;
-}
-
-.story-image-wrapper::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 40%;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.3), transparent);
-  pointer-events: none;
 }
 
 .story-title {
@@ -411,7 +396,6 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 /* Enhanced Story Modal with modern Instagram-like design */
