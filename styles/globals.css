@@ -219,11 +219,12 @@ body {
   animation: fadeIn 1s ease-in;
 }
 
+/* Убрать все боковые отступы для полноэкранного отображения на мобильных */
 .container {
   text-align: center;
-  padding: 16px;
-  max-width: 1200px;
-  margin: 0 auto;
+  padding: 0;
+  max-width: 100%;
+  margin: 0;
   animation: fadeIn 1s ease-in;
 }
 
@@ -967,7 +968,7 @@ input:focus + i {
 
 .item-modal-add-new.remove {
   background: #ff3b30;
-  box-shadow: 0 4px 12px rgba(255, 59, 48, 0.3);
+  box-shadow: 0 44px 12px rgba(255, 59, 48, 0.3);
 }
 
 .item-modal-add-new:hover {
@@ -1185,7 +1186,7 @@ input:focus + i {
   }
 
   .container {
-    padding: 12px;
+    padding: 0;
   }
 
   .modal-content {
@@ -1390,6 +1391,10 @@ input:focus + i {
 }
 
 @media (max-width: 768px) {
+  /* Убрать padding в контейнере для мобильных устройств */
+  .container {
+    padding: 0;
+  }
   .item-modal-content-new {
     max-width: 90%;
     padding: 20px;
