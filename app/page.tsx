@@ -75,11 +75,10 @@ const mockStories = [
     ],
   },
   {
-    title: "Десерты",
-    image: "https://images.unsplash.com/photo-1551024506-0bccd828d307?w=200&h=200&fit=crop",
+    title: "Сэндвич",
+    image: "https://tajstore.ru/simin/file/photo/seshanbe.png",
     images: [
-      "https://images.unsplash.com/photo-1551024506-0bccd828d307?w=800&h=1200&fit=crop",
-      "https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=800&h=1200&fit=crop",
+      "https://tajstore.ru/simin/file/photo/seshanbe.png",
     ],
   },
   {
