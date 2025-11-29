@@ -82,24 +82,31 @@ export default function CartPage(): ReactElement {
     const fallbackSuggestions: SuggestionItem[] = [
       {
         id: 3,
-        name: "шашлык",
-        price: 56,
-        image: "https://media.dodostatic.net/image/r:292x292/11eed74f9e684d30b1ac51e4eb470c07.avif",
+        name: "Наггетсы порция",
+        price: 24,
+        image: "https://tajstore.ru/simin/file/photo/692a001fb11d5_1764360223.png",
         description: "1 шт",
       },
       {
         id: 4,
-        name: "Fusetea",
-        price: 8,
-        image: "https://media.dodostatic.net/image/r:292x292/019575981edd756a8e34a1d8982d5951.avif",
+        name: "Fanta",
+        price: 6,
+        image: "https://tajstore.ru/simin/file/photo/692a04e0307d2_1764361440.png",
         description: "0.5 л",
       },
       {
         id: 5,
-        name: "Куриные кусочки",
-        price: 50,
-        image: "https://media.dodostatic.net/image/r:292x292/0196d3af284b78bea22d091a75e40389.avif",
-        description: "280 г",
+        name: "Твистер",
+        price: 18,
+        image: "https://tajstore.ru/simin/file/photo/6929feead680f_1764359914.png",
+        description: "вкусно",
+      },
+       {
+        id: 6,
+        name: "Хот-дог НАЧО",
+        price: 15,
+        image: "https://tajstore.ru/simin/file/photo/6929fd4ed953c_1764359502.png",
+        description: "Хот дог начо",
       },
     ]
     setSuggestions(fallbackSuggestions)
