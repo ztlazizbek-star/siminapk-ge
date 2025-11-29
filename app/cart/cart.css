@@ -86,7 +86,8 @@
   width: 80px;
   height: 80px;
   border-radius: 12px;
-  object-fit: cover;
+  /* Changed from cover to contain to show full product photo */
+  object-fit: contain;
 }
 
 .item-details {
