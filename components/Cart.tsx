@@ -34,15 +34,16 @@ export default function Cart({ cart, onCartClick }: CartProps) {
   }
 
   return (
-    <div id="cartIcon" className="cart-icon-container">
-      <div className="cart-icon" onClick={onCartClick}>
-        <div className="cart-icon-badge">
+    <div className="floating-cart-button" onClick={onCartClick}>
+      <div className="cart-button-content">
+        <div className="cart-button-icon">
           <i className="fas fa-shopping-bag"></i>
-          {cart.length > 0 && <span className="cart-count">{cart.length}</span>}
+          <span className="cart-button-count">{cart.length}</span>
         </div>
-        <span id="cartTotal" className="cart-total">
-          {formatPrice(`${totalPrice} TJS`)}
-        </span>
+        <div className="cart-button-divider"></div>
+        <div className="cart-button-total">
+          <span className="cart-button-price">{formatPrice(`${totalPrice} TJS`)}</span>
+        </div>
       </div>
     </div>
   )
