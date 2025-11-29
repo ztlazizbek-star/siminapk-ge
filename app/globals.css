@@ -220,11 +220,12 @@ body {
   animation: fadeIn 1s ease-in;
 }
 
+/* Убраны боковые отступы у контейнера и растянуты карточки товаров */
 .container {
   text-align: center;
-  padding: 16px;
-  max-width: 1200px;
-  margin: 0 auto;
+  padding: 0;
+  max-width: 100%;
+  margin: 0;
   animation: fadeIn 1s ease-in;
 }
 
@@ -787,4 +788,26 @@ input:focus + i {
 /* Cart styles */
 .cart-icon-container {
   position: relative;
+}
+
+/* Обновлены стили карточек товаров для полноэкранного отображения */
+.menu-items {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.menu-item,
+.featured-item {
+  background: #fff;
+  border-radius: 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
