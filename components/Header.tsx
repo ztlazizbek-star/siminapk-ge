@@ -17,8 +17,8 @@ export default function Header({ user, onProfileClick }: HeaderProps) {
       <div className="location">
         <i className="fas fa-map-marker-alt"></i>
         <div className="location-content">
-          <span className="location-text">{user.address}</span>
-          <span className="delivery-time">Доставка около 15 минут</span>
+          <span className="location-text">Хиёбони рудаки 151</span>
+          <span className="delivery-time">Доставка около 15 - 25 минут</span>
         </div>
       </div>
       <div className="profile" onClick={onProfileClick}>
