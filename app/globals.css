@@ -805,3 +805,73 @@ input:focus + i {
   color: white;
   padding: 12px 18px;
 }
+
+/* Новый красивый дизайн корзины без счетчика */
+.floating-cart-button-new {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+  cursor: pointer;
+  animation: slideUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: linear-gradient(135deg, #ff6b35, #f7931e);
+  padding: 14px 20px;
+  border-radius: 50px;
+  box-shadow: 0 8px 24px rgba(255, 107, 53, 0.4);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.floating-cart-button-new:hover {
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 12px 32px rgba(255, 107, 53, 0.5);
+}
+
+.floating-cart-button-new:active {
+  transform: translateY(-2px) scale(1.02);
+}
+
+.cart-icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 20px;
+}
+
+.cart-price-wrapper {
+  display: flex;
+  align-items: center;
+  color: white;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .floating-cart-button-new {
+    padding: 12px 18px;
+    gap: 10px;
+  }
+
+  .cart-icon-wrapper {
+    font-size: 18px;
+  }
+
+  .cart-price-wrapper {
+    font-size: 15px;
+  }
+}
