@@ -52,6 +52,8 @@ export default function ProfileModal({ show, user, onClose, onSave }: ProfileMod
     setShowDeleteAlert(false)
 
     try {
+      console.log("[v0] Deleting account for phone:", user.phone)
+
       const response = await fetch("/api/user/delete", {
         method: "POST",
         headers: {
@@ -60,7 +62,9 @@ export default function ProfileModal({ show, user, onClose, onSave }: ProfileMod
         body: JSON.stringify({ phone: user.phone }),
       })
 
+      console.log("[v0] Delete API response status:", response.status)
       const data = await response.json()
+      console.log("[v0] Delete API response data:", data)
 
       if (data.success) {
         alert("Ваш аккаунт успешно удален")
@@ -71,7 +75,7 @@ export default function ProfileModal({ show, user, onClose, onSave }: ProfileMod
       }
     } catch (error) {
       console.error("[v0] Error deleting account:", error)
-      alert("Ошибка при удалении аккаунта")
+      alert("Ошибка при удалении аккаунта: " + (error instanceof Error ? error.message : "Неизвестная ошибка"))
     } finally {
       setIsDeleting(false)
     }
