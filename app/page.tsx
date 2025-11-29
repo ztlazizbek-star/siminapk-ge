@@ -52,8 +52,8 @@ const mockUser: User = {
 
 const mockStories = [
   {
-    title: "Пицца",
-    image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=200&h=200&fit=crop",
+    title: "День Бургер",
+    image: "https://tajstore.ru/simin/file/photo/denburger.png",
     images: [
       "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=800&h=1200&fit=crop",
       "https://images.unsplash.com/photo-1574071346375-23c9450c58cd?w=800&h=1200&fit=crop",
