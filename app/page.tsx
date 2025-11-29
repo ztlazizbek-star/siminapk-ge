@@ -81,11 +81,10 @@ const mockStories = [
     ],
   },
   {
-    title: "Салаты",
-    image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=200&h=200&fit=crop",
+    title: "Пожжержка",
+    image: "https://tajstore.ru/simin/file/photo/support.png",
     images: [
-      "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=800&h=1200&fit=crop",
-      "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800&h=1200&fit=crop",
+      "https://tajstore.ru/simin/file/photo/support.png",
     ],
   },
 ]
