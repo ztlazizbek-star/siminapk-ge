@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useUser } from "@/app/contexts/UserContext"
 
 interface User {
@@ -25,6 +25,23 @@ export default function ProfileModal({ show, user, onClose, onSave }: ProfileMod
   const [isDeleting, setIsDeleting] = useState(false)
   const [showLogoutAlert, setShowLogoutAlert] = useState(false)
   const [showDeleteAlert, setShowDeleteAlert] = useState(false)
+
+  useEffect(() => {
+    if (show) {
+      // Push a new state when modal opens
+      window.history.pushState({ modal: "profile" }, "")
+
+      const handlePopState = () => {
+        onClose()
+      }
+
+      window.addEventListener("popstate", handlePopState)
+
+      return () => {
+        window.removeEventListener("popstate", handlePopState)
+      }
+    }
+  }, [show, onClose])
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()

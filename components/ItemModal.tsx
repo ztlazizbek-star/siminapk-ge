@@ -1,5 +1,6 @@
 "use client"
 
+import { useEffect } from "react"
 import { formatPrice } from "@/lib/utils"
 
 interface MenuItem {
@@ -24,6 +25,23 @@ const getImageUrl = (imagePath: string | undefined): string => {
 }
 
 export default function ItemModal({ show, item, onClose, onAddToCart }: ItemModalProps) {
+  useEffect(() => {
+    if (show) {
+      // Push a new state when modal opens
+      window.history.pushState({ modal: "item" }, "")
+
+      const handlePopState = () => {
+        onClose()
+      }
+
+      window.addEventListener("popstate", handlePopState)
+
+      return () => {
+        window.removeEventListener("popstate", handlePopState)
+      }
+    }
+  }, [show, onClose])
+
   if (!show || !item) {
     return null
   }

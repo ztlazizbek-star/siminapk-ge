@@ -15,6 +15,23 @@ export default function StoryModal({ show, images, onClose, title }: StoryModalP
   const [progress, setProgress] = useState(0)
 
   useEffect(() => {
+    if (show) {
+      // Push a new state when modal opens
+      window.history.pushState({ modal: "story" }, "")
+
+      const handlePopState = () => {
+        onClose()
+      }
+
+      window.addEventListener("popstate", handlePopState)
+
+      return () => {
+        window.removeEventListener("popstate", handlePopState)
+      }
+    }
+  }, [show, onClose])
+
+  useEffect(() => {
     if (!show) return
 
     const duration = 5000 // 5 seconds per story
