@@ -67,11 +67,10 @@ const mockStories = [
     ],
   },
   {
-    title: "Напитки",
-    image: "https://images.unsplash.com/photo-1437418747212-8d9709afab22?w=200&h=200&fit=crop",
+    title: "Доставка",
+    image: "https://tajstore.ru/simin/file/photo/dostavka.png",
     images: [
-      "https://images.unsplash.com/photo-1437418747212-8d9709afab22?w=800&h=1200&fit=crop",
-      "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=800&h=1200&fit=crop",
+      "https://tajstore.ru/simin/file/photo/dostavka.png",
     ],
   },
   {
