@@ -36,7 +36,10 @@ export default function Cart({ cart, onCartClick }: CartProps) {
   return (
     <div id="cartIcon" className="cart-icon-container">
       <div className="cart-icon" onClick={onCartClick}>
-        <i className="fas fa-shopping-bag"></i>
+        <div className="cart-icon-badge">
+          <i className="fas fa-shopping-bag"></i>
+          {cart.length > 0 && <span className="cart-count">{cart.length}</span>}
+        </div>
         <span id="cartTotal" className="cart-total">
           {formatPrice(`${totalPrice} TJS`)}
         </span>

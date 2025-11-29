@@ -41,7 +41,7 @@ export default function ItemModal({ show, item, onClose, onAddToCart }: ItemModa
         </button>
 
         <div className="item-modal-image-new">
-          <img src={getImageUrl(item.image) || "/placeholder.svg"} alt={item.name} />
+          <img src={getImageUrl(item.image) || "/placeholder.svg"} alt={item.name} loading="eager" />
         </div>
 
         <h2 className="item-modal-title-new">{item.name}</h2>
