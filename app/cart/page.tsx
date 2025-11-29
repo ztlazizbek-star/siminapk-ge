@@ -201,7 +201,8 @@ export default function CartPage(): ReactElement {
       const price = getNumericPrice(item.price)
       return sum + price * item.quantity
     }, 0)
-    return subtotal * (1 - discount)
+    const deliveryFee = orderType === "delivery" ? 10 : 0
+    return subtotal * (1 - discount) + deliveryFee
   }
 
   const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0)
@@ -243,10 +244,11 @@ export default function CartPage(): ReactElement {
 Адрес: ${orderType === "delivery" ? deliveryAddress : pickupAddress}
 Тип оплаты: ${paymentType === "card" ? "Карта онлайн" : "Наличные"}
 Комментарий: ${comment || "Нет"}
-Товары:
+*Товары:*
 ${cart.map((item) => `- ${item.name} (${item.quantity} шт): ${(getNumericPrice(item.price) * item.quantity).toFixed(2)} TJS`).join("\n")}
 ${isPromoApplied ? "Скидка: 10%" : ""}
-Общая сумма: ${totalPrice.toFixed(2)} TJS
+${orderType === "delivery" ? "Стоимость доставки: 10.00 TJS" : ""}
+*Общая сумма: ${totalPrice.toFixed(2)} TJS*
     `
 
     setIsSubmitting(true)
@@ -520,9 +522,9 @@ ${isPromoApplied ? "Скидка: 10%" : ""}
                   </svg>
                   <select name="pickupAddress">
                     <option value="">Выберите адрес самовывоза</option>
-                    <option value="Хиёбони рудаки 151">Хиёбони рудаки 151</option>
+                    <option value="Хиёбони рудаки 151">Хиёбони рудаки 151 (загс)</option>
                     <option value="г.Пенджикент против магазин Сумая Кафе Симин">
-                      г.Пенджикент против магазин Сумая Кафе Симин
+                      против магазин Сумая Кафе Симин
                     </option>
                   </select>
                 </div>
