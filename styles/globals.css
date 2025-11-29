@@ -656,7 +656,7 @@ input:focus + i {
 .featured-item-image {
   width: 200px;
   height: 200px;
-  object-fit: cover;
+  object-fit: contain; /* Changed from cover to contain to show full product photo */
   border-radius: 8px;
   margin-right: 0;
   transition: opacity 0.6s ease-in-out, transform 0.3s ease;
@@ -1270,8 +1270,8 @@ input:focus + i {
   }
 
   .photo-item-image {
-    width: 100px;
-    height: 100px;
+    width: 120px; /* Increased size from 100px to 120px for better visibility */
+    height: 120px; /* Increased size from 100px to 120px for better visibility */
     margin-right: 0;
   }
 
@@ -1385,8 +1385,8 @@ input:focus + i {
   }
 
   .photo-item-image {
-    width: 100px;
-    height: 100px;
+    width: 120px;
+    height: 120px;
   }
 }
 
