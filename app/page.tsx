@@ -59,11 +59,12 @@ const mockStories = [
     ],
   },
   {
-    title: "Бургер",
-    image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=200&h=200&fit=crop",
+    title: "Адрес",
+    image: "https://tajstore.ru/simin/file/photo/address.png",
     images: [
-      "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800&h=1200&fit=crop",
-      "https://images.unsplash.com/photo-1550547660-d9450f859349?w=800&h=1200&fit=crop",
+      "https://tajstore.ru/simin/file/photo/address1.png",
+      "https://tajstore.ru/simin/file/photo/address2.png",
+      "https://tajstore.ru/simin/file/photo/support.png",
     ],
   },
   {
@@ -81,7 +82,7 @@ const mockStories = [
     ],
   },
   {
-    title: "Пожжержка",
+    title: "Поджержка",
     image: "https://tajstore.ru/simin/file/photo/support.png",
     images: [
       "https://tajstore.ru/simin/file/photo/support.png",
