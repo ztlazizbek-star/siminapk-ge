@@ -101,7 +101,7 @@ export default function CartPage(): ReactElement {
         image: "https://tajstore.ru/simin/file/photo/6929feead680f_1764359914.png",
         description: "вкусно",
       },
-       {
+      {
         id: 6,
         name: "Хот-дог НАЧО",
         price: 15,
@@ -289,6 +289,14 @@ ${orderType === "delivery" ? "Стоимость доставки: 10.00 TJS" : 
           console.error("Error sending SMS notification:", smsError)
           // Продолжаем даже если SMS не отправилась
         }
+
+        if (isPromoApplied) {
+          localStorage.removeItem("promoApplied")
+          setIsPromoApplied(false)
+        }
+
+        setCart([])
+        localStorage.removeItem("cart")
 
         setShowCheckoutModal(false)
         setShowSuccessModal(true)

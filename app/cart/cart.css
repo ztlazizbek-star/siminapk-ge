@@ -210,7 +210,8 @@
   width: 100px;
   height: 100px;
   border-radius: 8px;
-  object-fit: cover;
+  /* изменено с cover на contain для полного отображения фото товара */
+  object-fit: contain;
 }
 
 .suggestion-name {
