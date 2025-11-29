@@ -519,6 +519,8 @@ ${isPromoApplied ? "Скидка: 10%" : ""}
                     <polyline points="9 22 9 12 15 12 15 22"></polyline>
                   </svg>
                   <select name="pickupAddress">
+                    <option value="">Выберите адрес самовывоза</option>
+                    <option value="Хиёбони рудаки 151">Хиёбони рудаки 151</option>
                     <option value="г.Пенджикент против магазин Сумая Кафе Симин">
                       г.Пенджикент против магазин Сумая Кафе Симин
                     </option>
