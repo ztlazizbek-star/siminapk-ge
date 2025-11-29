@@ -788,11 +788,13 @@ input:focus + i {
 
 /* Cart styles */
 /* Floating Cart Button - Dodo Pizza style */
+/* Переместить корзину в правый нижний угол и сделать компактнее */
 .floating-cart-button {
   position: fixed;
   bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
+  right: 20px;
+  left: auto;
+  transform: none;
   z-index: 1000;
   cursor: pointer;
   animation: slideUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -801,123 +803,5 @@ input:focus + i {
 .cart-button-content {
   background: linear-gradient(135deg, #ff6200, #ff8534);
   color: white;
-  padding: 14px 24px;
-  border-radius: 50px;
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  box-shadow: 0 8px 24px rgba(255, 98, 0, 0.4);
-  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  min-width: 200px;
-}
-
-.floating-cart-button:hover .cart-button-content {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 32px rgba(255, 98, 0, 0.5);
-  background: linear-gradient(135deg, #ff7700, #ff9944);
-}
-
-.floating-cart-button:active .cart-button-content {
-  transform: translateY(-2px) scale(0.98);
-}
-
-.cart-button-icon {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.cart-button-icon i {
-  font-size: 22px;
-}
-
-.cart-button-count {
-  position: absolute;
-  top: -8px;
-  right: -8px;
-  background: white;
-  color: #ff6200;
-  font-size: 11px;
-  font-weight: 700;
-  padding: 2px 6px;
-  border-radius: 10px;
-  min-width: 20px;
-  text-align: center;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-}
-
-.cart-button-divider {
-  width: 1px;
-  height: 24px;
-  background: rgba(255, 255, 255, 0.3);
-}
-
-.cart-button-total {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.cart-button-price {
-  font-size: 18px;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-}
-
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translate(-50%, 100px);
-  }
-  to {
-    opacity: 1;
-    transform: translate(-50%, 0);
-  }
-}
-
-@media (max-width: 768px) {
-  .floating-cart-button {
-    bottom: 15px;
-  }
-
-  .cart-button-content {
-    padding: 12px 20px;
-    min-width: 180px;
-  }
-
-  .cart-button-icon i {
-    font-size: 20px;
-  }
-
-  .cart-button-price {
-    font-size: 16px;
-  }
-}
-
-/* Remove old cart styles */
-.cart-icon-container {
-  display: none;
-}
-
-/* Обновлены стили карточек товаров для полноэкранного отображения */
-.menu-items {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  margin: 0;
-  padding: 0;
-  width: 100%;
-}
-
-.menu-item,
-.featured-item {
-  background: #fff;
-  border-radius: 0;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  cursor: pointer;
-  transition: transform 0.3s, box-shadow 0.3s;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  padding: 12px 18px;
 }

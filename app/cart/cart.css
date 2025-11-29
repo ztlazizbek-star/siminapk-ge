@@ -93,9 +93,10 @@
   flex: 1;
 }
 
+/* Добавлен жирный шрифт для названий и цен товаров в корзине */
 .item-name {
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 700;
   margin-bottom: 4px;
 }
 
@@ -113,7 +114,7 @@
 
 .item-price {
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .quantity-controls {

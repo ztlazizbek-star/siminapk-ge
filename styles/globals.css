@@ -1285,6 +1285,7 @@ input:focus + i {
   .menu-item h3 {
     font-size: 1.1rem;
     margin-bottom: 6px;
+    font-weight: 700; /* Added bold font weight for product names on main page */
   }
 
   .menu-item-description {
@@ -1295,6 +1296,7 @@ input:focus + i {
   .menu-item-price {
     font-size: 1rem;
     align-self: flex-end;
+    font-weight: 700; /* Added bold font weight for product prices on main page */
   }
 
   .featured-item {
@@ -1316,6 +1318,7 @@ input:focus + i {
 
   .featured-item-content h3 {
     font-size: 1.3rem;
+    font-weight: 700; /* Added bold font weight for featured product names */
   }
 
   .featured-item-description {
@@ -1325,6 +1328,7 @@ input:focus + i {
   .featured-item-price {
     font-size: 0.9rem;
     padding: 12px;
+    font-weight: 700; /* Added bold font weight for featured product prices */
   }
 
   .item-modal-image-container {
