@@ -335,6 +335,23 @@ ${orderType === "delivery" ? "Стоимость доставки: 10.00 TJS" : 
         </button>
       </header>
 
+      {/* Delivery Info Banner */}
+      {cart.length > 0 && (
+        <div className="delivery-info-banner">
+          <div className="delivery-info-icon">
+            {/* Pin/Закреплено icon */}
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M12 17v5" />
+              <path d="M9 10.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4H8a2 2 0 0 0 0 4 1 1 0 0 1 1 1z" />
+            </svg>
+          </div>
+          <div className="delivery-info-text">
+            <div className="delivery-info-title">Доставка в Пенджикент</div>
+            <div className="delivery-info-description">Стоимость доставки: 10 сомон</div>
+          </div>
+        </div>
+      )}
+
       {/* Cart Summary */}
       <div className="cart-summary">
         <span>
@@ -375,24 +392,6 @@ ${orderType === "delivery" ? "Стоимость доставки: 10.00 TJS" : 
           ))
         )}
       </div>
-
-      {/* Delivery Info Banner */}
-      {cart.length > 0 && (
-        <div className="delivery-info-banner">
-          <div className="delivery-info-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <rect x="1" y="3" width="15" height="13" rx="2" />
-              <path d="m16 8 4.5 3-4.5 3" />
-              <circle cx="5.5" cy="18.5" r="2.5" />
-              <circle cx="18.5" cy="18.5" r="2.5" />
-            </svg>
-          </div>
-          <div className="delivery-info-text">
-            <div className="delivery-info-title">Стоимость доставки</div>
-            <div className="delivery-info-description">В городе Пенджикент - 10 сомон</div>
-          </div>
-        </div>
-      )}
 
       {/* Add to Order Section */}
       <div className="add-to-order">
