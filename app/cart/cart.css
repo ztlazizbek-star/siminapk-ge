@@ -152,18 +152,17 @@
   text-align: center;
 }
 
-/* Updated Delivery Info Banner to be sticky at top with warning icon */
+/* Updated Delivery Info Banner to be sticky at top with pin icon */
 .delivery-info-banner {
   position: sticky;
   top: 62px; /* Below header */
   margin: 0;
   padding: 14px 18px;
-  /* Изменен фон на красно-оранжевый градиент для предупреждения */
-  background: linear-gradient(135deg, rgba(255, 87, 51, 0.95) 0%, rgba(255, 107, 53, 0.95) 100%);
+  background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(255, 107, 53, 0.3);
-  box-shadow: 0 3px 15px rgba(255, 87, 51, 0.25);
+  border-bottom: 1px solid rgba(255, 107, 53, 0.15);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
   display: flex;
   align-items: center;
   gap: 14px;
@@ -176,18 +175,17 @@
   flex-shrink: 0;
   width: 40px;
   height: 40px;
-  /* Красный фон для иконки предупреждения */
-  background: #dc2626;
+  background: linear-gradient(135deg, #ff6b35 0%, #ff8c5a 100%);
   border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: white;
-  box-shadow: 0 3px 10px rgba(220, 38, 38, 0.35);
+  box-shadow: 0 3px 10px rgba(255, 107, 53, 0.25);
 }
 
 .delivery-info-icon svg {
-  animation: warningPulse 2s ease-in-out infinite;
+  animation: pinPulse 2s ease-in-out infinite;
 }
 
 .delivery-info-text {
@@ -197,15 +195,14 @@
 .delivery-info-title {
   font-size: 15px;
   font-weight: 700;
-  /* Белый цвет текста для лучшего контраста на красном фоне */
-  color: white;
+  color: #333;
+  margin-bottom: 3px;
   letter-spacing: -0.2px;
-  line-height: 1.3;
 }
 
 .delivery-info-description {
   font-size: 14px;
-  color: rgba(255, 255, 255, 0.9);
+  color: #666;
   font-weight: 500;
 }
 
@@ -220,14 +217,13 @@
   }
 }
 
-/* Новая анимация для иконки предупреждения */
-@keyframes warningPulse {
+@keyframes pinPulse {
   0%,
   100% {
-    transform: scale(1);
+    transform: scale(1) rotate(0deg);
   }
   50% {
-    transform: scale(1.1);
+    transform: scale(1.05) rotate(2deg);
   }
 }
 
