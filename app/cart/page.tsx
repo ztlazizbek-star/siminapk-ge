@@ -346,8 +346,8 @@ ${orderType === "delivery" ? "Стоимость доставки: 10.00 TJS" : 
             </svg>
           </div>
           <div className="delivery-info-text">
-            <div className="delivery-info-title">Бурдарасон то хона:</div>
-            <div className="delivery-info-description">Дар дохили ш.Панчакент 10 сомониро ташкил медихад.</div>
+            <div className="delivery-info-title">Доставка</div>
+            <div className="delivery-info-description">Внутри города Пенджикента — 10 сомони</div>
           </div>
         </div>
       )}
