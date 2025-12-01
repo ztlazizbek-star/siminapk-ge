@@ -376,6 +376,24 @@ ${orderType === "delivery" ? "Стоимость доставки: 10.00 TJS" : 
         )}
       </div>
 
+      {/* Delivery Info Banner */}
+      {cart.length > 0 && (
+        <div className="delivery-info-banner">
+          <div className="delivery-info-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <rect x="1" y="3" width="15" height="13" rx="2" />
+              <path d="m16 8 4.5 3-4.5 3" />
+              <circle cx="5.5" cy="18.5" r="2.5" />
+              <circle cx="18.5" cy="18.5" r="2.5" />
+            </svg>
+          </div>
+          <div className="delivery-info-text">
+            <div className="delivery-info-title">Стоимость доставки</div>
+            <div className="delivery-info-description">В городе Пенджикент - 10 сомон</div>
+          </div>
+        </div>
+      )}
+
       {/* Add to Order Section */}
       <div className="add-to-order">
         <h2 className="section-title">Добавить к заказу?</h2>
