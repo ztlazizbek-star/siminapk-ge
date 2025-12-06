@@ -48,7 +48,7 @@ export default function CartPage(): ReactElement {
   const [orderType, setOrderType] = useState("")
   const [paymentType, setPaymentType] = useState("")
 
-  const PROMO_CODE = "скидк8"
+  const PROMO_CODE = "скидка10"
   const discount = isPromoApplied ? 0.1 : 0
 
   useEffect(() => {
@@ -346,8 +346,8 @@ ${orderType === "delivery" ? "Стоимость доставки: 10.00 TJS" : 
             </svg>
           </div>
           <div className="delivery-info-text">
-            <div className="delivery-info-title">Доставка</div>
-            <div className="delivery-info-description">Внутри города Пенджикента — 10 сомони</div>
+            <div className="delivery-info-title">Доставка в Пенджикент</div>
+            <div className="delivery-info-description">Стоимость доставки: 10 сомон</div>
           </div>
         </div>
       )}
