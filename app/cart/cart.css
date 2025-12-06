@@ -372,107 +372,133 @@
   background-color: #e55a2b;
 }
 
-/* Checkout Modal */
+/* Полностью переработан дизайн формы оформления заказа для мобильных устройств с blur эффектами */
+
+/* Checkout Modal - новый мобильный дизайн */
 #checkout-modal {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-end;
   z-index: 1000;
   animation: fadeIn 0.3s ease-out;
-  padding: 20px;
+  padding: 0;
 }
 
 .modal-content {
   background: rgba(255, 255, 255, 0.98);
-  backdrop-filter: blur(20px);
-  padding: 32px 28px;
-  border-radius: 24px;
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border-radius: 24px 24px 0 0;
   width: 100%;
-  max-width: 440px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-  animation: slideUp 0.3s ease-out;
-  max-height: 85vh;
+  max-width: 100%;
+  box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.25);
+  animation: slideUpModal 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  max-height: 90vh;
   overflow-y: auto;
   position: relative;
+  padding: 0;
 }
 
-.modal-content h2 {
-  font-size: 24px;
+/* Шапка модального окна */
+.modal-header {
+  position: sticky;
+  top: 0;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 20px 20px 16px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  z-index: 10;
+}
+
+.modal-title {
+  font-size: 22px;
   font-weight: 700;
-  margin-bottom: 28px;
-  text-align: center;
   color: #212529;
+  text-align: center;
+  margin: 0;
 }
 
-/* Уменьшена высота полей input с добавлением blur эффекта */
+/* Форма */
+.modal-content form {
+  padding: 24px 20px 32px;
+}
+
+/* Секции формы */
+.form-section {
+  margin-bottom: 24px;
+}
+
+.form-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: #6c757d;
+  margin-bottom: 8px;
+  padding-left: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.required-star {
+  color: #ff6b35;
+  margin-left: 2px;
+}
+
+/* Группы ввода с blur эффектом */
 .input-group {
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-bottom: 0;
-  background: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1.5px solid rgba(0, 0, 0, 0.08);
-  border-radius: 12px;
-  padding: 10px 14px;
-  min-height: 44px;
-  transition: all 0.25s ease;
+  background: rgba(247, 249, 250, 0.8);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1.5px solid rgba(0, 0, 0, 0.06);
+  border-radius: 14px;
+  padding: 0 16px;
+  min-height: 52px;
+  transition: all 0.3s ease;
 }
 
 .input-group:focus-within {
   border-color: #ff6b35;
-  box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.08);
   background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 0 0 4px rgba(255, 107, 53, 0.08);
+  transform: translateY(-1px);
 }
 
 .textarea-group {
   align-items: flex-start;
   min-height: auto;
-  padding: 12px 14px;
-}
-
-.phone-input-group {
-  gap: 8px;
-}
-
-.phone-group {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.phone-flag {
-  width: 24px;
-  height: 16px;
-  border-radius: 2px;
-}
-
-.phone-code {
-  color: #495057;
-  font-size: 15px;
-  font-weight: 600;
+  padding: 14px 16px;
 }
 
 .input-icon {
-  color: #6c757d;
+  color: #adb5bd;
   flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+}
+
+.textarea-icon {
+  margin-top: 2px;
 }
 
 #checkout-modal input,
 #checkout-modal select,
-#checkout-modal textarea,
-#custom-alert input {
+#checkout-modal textarea {
   flex: 1;
   border: none;
   background: none;
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 500;
   color: #212529;
   outline: none;
@@ -480,72 +506,126 @@
 }
 
 #checkout-modal input::placeholder,
-#checkout-modal textarea::placeholder,
-#custom-alert input::placeholder {
+#checkout-modal textarea::placeholder {
   color: #adb5bd;
+  font-weight: 400;
 }
 
 #checkout-modal select {
   appearance: none;
-  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="%236c757d" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>')
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="%23adb5bd" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>')
     no-repeat right center;
-  padding-right: 24px;
+  padding-right: 28px;
+  cursor: pointer;
 }
 
 #checkout-modal textarea {
   resize: vertical;
-  min-height: 70px;
+  min-height: 80px;
   padding: 4px 0;
   line-height: 1.5;
   font-family: inherit;
 }
 
+/* Поле телефона */
+.phone-input-group {
+  gap: 10px;
+}
+
+.phone-flag {
+  width: 24px;
+  height: 16px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+.phone-code {
+  color: #495057;
+  font-size: 16px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+/* Кнопка предложения номера */
+.phone-suggestion {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  background: linear-gradient(135deg, rgba(255, 107, 53, 0.08) 0%, rgba(255, 140, 90, 0.08) 100%);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1.5px solid rgba(255, 107, 53, 0.2);
+  border-radius: 12px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.phone-suggestion:hover {
+  background: linear-gradient(135deg, rgba(255, 107, 53, 0.12) 0%, rgba(255, 140, 90, 0.12) 100%);
+  border-color: rgba(255, 107, 53, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 107, 53, 0.15);
+}
+
+.phone-suggestion svg {
+  color: #ff6b35;
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+}
+
+.phone-suggestion span {
+  font-size: 15px;
+  font-weight: 600;
+  color: #ff6b35;
+}
+
+/* Кнопки действий */
 .form-actions {
   display: flex;
   gap: 12px;
-  margin-top: 28px;
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
 }
 
 .cancel-btn,
-.submit-btn,
-.alert-actions button {
+.submit-btn {
   flex: 1;
   padding: 16px;
-  border-radius: 12px;
-  font-size: 16px;
+  border-radius: 14px;
+  font-size: 17px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s ease;
-  min-height: 52px;
+  transition: all 0.3s ease;
+  min-height: 54px;
   border: none;
 }
 
-.cancel-btn,
-.alert-actions button:first-child {
-  background: #f8f9fa;
+.cancel-btn {
+  background: rgba(108, 117, 125, 0.08);
   color: #6c757d;
-  border: 2px solid #e9ecef;
+  border: 2px solid rgba(108, 117, 125, 0.15);
 }
 
-.cancel-btn:hover,
-.alert-actions button:first-child:hover {
-  background: #e9ecef;
-  border-color: #dee2e6;
-  transform: translateY(-1px);
+.cancel-btn:hover {
+  background: rgba(108, 117, 125, 0.12);
+  border-color: rgba(108, 117, 125, 0.25);
+  transform: translateY(-2px);
 }
 
-.submit-btn,
-.alert-actions button:last-child {
+.submit-btn {
   background: linear-gradient(135deg, #ff6b35 0%, #ff8c5a 100%);
   color: white;
-  box-shadow: 0 4px 12px rgba(255, 107, 53, 0.35);
+  box-shadow: 0 6px 20px rgba(255, 107, 53, 0.35);
 }
 
-.submit-btn:hover,
-.alert-actions button:last-child:hover {
+.submit-btn:hover:not(:disabled) {
   background: linear-gradient(135deg, #e55a2b 0%, #ff7b47 100%);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(255, 107, 53, 0.45);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(255, 107, 53, 0.45);
 }
 
 .submit-btn:disabled {
@@ -884,11 +964,11 @@
 /* Улучшен стиль уведомления о доставке с blur эффектом */
 .delivery-notification {
   position: fixed;
-  top: 70px;
+  top: 20px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 1100;
-  animation: slideDownNotification 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  animation: deliverySlideDown 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
   max-width: 90%;
 }
 
@@ -896,125 +976,10 @@
   display: flex;
   align-items: center;
   gap: 14px;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(25px);
-  -webkit-backdrop-filter: blur(25px);
-  padding: 16px 20px;
-  border-radius: 16px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(255, 107, 53, 0.1);
-  border: 1px solid rgba(255, 107, 53, 0.2);
-  min-width: 320px;
-}
-
-.delivery-notification-icon {
-  width: 44px;
-  height: 44px;
-  background: linear-gradient(135deg, #ff6b35 0%, #ff8c5a 100%);
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
-}
-
-.delivery-notification-icon svg {
-  animation: deliveryPulse 0.8s ease-in-out;
-  color: white;
-}
-
-.delivery-notification-body {
-  flex: 1;
-}
-
-.delivery-notification-title {
-  font-size: 15px;
-  font-weight: 700;
-  color: #212529;
-  margin-bottom: 3px;
-  letter-spacing: -0.2px;
-}
-
-.delivery-notification-text {
-  font-size: 14px;
-  color: #6c757d;
-  font-weight: 500;
-}
-
-@keyframes slideDownNotification {
-  from {
-    transform: translateX(-50%) translateY(-40px) scale(0.9);
-    opacity: 0;
-  }
-  to {
-    transform: translateX(-50%) translateY(0) scale(1);
-    opacity: 1;
-  }
-}
-
-@keyframes deliveryPulse {
-  0%,
-  100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.15);
-  }
-}
-
-/* Improved form sections and labels */
-.form-section {
-  margin-bottom: 20px;
-}
-
-.form-label {
-  display: block;
-  font-size: 14px;
-  font-weight: 600;
-  color: #333;
-  margin-bottom: 8px;
-  padding-left: 4px;
-}
-
-.required-star {
-  color: #ff6b35;
-  margin-left: 2px;
-}
-
-/* Phone suggestion button */
-.phone-suggestion {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 12px;
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-  border: 1px solid #dee2e6;
-  border-radius: 10px;
-  margin-bottom: 10px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.phone-suggestion:hover {
-  background: linear-gradient(135deg, #e9ecef 0%, #dee2e6 100%);
-  border-color: #adb5bd;
-  transform: translateY(-1px);
-}
-
-.phone-suggestion svg {
-  color: #495057;
-  flex-shrink: 0;
-}
-
-.phone-suggestion span {
-  font-size: 14px;
-  font-weight: 500;
-  color: #495057;
-}
-
-/* Responsive Design */
-@media (max-width: 480px) {
-  .app {
-    max-width: 100%;
-  }
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  padding: 18px 22px;
+  border-radius: 18px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.08); /* Completed truncated line */
 }

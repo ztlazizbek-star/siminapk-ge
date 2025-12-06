@@ -483,7 +483,7 @@ ${orderType === "delivery" ? "Стоимость доставки: 10.00 TJS" : 
             <div className="delivery-notification">
               <div className="delivery-notification-content">
                 <div className="delivery-notification-icon">
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <rect x="1" y="3" width="15" height="13"></rect>
                     <path d="M16 8h5l3 3v5h-2"></path>
                     <circle cx="5.5" cy="18.5" r="2.5"></circle>
@@ -507,7 +507,11 @@ ${orderType === "delivery" ? "Стоимость доставки: 10.00 TJS" : 
                 </div>
               </div>
             )}
-            <h2>Оформление заказа</h2>
+
+            <div className="modal-header">
+              <h2 className="modal-title">Оформление заказа</h2>
+            </div>
+
             <form onSubmit={handleSubmit}>
               <div className="form-section">
                 <label className="form-label">Имя</label>
@@ -596,7 +600,8 @@ ${orderType === "delivery" ? "Стоимость доставки: 10.00 TJS" : 
                       stroke="currentColor"
                       strokeWidth="2"
                     >
-                      <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                      <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                      <polyline points="9 22 9 12 15 12 15 22"></polyline>
                     </svg>
                     <select name="pickupAddress" required>
                       <option value="">Выберите адрес</option>
@@ -608,29 +613,6 @@ ${orderType === "delivery" ? "Стоимость доставки: 10.00 TJS" : 
                   </div>
                 </div>
               )}
-
-              <div className="form-section">
-                <label className="form-label">Номер телефона</label>
-                {user?.phone && (
-                  <div
-                    className="phone-suggestion"
-                    onClick={() => {
-                      const phoneInput = document.querySelector('input[name="phone"]') as HTMLInputElement
-                      if (phoneInput) phoneInput.value = user.phone.replace("+992", "")
-                    }}
-                  >
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
-                    </svg>
-                    <span>Использовать {user.phone}</span>
-                  </div>
-                )}
-                <div className="input-group phone-input-group">
-                  <img src="/images/design-mode/tj.png" alt="TJ" className="phone-flag" />
-                  <span className="phone-code">+992</span>
-                  <input type="tel" name="phone" placeholder="901234567" pattern="[0-9]{9}" maxLength={9} required />
-                </div>
-              </div>
 
               <div className="form-section">
                 <label className="form-label">Способ оплаты</label>
@@ -659,6 +641,29 @@ ${orderType === "delivery" ? "Стоимость доставки: 10.00 TJS" : 
                     <option value="card">Карта онлайн</option>
                     <option value="cash">Наличные</option>
                   </select>
+                </div>
+              </div>
+
+              <div className="form-section">
+                <label className="form-label">Номер телефона</label>
+                {user?.phone && (
+                  <div
+                    className="phone-suggestion"
+                    onClick={() => {
+                      const phoneInput = document.querySelector('input[name="phone"]') as HTMLInputElement
+                      if (phoneInput) phoneInput.value = user.phone.replace("+992", "")
+                    }}
+                  >
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                    </svg>
+                    <span>Использовать {user.phone}</span>
+                  </div>
+                )}
+                <div className="input-group phone-input-group">
+                  <img src="/images/design-mode/tj.png" alt="TJ" className="phone-flag" />
+                  <span className="phone-code">+992</span>
+                  <input type="tel" name="phone" placeholder="901234567" pattern="[0-9]{9}" maxLength={9} required />
                 </div>
               </div>
 
