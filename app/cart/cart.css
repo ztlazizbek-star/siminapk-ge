@@ -99,6 +99,7 @@
   font-size: 16px;
   font-weight: 700;
   margin-bottom: 4px;
+  color: #212529;
 }
 
 .item-description {
@@ -116,6 +117,7 @@
 .item-price {
   font-size: 16px;
   font-weight: 700;
+  color: #212529;
 }
 
 .quantity-controls {
@@ -311,8 +313,9 @@
 
 .suggestion-name {
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 700;
   margin-bottom: 4px;
+  color: #212529;
 }
 
 .suggestion-description {
@@ -323,8 +326,8 @@
 
 .suggestion-price {
   font-size: 14px;
-  font-weight: 600;
-  color: #333;
+  font-weight: 700;
+  color: #212529;
 }
 
 /* Promo Code Button */
@@ -407,32 +410,32 @@
   color: #212529;
 }
 
+/* Уменьшена высота полей input с добавлением blur эффекта */
 .input-group {
   display: flex;
   align-items: center;
   gap: 12px;
   margin-bottom: 0;
-  background: white;
-  border: 2px solid #e9ecef;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1.5px solid rgba(0, 0, 0, 0.08);
   border-radius: 12px;
-  padding: 14px 16px;
-  min-height: 52px;
+  padding: 10px 14px;
+  min-height: 44px;
   transition: all 0.25s ease;
 }
 
 .input-group:focus-within {
   border-color: #ff6b35;
-  box-shadow: 0 0 0 4px rgba(255, 107, 53, 0.1);
-  background: #fff;
+  box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.08);
+  background: rgba(255, 255, 255, 0.95);
 }
 
 .textarea-group {
   align-items: flex-start;
   min-height: auto;
-}
-
-.textarea-icon {
-  margin-top: 2px;
+  padding: 12px 14px;
 }
 
 .phone-input-group {
@@ -878,64 +881,84 @@
   }
 }
 
-/* iOS-style delivery notification */
+/* Улучшен стиль уведомления о доставке с blur эффектом */
 .delivery-notification {
   position: fixed;
-  top: 60px;
+  top: 70px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 1100;
-  animation: slideDownNotification 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  animation: slideDownNotification 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  max-width: 90%;
 }
 
 .delivery-notification-content {
   display: flex;
   align-items: center;
-  gap: 12px;
-  background: rgba(255, 107, 53, 0.97);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  padding: 14px 20px;
-  border-radius: 14px;
-  box-shadow: 0 8px 24px rgba(255, 107, 53, 0.4), 0 2px 8px rgba(0, 0, 0, 0.15);
-  color: white;
-  min-width: 300px;
+  gap: 14px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  padding: 16px 20px;
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(255, 107, 53, 0.1);
+  border: 1px solid rgba(255, 107, 53, 0.2);
+  min-width: 320px;
 }
 
-.delivery-notification-content svg {
+.delivery-notification-icon {
+  width: 44px;
+  height: 44px;
+  background: linear-gradient(135deg, #ff6b35 0%, #ff8c5a 100%);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   flex-shrink: 0;
-  animation: pulse 0.6s ease-in-out;
+  box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
+}
+
+.delivery-notification-icon svg {
+  animation: deliveryPulse 0.8s ease-in-out;
+  color: white;
+}
+
+.delivery-notification-body {
+  flex: 1;
 }
 
 .delivery-notification-title {
   font-size: 15px;
   font-weight: 700;
-  margin-bottom: 2px;
+  color: #212529;
+  margin-bottom: 3px;
+  letter-spacing: -0.2px;
 }
 
 .delivery-notification-text {
-  font-size: 13px;
-  opacity: 0.95;
+  font-size: 14px;
+  color: #6c757d;
+  font-weight: 500;
 }
 
 @keyframes slideDownNotification {
   from {
-    transform: translateX(-50%) translateY(-30px);
+    transform: translateX(-50%) translateY(-40px) scale(0.9);
     opacity: 0;
   }
   to {
-    transform: translateX(-50%) translateY(0);
+    transform: translateX(-50%) translateY(0) scale(1);
     opacity: 1;
   }
 }
 
-@keyframes pulse {
+@keyframes deliveryPulse {
   0%,
   100% {
     transform: scale(1);
   }
   50% {
-    transform: scale(1.1);
+    transform: scale(1.15);
   }
 }
 
@@ -993,61 +1016,5 @@
 @media (max-width: 480px) {
   .app {
     max-width: 100%;
-  }
-
-  .checkout-btn {
-    width: calc(100% - 20px);
-    left: 10px;
-    transform: none;
-  }
-
-  .promo-btn {
-    width: calc(100% - 20px);
-    margin: 0 10px 16px;
-  }
-
-  .header {
-    padding: 12px 16px;
-  }
-
-  .cart-summary,
-  .cart-items,
-  .add-to-order {
-    padding-left: 16px;
-    padding-right: 16px;
-  }
-
-  .suggestions {
-    gap: 12px;
-    padding: 0 16px 12px 16px;
-  }
-
-  .suggestion-item {
-    flex: 0 0 120px;
-  }
-
-  /* Improved mobile styles for checkout modal */
-  #checkout-modal {
-    padding: 10px;
-    align-items: flex-end;
-  }
-
-  .modal-content {
-    max-height: 92vh;
-    padding: 24px 20px;
-    border-radius: 24px 24px 0 0;
-  }
-
-  .modal-content h2 {
-    font-size: 20px;
-    margin-bottom: 20px;
-  }
-
-  .form-section {
-    margin-bottom: 16px;
-  }
-
-  .form-label {
-    font-size: 14px; /* Corrected: Added font-size value and closing brace */
   }
 }

@@ -482,13 +482,16 @@ ${orderType === "delivery" ? "Стоимость доставки: 10.00 TJS" : 
           {showDeliveryNotification && (
             <div className="delivery-notification">
               <div className="delivery-notification-content">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <circle cx="12" cy="12" r="10"></circle>
-                  <line x1="12" y1="8" x2="12" y2="12"></line>
-                  <line x1="12" y1="16" x2="12.01" y2="16"></line>
-                </svg>
-                <div>
-                  <div className="delivery-notification-title">Стоимость доставки</div>
+                <div className="delivery-notification-icon">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <rect x="1" y="3" width="15" height="13"></rect>
+                    <path d="M16 8h5l3 3v5h-2"></path>
+                    <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                    <circle cx="18.5" cy="18.5" r="2.5"></circle>
+                  </svg>
+                </div>
+                <div className="delivery-notification-body">
+                  <div className="delivery-notification-title">Доставка добавлена</div>
                   <div className="delivery-notification-text">К заказу добавлено 10 TJS</div>
                 </div>
               </div>
