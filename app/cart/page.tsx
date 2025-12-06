@@ -47,6 +47,7 @@ export default function CartPage(): ReactElement {
   const [isSubmitting, setIsSubmitting] = useState(false) // New state for loading indicator
   const [orderType, setOrderType] = useState("")
   const [paymentType, setPaymentType] = useState("")
+  const [showDeliveryNotification, setShowDeliveryNotification] = useState(false)
 
   const PROMO_CODE = "скидк8"
   const discount = isPromoApplied ? 0.1 : 0
@@ -216,6 +217,16 @@ export default function CartPage(): ReactElement {
   const totalPrice = calculateTotal()
   const itemText = totalItems === 1 ? "товар" : totalItems >= 2 && totalItems <= 4 ? "товара" : "товаров"
 
+  const handleOrderTypeChange = (type: string) => {
+    setOrderType(type)
+    if (type === "delivery") {
+      setShowDeliveryNotification(true)
+      setTimeout(() => {
+        setShowDeliveryNotification(false)
+      }, 3500)
+    }
+  }
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const formData = new FormData(e.currentTarget)
@@ -237,6 +248,11 @@ export default function CartPage(): ReactElement {
 
     if (orderType === "delivery" && !deliveryAddress) {
       showNotification("Пожалуйста, введите адрес доставки", "error")
+      return
+    }
+
+    if (orderType === "pickup" && !pickupAddress) {
+      showNotification("Пожалуйста, выберите адрес самовывоза", "error")
       return
     }
 
@@ -463,152 +479,210 @@ ${orderType === "delivery" ? "Стоимость доставки: 10.00 TJS" : 
       {/* Checkout Modal */}
       {showCheckoutModal && (
         <div id="checkout-modal" onClick={(e) => e.target === e.currentTarget && setShowCheckoutModal(false)}>
+          {showDeliveryNotification && (
+            <div className="delivery-notification">
+              <div className="delivery-notification-content">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="12" y1="8" x2="12" y2="12"></line>
+                  <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                </svg>
+                <div>
+                  <div className="delivery-notification-title">Стоимость доставки</div>
+                  <div className="delivery-notification-text">К заказу добавлено 10 TJS</div>
+                </div>
+              </div>
+            </div>
+          )}
+
           <div className="modal-content">
             {isSubmitting && (
               <div className="loading-overlay">
                 <div className="loading-spinner">
                   <div className="spinner"></div>
-                  <p>Оформление заказа...</p>
+                  <p>Отправка заказа...</p>
                 </div>
               </div>
             )}
             <h2>Оформление заказа</h2>
             <form onSubmit={handleSubmit}>
-              <div className="input-group">
-                <svg
-                  className="input-icon"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                >
-                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                  <circle cx="12" cy="7" r="4"></circle>
-                </svg>
-                <input
-                  type="text"
-                  name="name"
-                  placeholder="Введите ваше имя"
-                  defaultValue={user?.name || ""}
-                  required
-                />
-              </div>
-              <div className="input-group phone-group">
-                <img src="/images/design-mode/tj.png" alt="Tajikistan Flag" className="phone-flag" />
-                <span className="phone-code">+992</span>
-                <input type="tel" name="phone" placeholder="123456789" pattern="[0-9]{9}" maxLength={9} required />
-              </div>
-              <div className="input-group">
-                <svg
-                  className="input-icon"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                >
-                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                  <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                </svg>
-                <select name="orderType" value={orderType} onChange={(e) => setOrderType(e.target.value)} required>
-                  <option value="" disabled>
-                    Выберите тип заказа
-                  </option>
-                  <option value="delivery">Доставка</option>
-                  <option value="pickup">Собой</option>
-                </select>
-              </div>
-              {orderType === "delivery" && (
+              <div className="form-section">
+                <label className="form-label">Имя</label>
                 <div className="input-group">
                   <svg
                     className="input-icon"
-                    width="24"
-                    height="24"
+                    width="20"
+                    height="20"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
                     strokeWidth="2"
                   >
-                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                    <circle cx="12" cy="10" r="3"></circle>
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
                   </svg>
-                  <input type="text" name="deliveryAddress" placeholder="Введите адрес доставки" required />
+                  <input type="text" name="name" placeholder="Ваше имя" defaultValue={user?.name || ""} required />
                 </div>
-              )}
-              {orderType === "pickup" && (
+              </div>
+
+              <div className="form-section">
+                <label className="form-label">Тип заказа</label>
                 <div className="input-group">
                   <svg
                     className="input-icon"
-                    width="24"
-                    height="24"
+                    width="20"
+                    height="20"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
                     strokeWidth="2"
                   >
-                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                    <rect x="1" y="3" width="15" height="13"></rect>
+                    <path d="M16 8h5l3 3v5h-2"></path>
+                    <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                    <circle cx="18.5" cy="18.5" r="2.5"></circle>
                   </svg>
-                  <select name="pickupAddress">
-                    <option value="">Выберите адрес самовывоза</option>
-                    <option value="Хиёбони рудаки 151">Хиёбони рудаки 151 (загс)</option>
-                    <option value="г.Пенджикент против магазин Сумая Кафе Симин">
-                      против магазин Сумая Кафе Симин
+                  <select
+                    name="orderType"
+                    value={orderType}
+                    onChange={(e) => handleOrderTypeChange(e.target.value)}
+                    required
+                  >
+                    <option value="" disabled>
+                      Выберите тип заказа
                     </option>
+                    <option value="delivery">Доставка (+10 TJS)</option>
+                    <option value="pickup">Самовывоз</option>
                   </select>
                 </div>
+              </div>
+
+              {orderType === "delivery" && (
+                <div className="form-section">
+                  <label className="form-label">Адрес доставки</label>
+                  <div className="input-group">
+                    <svg
+                      className="input-icon"
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                    >
+                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                      <circle cx="12" cy="10" r="3"></circle>
+                    </svg>
+                    <input type="text" name="deliveryAddress" placeholder="Улица, дом, квартира" required />
+                  </div>
+                </div>
               )}
-              <div className="input-group">
-                <svg
-                  className="input-icon"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                >
-                  <rect x="2" y="4" width="20" height="16" rx="2"></rect>
-                  <path d="M2 10h20"></path>
-                </svg>
-                <select
-                  name="paymentType"
-                  value={paymentType}
-                  onChange={(e) => setPaymentType(e.target.value)}
-                  required
-                >
-                  <option value="" disabled>
-                    Выберите тип оплаты
-                  </option>
-                  <option value="card">Карта онлайн</option>
-                  <option value="cash">Наличные</option>
-                </select>
+
+              {orderType === "pickup" && (
+                <div className="form-section">
+                  <label className="form-label">
+                    Адрес самовывоза <span className="required-star">*</span>
+                  </label>
+                  <div className="input-group">
+                    <svg
+                      className="input-icon"
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                    >
+                      <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                    </svg>
+                    <select name="pickupAddress" required>
+                      <option value="">Выберите адрес</option>
+                      <option value="Хиёбони рудаки 151">Хиёбони рудаки 151 (ЗАГС)</option>
+                      <option value="г.Пенджикент против магазин Сумая Кафе Симин">
+                        г.Пенджикент, напротив магазина Сумая
+                      </option>
+                    </select>
+                  </div>
+                </div>
+              )}
+
+              <div className="form-section">
+                <label className="form-label">Номер телефона</label>
+                {user?.phone && (
+                  <div
+                    className="phone-suggestion"
+                    onClick={() => {
+                      const phoneInput = document.querySelector('input[name="phone"]') as HTMLInputElement
+                      if (phoneInput) phoneInput.value = user.phone.replace("+992", "")
+                    }}
+                  >
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                    </svg>
+                    <span>Использовать {user.phone}</span>
+                  </div>
+                )}
+                <div className="input-group phone-input-group">
+                  <img src="/images/design-mode/tj.png" alt="TJ" className="phone-flag" />
+                  <span className="phone-code">+992</span>
+                  <input type="tel" name="phone" placeholder="901234567" pattern="[0-9]{9}" maxLength={9} required />
+                </div>
               </div>
-              <div className="input-group">
-                <svg
-                  className="input-icon"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                >
-                  <path d="M14 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                  <polyline points="7 10 12 15 17 10"></polyline>
-                  <line x1="12" y1="15" x2="12" y2="3"></line>
-                </svg>
-                <textarea name="comment" placeholder="Ваш комментарий (необязательно)"></textarea>
+
+              <div className="form-section">
+                <label className="form-label">Способ оплаты</label>
+                <div className="input-group">
+                  <svg
+                    className="input-icon"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                  >
+                    <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                    <path d="M2 10h20"></path>
+                  </svg>
+                  <select
+                    name="paymentType"
+                    value={paymentType}
+                    onChange={(e) => setPaymentType(e.target.value)}
+                    required
+                  >
+                    <option value="" disabled>
+                      Выберите способ оплаты
+                    </option>
+                    <option value="card">Карта онлайн</option>
+                    <option value="cash">Наличные</option>
+                  </select>
+                </div>
               </div>
+
+              <div className="form-section">
+                <label className="form-label">Комментарий к заказу</label>
+                <div className="input-group textarea-group">
+                  <svg
+                    className="input-icon textarea-icon"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                  >
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                  </svg>
+                  <textarea name="comment" placeholder="Дополнительные пожелания (необязательно)" rows={3}></textarea>
+                </div>
+              </div>
+
               <div className="form-actions">
                 <button type="button" className="cancel-btn" onClick={onClose} disabled={isSubmitting}>
                   Отмена
                 </button>
                 <button type="submit" className="submit-btn" disabled={isSubmitting}>
-                  {isSubmitting ? "Отправка..." : "Отправить заказ"}
+                  {isSubmitting ? "Отправка..." : `Заказать ${totalPrice.toFixed(2)} TJS`}
                 </button>
               </div>
             </form>
