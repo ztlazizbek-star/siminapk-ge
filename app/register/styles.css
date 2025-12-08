@@ -79,31 +79,43 @@
 .logo-circle {
   width: 80px;
   height: 80px;
-  background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+  background: linear-gradient(135deg, #ff6b35, #f7931e);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   box-shadow: 0 8px 24px rgba(255, 107, 53, 0.3);
-  animation: pulse 2s infinite;
+  animation: pulse 2.5s infinite ease-in-out, rotateGradient 6s infinite linear;
+  background-size: 200% 200%;
 }
 
 @keyframes pulse {
-  0%,
-  100% {
+  0%, 100% {
     transform: scale(1);
     box-shadow: 0 8px 24px rgba(255, 107, 53, 0.3);
   }
   50% {
-    transform: scale(1.05);
+    transform: scale(1.08);
     box-shadow: 0 12px 32px rgba(255, 107, 53, 0.4);
   }
+}
+
+@keyframes rotateGradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 .logo-circle i {
   font-size: 36px;
   color: white;
+  transition: transform 0.3s;
 }
+
+.logo-circle:hover i {
+  transform: rotate(20deg) scale(1.1);
+}
+
 
 .register-title {
   font-size: clamp(1.5rem, 4vw, 2rem);
