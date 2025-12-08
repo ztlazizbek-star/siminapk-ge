@@ -178,7 +178,7 @@ export default function LoginPage() {
           </div>
           <h1 className="login-title">Cafe SiMin</h1>
           <p className="login-subtitle">
-            {step === "phone" && "Введите номер телефона для входа"}
+            {step === "phone" && "Введите свой номер телефона — мы поможем войти или создать аккаунт"}
             {step === "verification" && "Введите код подтверждения"}
             {step === "details" && "Расскажите нам о себе"}
           </p>
@@ -191,6 +191,8 @@ export default function LoginPage() {
                 Номер телефона
               </label>
               <div className="input-wrapper">
+              <span class="flag-icon flag-icon-tj"></span>
+
                 <i className="fas fa-phone input-icon"></i>
                 <span className="phone-prefix">+992</span>
                 <input
