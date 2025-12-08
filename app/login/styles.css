@@ -3,38 +3,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  /* Заменен градиент на оранжевую тему */
+  background: linear-gradient(135deg, #ff6b35 0%, #f7931e 50%, #ff8c42 100%);
   padding: 20px;
-  background: #ff6b35; /* asosiy sariq/orange rang */
-  position: relative;
-  overflow: hidden;
-}
-
-/* Oq rang asta-sekin qo‘shilish uchun overlay */
-.login-page::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  /* Sariq rang bilan oq rangni yumshoq aralash */
-  background: radial-gradient(circle at center, rgba(255,255,255,0.2) 0%, rgba(255,107,53,0) 80%);
-  pointer-events: none;
-  z-index: 0;
-  animation: fadeWhite 10s ease-in-out infinite alternate;
-}
-
-/* Yumshoq animation */
-@keyframes fadeWhite {
-  0% {
-    opacity: 0.1;
-  }
-  50% {
-    opacity: 0.3;
-  }
-  100% {
-    opacity: 0.1;
-  }
 }
 
 .login-container {
@@ -44,19 +15,18 @@
   border-radius: 24px;
   box-shadow: 0 20px 60px rgba(255, 107, 53, 0.3);
   overflow: hidden;
-  position: relative;
-  z-index: 1; /* container overlay ostida bo‘lsin */
 }
 
 .login-header {
   text-align: center;
   padding: 40px 30px 30px;
+  /* Оранжевый градиент для шапки */
   background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
   color: white;
   position: relative;
-  z-index: 1;
 }
 
+/* Добавлен декоративный паттерн */
 .login-header::before {
   content: "";
   position: absolute;
@@ -67,9 +37,7 @@
   background-image: radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
     radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
   pointer-events: none;
-  z-index: 0;
 }
-
 
 .login-logo {
   margin-bottom: 20px;
@@ -289,10 +257,49 @@
   color: #f7931e;
 }
 
+/* Sahifa to‘liq balandligi */
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column; /* vertical tartib */
+  justify-content: center; /* markazlashtirish */
+  align-items: center;
+  padding: 20px;
+  position: relative;
+  background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+  overflow: hidden;
+}
+
+/* Login konteyner */
+.login-container {
+  width: 100%;
+  max-width: 440px;
+  background: white;
+  border-radius: 24px;
+  box-shadow: 0 20px 60px rgba(255, 107, 53, 0.3);
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+}
+
+/* Header */
+.login-header {
+  text-align: center;
+  padding: 40px 30px 30px;
+  background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+  color: white;
+  position: relative;
+}
+
+/* Footer har doim pastda */
 .login-footer {
   padding: 20px 30px 30px;
   text-align: center;
   background: #fafafa;
+  width: 100%;
+  position: absolute;
+  bottom: 0; /* pastga yopish */
+  left: 0;
 }
 
 .footer-text {
@@ -301,6 +308,7 @@
   line-height: 1.6;
   margin: 0;
 }
+
 
 /* Добавлены анимации для плавного появления */
 @keyframes fadeIn {
