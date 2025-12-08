@@ -261,14 +261,14 @@ export default function CartPage(): ReactElement {
 
     const message = `
 *Новый заказ*
-Имя: ${name}
+Имя: *${name}*
 Телефон: +992${phone}
-Тип заказа: ${orderType === "delivery" ? "Доставка" : "Собой"}
+Тип заказа: *${orderType === "delivery" ? "Доставка" : "Собой"}*
 Адрес: ${orderType === "delivery" ? deliveryAddress : pickupAddress}
 Тип оплаты: ${paymentType === "card" ? "Карта онлайн" : "Наличные"}
 Комментарий: ${comment || "Нет"}
 *Товары:*
-${cart.map((item) => `- ${item.name} (${item.quantity} шт): ${(getNumericPrice(item.price) * item.quantity).toFixed(2)} TJS`).join("\n")}
+${cart.map((item) => `- ${item.name} *(${item.quantity} шт)*: ${(getNumericPrice(item.price) * item.quantity).toFixed(2)} TJS`).join("\n")}
 ${isPromoApplied ? "Скидка: 10%" : ""}
 ${orderType === "delivery" ? "Стоимость доставки: 10.00 TJS" : ""}
 *Общая сумма: ${totalPrice.toFixed(2)} TJS*

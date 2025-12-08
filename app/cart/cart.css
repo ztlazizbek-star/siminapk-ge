@@ -966,7 +966,7 @@
   position: fixed;
   top: 20px;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(10%);
   z-index: 1100;
   animation: deliverySlideDown 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
   max-width: 90%;
