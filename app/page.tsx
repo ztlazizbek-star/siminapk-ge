@@ -54,9 +54,7 @@ const mockStories = [
   {
     title: "День Бургер",
     image: "https://tajstore.ru/simin/file/photo/denburger.png",
-    images: [
-      "https://tajstore.ru/simin/file/photo/denburger.png",
-    ],
+    images: ["https://tajstore.ru/simin/file/photo/denburger.png"],
   },
   {
     title: "Адрес",
@@ -70,23 +68,17 @@ const mockStories = [
   {
     title: "Доставка",
     image: "https://tajstore.ru/simin/file/photo/dostavka.png",
-    images: [
-      "https://tajstore.ru/simin/file/photo/dostavka.png",
-    ],
+    images: ["https://tajstore.ru/simin/file/photo/dostavka.png"],
   },
   {
     title: "Сэндвич",
     image: "https://tajstore.ru/simin/file/photo/seshanbe.png",
-    images: [
-      "https://tajstore.ru/simin/file/photo/seshanbe.png",
-    ],
+    images: ["https://tajstore.ru/simin/file/photo/seshanbe.png"],
   },
   {
     title: "Поддержка",
     image: "https://tajstore.ru/simin/file/photo/support.png",
-    images: [
-      "https://tajstore.ru/simin/file/photo/support.png",
-    ],
+    images: ["https://tajstore.ru/simin/file/photo/support.png"],
   },
 ]
 
@@ -129,6 +121,23 @@ export default function Home() {
   const [notification, setNotification] = useState<NotificationState>({ show: false, message: "", type: "" })
   const [products, setProducts] = useState<Product[]>([])
   const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    if (typeof window === "undefined") return
+
+    if (!isLoading) {
+      const onboardingCompleted = localStorage.getItem("onboarding_completed")
+
+      if (!onboardingCompleted) {
+        router.push("/onboarding")
+        return
+      }
+
+      if (!isRegistered) {
+        router.push("/register")
+      }
+    }
+  }, [isRegistered, isLoading, router])
 
   useEffect(() => {
     if (!isLoading && !isRegistered) {
