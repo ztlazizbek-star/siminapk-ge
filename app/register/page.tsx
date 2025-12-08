@@ -1,14 +1,16 @@
 "use client"
 
 import type React from "react"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { useUser } from "@/app/contexts/UserContext"
+import Onboarding from "@/components/Onboarding"
 import "./styles.css"
 
 export default function RegisterPage() {
   const router = useRouter()
   const { setUser } = useUser()
+  const [showOnboarding, setShowOnboarding] = useState(true)
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -19,6 +21,13 @@ export default function RegisterPage() {
   const [step, setStep] = useState<"form" | "verification">("form")
   const [verificationCode, setVerificationCode] = useState("")
   const [sentCode, setSentCode] = useState("")
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const completed = localStorage.getItem("onboarding_completed")
+      setShowOnboarding(!completed)
+    }
+  }, [])
 
   const normalizePhoneNumber = (phone: string): string => {
     // Remove all non-digit characters
@@ -126,6 +135,10 @@ export default function RegisterPage() {
     } finally {
       setLoading(false)
     }
+  }
+
+  if (showOnboarding) {
+    return <Onboarding />
   }
 
   return (
