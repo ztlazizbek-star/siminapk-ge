@@ -6,17 +6,17 @@ import "./onboarding.css"
 
 const onboardingSteps = [
   {
-    image: "/onboarding-1.png",
+    image: "/delicious-food-delivery.png",
     title: "Добро пожаловать в Cafe Simin",
     description: "Закажите вкусную еду с доставкой прямо к вашему порогу. Быстро, удобно и всегда свежее!",
   },
   {
-    image: "/onboarding-2.png",
+    image: "/variety-of-restaurant-menu.jpg",
     title: "Широкий выбор блюд",
     description: "Бургеры, напитки, комбо и многое другое. Найдите то, что понравится именно вам!",
   },
   {
-    image: "/onboarding-3.png",
+    image: "/fast-food-delivery-service.jpg",
     title: "Готовы начать?",
     description: "Зарегистрируйтесь за минуту и получите доступ ко всем возможностям приложения",
   },
