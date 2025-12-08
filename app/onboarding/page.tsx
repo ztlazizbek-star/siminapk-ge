@@ -6,7 +6,7 @@ import "./onboarding.css"
 
 const onboardingSteps = [
   {
-    image: "/delicious-food-delivery.png",
+    image: "https://tajstore.ru/simin/file/photo/692a001fb11d5_1764360223.png",
     title: "Добро пожаловать в Cafe Simin",
     description: "Закажите вкусную еду с доставкой прямо к вашему порогу. Быстро, удобно и всегда свежее!",
   },
