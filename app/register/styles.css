@@ -77,8 +77,8 @@
 }
 
 .logo-circle {
-  width: 80px;
-  height: 80px;
+  width: 120px;
+  height: 120px;
   background: linear-gradient(135deg, #ff6b35, #f7931e);
   border-radius: 50%;
   display: flex;
@@ -87,6 +87,8 @@
   box-shadow: 0 8px 24px rgba(255, 107, 53, 0.3);
   animation: pulse 2.5s infinite ease-in-out, rotateGradient 6s infinite linear;
   background-size: 200% 200%;
+  text-align: center;
+  padding: 10px;
 }
 
 @keyframes pulse {
@@ -106,15 +108,13 @@
   100% { background-position: 0% 50%; }
 }
 
-.logo-circle i {
-  font-size: 36px;
+.logo-text {
+  font-size: 16px;
+  font-weight: bold;
   color: white;
-  transition: transform 0.3s;
+  line-height: 1.2;
 }
 
-.logo-circle:hover i {
-  transform: rotate(20deg) scale(1.1);
-}
 
 
 .register-title {

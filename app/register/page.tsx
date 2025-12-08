@@ -137,6 +137,10 @@ export default function RegisterPage() {
               <i className="fas fa-utensils"></i>
             </div>
           </div>
+          <div class="logo-circle">
+  <span class="logo-text">Cafe Simin</span>
+</div>
+
           <h1 className="register-title">Добро пожаловать в Cafe Simin</h1>
           <p className="register-subtitle">
             {step === "form"
