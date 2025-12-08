@@ -176,7 +176,7 @@ export default function LoginPage() {
               <i className="fas fa-utensils"></i>
             </div>
           </div>
-          <h1 className="login-title">Cafe Simin</h1>
+          <h1 className="login-title">Cafe SiMin</h1>
           <p className="login-subtitle">
             {step === "phone" && "Введите номер телефона для входа"}
             {step === "verification" && "Введите код подтверждения"}
