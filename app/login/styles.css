@@ -1,43 +1,35 @@
-.login-page {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  /* Заменен градиент на оранжевую тему */
-  background: linear-gradient(135deg, #ff6b35 0%, #f7931e 50%, #ff8c42 100%);
-  padding: 20px;
-}
-
 .login-container {
   width: 100%;
   max-width: 440px;
-  background: white;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, white 30%, white 100%);
   border-radius: 24px;
   box-shadow: 0 20px 60px rgba(255, 107, 53, 0.3);
   overflow: hidden;
+  position: relative;
+  z-index: 1;
 }
 
 .login-header {
   text-align: center;
   padding: 40px 30px 30px;
-  /* Оранжевый градиент для шапки */
   background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
   color: white;
   position: relative;
+  z-index: 2;
 }
 
-/* Добавлен декоративный паттерн */
-.login-header::before {
+/* Добавим мягкий blur-переход между шапкой и формой */
+.login-header::after {
   content: "";
   position: absolute;
-  top: 0;
+  bottom: -20px;
   left: 0;
   right: 0;
-  bottom: 0;
-  background-image: radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+  height: 40px;
+  background: linear-gradient(to bottom, rgba(255, 107, 53, 0.5), rgba(255, 255, 255, 0));
   pointer-events: none;
 }
+
 
 .login-logo {
   margin-bottom: 20px;
