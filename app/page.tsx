@@ -123,19 +123,19 @@ export default function Home() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    if (typeof window === "undefined") return
+    if (typeof window === "undefined" || isLoading) return
 
-    if (!isLoading) {
-      const onboardingCompleted = localStorage.getItem("onboarding_completed")
+    const onboardingCompleted = localStorage.getItem("onboarding_completed")
 
-      if (!onboardingCompleted) {
-        router.push("/onboarding")
-        return
-      }
+    // Сначала проверяем онбординг
+    if (!onboardingCompleted) {
+      router.push("/onboarding")
+      return
+    }
 
-      if (!isRegistered) {
-        router.push("/register")
-      }
+    // Затем проверяем регистрацию
+    if (!isRegistered) {
+      router.push("/register")
     }
   }, [isRegistered, isLoading, router])
 
