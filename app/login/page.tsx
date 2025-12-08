@@ -173,7 +173,7 @@ export default function LoginPage() {
         <div className="login-header">
           <div className="login-logo">
             <div className="logo-circle">
-              <i className="fas fa-utensils"></i>
+              <i className="fas fa-user"></i>
             </div>
           </div>
           <h1 className="login-title">Cafe SiMin</h1>
