@@ -191,7 +191,9 @@ export default function LoginPage() {
                 Номер телефона
               </label>
               <div className="input-wrapper">
-              <span class="flag-icon flag-icon-tj"></span>
+                <div className="input-icon">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/Flag_of_Tajikistan.svg" alt="Tajikistan flag" width="24" />
+</div>
 
                 <i className="fas fa-phone input-icon"></i>
                 <span className="phone-prefix">+992</span>
