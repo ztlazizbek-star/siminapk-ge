@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { useRouter } from "next/navigation"
 import "./onboarding.css"
 
@@ -31,36 +31,6 @@ export default function OnboardingPage() {
   const router = useRouter()
   const [currentStep, setCurrentStep] = useState(0)
   const [slideDirection, setSlideDirection] = useState<"left" | "right">("right")
-  const [isCheckingAuth, setIsCheckingAuth] = useState(true)
-
-  useEffect(() => {
-    // Проверяем, зарегистрирован ли пользователь
-    const checkAuthStatus = () => {
-      // Здесь должна быть ваша реальная логика проверки авторизации
-      // Например, проверка токена, сессии или куки
-      const isAuthenticated = localStorage.getItem("isAuthenticated") === "true"
-      const hasCompletedOnboarding = localStorage.getItem("onboardingCompleted") === "true"
-      
-      // Если пользователь уже авторизован - сразу на главную
-      if (isAuthenticated) {
-        router.push("/")
-        return
-      }
-      
-      // Если пользователь не авторизован, но уже прошел onboarding
-      // то отправляем его на страницу входа
-      if (hasCompletedOnboarding && !isAuthenticated) {
-        router.push("/login")
-        return
-      }
-      
-      // Если пользователь не авторизован и не прошел onboarding
-      // показываем onboarding
-      setIsCheckingAuth(false)
-    }
-    
-    checkAuthStatus()
-  }, [router])
 
   const handleNext = () => {
     if (currentStep < onboardingSteps.length - 1) {
@@ -69,29 +39,14 @@ export default function OnboardingPage() {
         setCurrentStep(currentStep + 1)
       }, 50)
     } else {
-      // При завершении onboarding сохраняем флаг
-      localStorage.setItem("onboardingCompleted", "true")
-      // И отправляем на страницу входа/регистрации
+      localStorage.setItem("onboardingCompleted", "false")
       router.push("/login")
     }
   }
 
   const handleSkip = () => {
-    // При пропуске также сохраняем, что onboarding был показан
-    localStorage.setItem("onboardingCompleted", "true")
+    localStorage.setItem("onboardingCompleted", "false")
     router.push("/login")
-  }
-
-  // Пока проверяем авторизацию, показываем loading
-  if (isCheckingAuth) {
-    return (
-      <div className="onboarding-container">
-        <div className="loading-spinner">
-          {/* Добавьте здесь ваш спиннер или скелетон */}
-          <div>Загрузка...</div>
-        </div>
-      </div>
-    )
   }
 
   const step = onboardingSteps[currentStep]
