@@ -54,7 +54,9 @@ const mockStories = [
   {
     title: "День Бургер",
     image: "https://tajstore.ru/simin/file/photo/denburger.png",
-    images: ["https://tajstore.ru/simin/file/photo/denburger.png"],
+    images: [
+      "https://tajstore.ru/simin/file/photo/denburger.png",
+    ],
   },
   {
     title: "Адрес",
@@ -62,23 +64,29 @@ const mockStories = [
     images: [
       "https://tajstore.ru/simin/file/photo/address3.png",
       "https://tajstore.ru/simin/file/photo/address2.png",
-      "https://tajstore.ru/simin/file/photo/support.png",
+      "https://tajstore.ru/simin/file/photo/support.png"
     ],
   },
   {
     title: "Доставка",
     image: "https://tajstore.ru/simin/file/photo/dostavka.png",
-    images: ["https://tajstore.ru/simin/file/photo/dostavka.png"],
+    images: [
+      "https://tajstore.ru/simin/file/photo/dostavka.png",
+    ],
   },
   {
     title: "Сэндвич",
     image: "https://tajstore.ru/simin/file/photo/seshanbe.png",
-    images: ["https://tajstore.ru/simin/file/photo/seshanbe.png"],
+    images: [
+      "https://tajstore.ru/simin/file/photo/seshanbe.png",
+    ],
   },
   {
     title: "Поддержка",
     image: "https://tajstore.ru/simin/file/photo/support.png",
-    images: ["https://tajstore.ru/simin/file/photo/support.png"],
+    images: [
+      "https://tajstore.ru/simin/file/photo/support.png",
+    ],
   },
 ]
 
@@ -123,15 +131,6 @@ export default function Home() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const onboardingCompleted = localStorage.getItem("onboardingCompleted")
-
-      if (!onboardingCompleted) {
-        router.push("/onboarding")
-        return
-      }
-    }
-
     if (!isLoading && !isRegistered) {
       router.push("/login")
     }
