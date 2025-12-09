@@ -39,13 +39,13 @@ export default function OnboardingPage() {
         setCurrentStep(currentStep + 1)
       }, 50)
     } else {
-      localStorage.setItem("onboardingCompleted", "false")
+      localStorage.setItem("onboardingCompleted", "true")
       router.push("/login")
     }
   }
 
   const handleSkip = () => {
-    localStorage.setItem("onboardingCompleted", "false")
+    localStorage.setItem("onboardingCompleted", "true")
     router.push("/login")
   }
 

@@ -85,6 +85,25 @@ export default function LoginPage() {
     }
   }
 
+
+
+useEffect(() => {
+  // Agar user allaqachon ro'yxatdan o'tgan bo'lsa
+  const userData = localStorage.getItem("userData")
+  if (userData) {
+    router.push("/") // Asosiy sahifaga
+    return
+  }
+  
+  // Agar onboarding ko'rilmagan bo'lsa
+  const onboardingCompleted = localStorage.getItem("onboardingCompleted")
+  if (onboardingCompleted !== "true") {
+    router.push("/onboarding") // Onboarding sahifasiga
+  }
+}, [router])
+
+
+
   const handleVerificationSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
