@@ -162,9 +162,7 @@ export default function ProfileModal({ show, user, onClose, onSave }: ProfileMod
               <i className="fas fa-sign-out-alt"></i> Выйти из аккаунта
             </button>
 
-            <button type="button" className="delete-account-btn" onClick={handleDeleteAccount} disabled={isDeleting}>
-              <i className="fas fa-trash-alt"></i> {isDeleting ? "Удаление..." : "Удалить аккаунт"}
-            </button>
+         
           </form>
         </div>
       </div>
