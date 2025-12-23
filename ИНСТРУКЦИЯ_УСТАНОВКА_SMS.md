@@ -60,4 +60,4 @@ chmod 644 simin/sms.php
 Файл `public/sms.php` в Next.js проекте НЕ работает, потому что Next.js не выполняет PHP файлы. Файл ОБЯЗАТЕЛЬНО должен быть загружен на сервер tajstore.ru.
 \`\`\`
 
-```typescript file="" isHidden
+\`\`\`typescript file="" isHidden
