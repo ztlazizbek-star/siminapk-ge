@@ -597,10 +597,10 @@
   padding: 16px;
   border-radius: 14px;
   font-size: 17px;
-  font-weight: 600;
+  font-weight: 550;
   cursor: pointer;
   transition: all 0.3s ease;
-  min-height: 54px;
+  min-height: 49px;
   border: none;
 }
 
