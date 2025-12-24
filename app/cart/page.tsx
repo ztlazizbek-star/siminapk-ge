@@ -258,14 +258,15 @@ export default function CartPage(): ReactElement {
 
     const TELEGRAM_BOT_TOKEN = "8267879429:AAE-P7BuRbwK3kWy1-XD-_WR_i8yjqTOdZQ"
     const TELEGRAM_CHAT_ID = "-1003693959517"
+    const orderNumber = Math.floor(100000 + Math.random() * 900000);
 
     const message = `
-*Новый заказ*
+*Поступил новый заказ* #${orderNumber}
 Имя: *${name}*
 Телефон: +992${phone}
 Тип заказа: *${orderType === "delivery" ? "Доставка" : "Собой"}*
 Адрес: ${orderType === "delivery" ? deliveryAddress : pickupAddress}
-Тип оплаты: ${paymentType === "card" ? "Карта онлайн" : "Наличные"}
+*Тип оплаты:* ${paymentType === "card" ? "Карта онлайн" : "Наличные"}
 Комментарий: ${comment || "Нет"}
 *Товары:*
 ${cart.map((item) => `- ${item.name} *(${item.quantity} шт)*: ${(getNumericPrice(item.price) * item.quantity).toFixed(2)} TJS`).join("\n")}
