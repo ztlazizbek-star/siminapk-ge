@@ -262,24 +262,24 @@ export default function CartPage(): ReactElement {
 
     const message = `
 *Поступил новый заказ* #${orderNumber}
---------------------------
+----------------------------------
 👤 Имя: *${name}*
---------------------------
+----------------------------------
 Телефон: +992${phone}
---------------------------
+----------------------------------
 Тип заказа: *${orderType === "delivery" ? "Доставка" : "Собой"}*
---------------------------
+----------------------------------
 Адрес: ${orderType === "delivery" ? deliveryAddress : pickupAddress}
---------------------------
+----------------------------------
 *Тип оплаты:* ${paymentType === "card" ? "Карта онлайн" : "Наличные"}
---------------------------
+----------------------------------
 Комментарий: ${comment || "Нет"}
---------------------------
+----------------------------------
 *Товары:*
 ${cart.map((item) => `- ${item.name} *(${item.quantity} шт)*: ${(getNumericPrice(item.price) * item.quantity).toFixed(2)} TJS`).join("\n")}
 ${isPromoApplied ? "Скидка: 10%" : ""}
 ${orderType === "delivery" ? "🏃🏻‍♂️‍➡️ Стоимость доставки: 10.00 TJS" : ""}
---------------------------
+----------------------------------
 *🛍 Общая сумма: ${totalPrice.toFixed(2)} TJS*
     `
 
@@ -365,10 +365,11 @@ ${orderType === "delivery" ? "🏃🏻‍♂️‍➡️ Стоимость до
         <div className="delivery-info-banner">
           <div className="delivery-info-icon">
             {/* Pin/Закреплено icon */}
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M12 17v5" />
-              <path d="M9 10.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4H8a2 2 0 0 0 0 4 1 1 0 0 1 1 1z" />
-            </svg>
+           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+  <path d="M12 2L2 20h20L12 2z" />
+  <path d="M12 9v4" />
+  <circle cx="12" cy="17" r="1" fill="currentColor" />
+</svg>
           </div>
           <div className="delivery-info-text">
             <div className="delivery-info-title">Доставка</div>
