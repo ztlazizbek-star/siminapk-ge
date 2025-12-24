@@ -257,7 +257,7 @@ export default function CartPage(): ReactElement {
     }
 
     const TELEGRAM_BOT_TOKEN = "8267879429:AAE-P7BuRbwK3kWy1-XD-_WR_i8yjqTOdZQ"
-    const TELEGRAM_CHAT_ID = "7436669286"
+    const TELEGRAM_CHAT_ID = "-1003693959517"
 
     const message = `
 *Новый заказ*
