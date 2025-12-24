@@ -569,7 +569,7 @@ ${orderType === "delivery" ? "🏃🏻‍♂️‍➡️ Стоимость до
                       Выберите тип заказа
                     </option>
                     <option value="delivery">Доставка (+10 TJS)</option>
-                    <option value="pickup">Самовывоз</option>
+                    <option value="pickup">Самовывоз (Бо худ бар)</option>
                   </select>
                 </div>
               </div>
