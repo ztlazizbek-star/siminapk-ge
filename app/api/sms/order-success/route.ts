@@ -20,7 +20,7 @@ export async function POST(request: Request) {
     
 
 
-    const message = `Фармоиши Шумо #${orderNumber} кабул карда шуд. Арзиш: ${orderDetails.totalPrice} сомониро ташкил медихад. Сипосгузорем,ки Cafe Simin -ро интихоб намудед!`
+    const message = `Фармоиши Шумо #${orderDetails.orderNumber} кабул карда шуд. Арзиш: ${orderDetails.totalPrice} сомониро ташкил медихад. Сипосгузорем,ки Cafe Simin -ро интихоб намудед!`
 
     const smsApiUrl = "https://tajstore.ru/simin/sms.php"
 
