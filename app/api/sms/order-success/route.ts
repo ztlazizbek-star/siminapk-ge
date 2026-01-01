@@ -18,7 +18,7 @@ export async function POST(request: Request) {
     const normalizedPhone = normalizePhoneNumber(phone)
     console.log("[v0] Normalized phone:", normalizedPhone)
 
-    const message = `Фармоиши Шумо кабул карда шуд. Арзиши фармоиши Шумо: ${orderDetails.totalPrice} TJS-ро ташкил медихад. Сипосгузорем,ки Cafe Simin -ро интихоб намудед!`
+    const message = `Фармоиши Шумо кабул карда шуд. Арзиш: ${orderDetails.totalPrice} сомониро ташкил медихад. Сипосгузорем,ки Cafe Simin -ро интихоб намудед!`
 
     const smsApiUrl = "https://tajstore.ru/simin/sms.php"
 
