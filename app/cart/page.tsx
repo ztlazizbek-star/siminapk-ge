@@ -82,28 +82,28 @@ export default function CartPage(): ReactElement {
     // Fallback suggestions
     const fallbackSuggestions: SuggestionItem[] = [
       {
-        id: 3,
+        id: 37,
         name: "Наггетсы порция",
         price: 24,
         image: "https://tajstore.ru/simin/file/photo/692a001fb11d5_1764360223.png",
         description: "1 шт",
       },
-      {
-        id: 4,
-        name: "Fanta",
-        price: 6,
-        image: "https://tajstore.ru/simin/file/photo/692a04e0307d2_1764361440.png",
-        description: "0.5 л",
-      },
-      {
-        id: 5,
+        {
+        id: 32,
         name: "Твистер",
         price: 18,
         image: "https://tajstore.ru/simin/file/photo/6929feead680f_1764359914.png",
         description: "вкусно",
       },
       {
-        id: 6,
+        id: 52,
+        name: "Fanta",
+        price: 6,
+        image: "https://tajstore.ru/simin/file/photo/692a04e0307d2_1764361440.png",
+        description: "0.5 л",
+      },
+      {
+        id: 26,
         name: "Хот-дог НАЧО",
         price: 15,
         image: "https://tajstore.ru/simin/file/photo/6929fd4ed953c_1764359502.png",
@@ -265,20 +265,20 @@ export default function CartPage(): ReactElement {
 ----------------------------------
 👤 Имя: *${name}*
 ----------------------------------
-Телефон: +992${phone}
+Адрес: ${orderType === "delivery" ? deliveryAddress : pickupAddress}
 ----------------------------------
 Тип заказа: *${orderType === "delivery" ? "Доставка" : "Собой"}*
 ----------------------------------
-Адрес: ${orderType === "delivery" ? deliveryAddress : pickupAddress}
+Телефон: +992${phone}
 ----------------------------------
 *Тип оплаты:* ${paymentType === "card" ? "Карта онлайн Dc - Эсхата" : "Наличные"}
-----------------------------------
-Комментарий: ${comment || "Нет"}
 ----------------------------------
 *Товары:*
 ${cart.map((item) => `- ${item.name} *(${item.quantity} шт)*: ${(getNumericPrice(item.price) * item.quantity).toFixed(2)} TJS`).join("\n")}
 ${isPromoApplied ? "Скидка: 10%" : ""}
 ${orderType === "delivery" ? "🏃🏻‍♂️‍➡️ Стоимость доставки: 10.00 TJS" : ""}
+----------------------------------
+Комментарий: ${comment || "*Нет*"}
 ----------------------------------
 *🛍 Общая сумма: ${totalPrice.toFixed(2)} TJS*
     `
