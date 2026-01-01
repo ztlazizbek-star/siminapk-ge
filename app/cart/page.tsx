@@ -49,7 +49,7 @@ export default function CartPage(): ReactElement {
   const [paymentType, setPaymentType] = useState("")
   const [showDeliveryNotification, setShowDeliveryNotification] = useState(false)
 
-  const PROMO_CODE = "скидк8"
+  const PROMO_CODE = "скидк77"
   const discount = isPromoApplied ? 0.1 : 0
 
   useEffect(() => {
@@ -569,7 +569,7 @@ ${orderType === "delivery" ? "🏃🏻‍♂️‍➡️ Стоимость до
                       Выберите тип заказа
                     </option>
                     <option value="delivery">Доставка (+10 TJS)</option>
-                    <option value="pickup">Самовывоз (Бо худ бар)</option>
+                    <option value="pickup">Собой (Бо худ бар)</option>
                   </select>
                 </div>
               </div>
@@ -616,8 +616,7 @@ ${orderType === "delivery" ? "🏃🏻‍♂️‍➡️ Стоимость до
                     <select name="pickupAddress" required>
                       <option value="">Выберите адрес</option>
                       <option value="Хиёбони рудаки 151">Хиёбони рудаки 151 (ЗАГС)</option>
-                      <option value="г.Пенджикент против магазин Сумая Кафе Симин">
-                        г.Пенджикент, напротив магазина Сумая
+                      <option value="г.Пенджикент против магазин Сумая Кафе Симин">Напротив магазина Сумая
                       </option>
                     </select>
                   </div>
