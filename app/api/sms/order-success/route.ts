@@ -17,7 +17,7 @@ export async function POST(request: Request) {
 
     const normalizedPhone = normalizePhoneNumber(phone)
     console.log("[v0] Normalized phone:", normalizedPhone)
-     const orderNumber = Math.floor(100000 + Math.random() * 900000);
+    
 
 
     const message = `Фармоиши Шумо #${orderNumber} кабул карда шуд. Арзиш: ${orderDetails.totalPrice} сомониро ташкил медихад. Сипосгузорем,ки Cafe Simin -ро интихоб намудед!`
