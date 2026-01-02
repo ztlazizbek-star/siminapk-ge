@@ -49,7 +49,7 @@ export default function CartPage(): ReactElement {
   const [paymentType, setPaymentType] = useState("")
   const [showDeliveryNotification, setShowDeliveryNotification] = useState(false)
 
-  const PROMO_CODE = "скидк77"
+  const PROMO_CODE = "скидк8"
   const discount = isPromoApplied ? 0.1 : 0
 
   useEffect(() => {
@@ -82,28 +82,28 @@ export default function CartPage(): ReactElement {
     // Fallback suggestions
     const fallbackSuggestions: SuggestionItem[] = [
       {
-        id: 37,
+        id: 3,
         name: "Наггетсы порция",
         price: 24,
         image: "https://tajstore.ru/simin/file/photo/692a001fb11d5_1764360223.png",
         description: "1 шт",
       },
-        {
-        id: 32,
-        name: "Твистер",
-        price: 18,
-        image: "https://tajstore.ru/simin/file/photo/6929feead680f_1764359914.png",
-        description: "вкусно",
-      },
       {
-        id: 52,
+        id: 4,
         name: "Fanta",
         price: 6,
         image: "https://tajstore.ru/simin/file/photo/692a04e0307d2_1764361440.png",
         description: "0.5 л",
       },
       {
-        id: 26,
+        id: 5,
+        name: "Твистер",
+        price: 18,
+        image: "https://tajstore.ru/simin/file/photo/6929feead680f_1764359914.png",
+        description: "вкусно",
+      },
+      {
+        id: 6,
         name: "Хот-дог НАЧО",
         price: 15,
         image: "https://tajstore.ru/simin/file/photo/6929fd4ed953c_1764359502.png",
@@ -257,30 +257,21 @@ export default function CartPage(): ReactElement {
     }
 
     const TELEGRAM_BOT_TOKEN = "8267879429:AAE-P7BuRbwK3kWy1-XD-_WR_i8yjqTOdZQ"
-    const TELEGRAM_CHAT_ID = "-1003693959517"
-    const orderNumber = Math.floor(100000 + Math.random() * 900000);
+    const TELEGRAM_CHAT_ID = "7436669286"
 
     const message = `
-*Поступил новый заказ* #${orderNumber}
-----------------------------------
-👤 Имя: *${name}*
-----------------------------------
-Адрес: ${orderType === "delivery" ? deliveryAddress : pickupAddress}
-----------------------------------
-Тип заказа: *${orderType === "delivery" ? "Доставка" : "Собой"}*
-----------------------------------
+*Новый заказ*
+Имя: *${name}*
 Телефон: +992${phone}
-----------------------------------
-*Тип оплаты:* ${paymentType === "card" ? "Карта онлайн Dc - Эсхата" : "Наличные"}
-----------------------------------
+Тип заказа: *${orderType === "delivery" ? "Доставка" : "Собой"}*
+Адрес: ${orderType === "delivery" ? deliveryAddress : pickupAddress}
+Тип оплаты: ${paymentType === "card" ? "Карта онлайн" : "Наличные"}
+Комментарий: ${comment || "Нет"}
 *Товары:*
 ${cart.map((item) => `- ${item.name} *(${item.quantity} шт)*: ${(getNumericPrice(item.price) * item.quantity).toFixed(2)} TJS`).join("\n")}
 ${isPromoApplied ? "Скидка: 10%" : ""}
-${orderType === "delivery" ? "🏃🏻‍♂️‍➡️ Стоимость доставки: 10.00 TJS" : ""}
-----------------------------------
-Комментарий: ${comment || "*Нет*"}
-----------------------------------
-*🛍 Общая сумма: ${totalPrice.toFixed(2)} TJS*
+${orderType === "delivery" ? "Стоимость доставки: 10.00 TJS" : ""}
+*Общая сумма: ${totalPrice.toFixed(2)} TJS*
     `
 
     setIsSubmitting(true)
@@ -365,11 +356,10 @@ ${orderType === "delivery" ? "🏃🏻‍♂️‍➡️ Стоимость до
         <div className="delivery-info-banner">
           <div className="delivery-info-icon">
             {/* Pin/Закреплено icon */}
-           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-  <path d="M12 2L2 20h20L12 2z" />
-  <path d="M12 9v4" />
-  <circle cx="12" cy="17" r="1" fill="currentColor" />
-</svg>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M12 17v5" />
+              <path d="M9 10.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4H8a2 2 0 0 0 0 4 1 1 0 0 1 1 1z" />
+            </svg>
           </div>
           <div className="delivery-info-text">
             <div className="delivery-info-title">Доставка</div>
@@ -569,7 +559,7 @@ ${orderType === "delivery" ? "🏃🏻‍♂️‍➡️ Стоимость до
                       Выберите тип заказа
                     </option>
                     <option value="delivery">Доставка (+10 TJS)</option>
-                    <option value="pickup">Собой (Бо худ бар)</option>
+                    <option value="pickup">Самовывоз</option>
                   </select>
                 </div>
               </div>
@@ -616,7 +606,8 @@ ${orderType === "delivery" ? "🏃🏻‍♂️‍➡️ Стоимость до
                     <select name="pickupAddress" required>
                       <option value="">Выберите адрес</option>
                       <option value="Хиёбони рудаки 151">Хиёбони рудаки 151 (ЗАГС)</option>
-                      <option value="г.Пенджикент против магазин Сумая Кафе Симин">Напротив магазина Сумая
+                      <option value="г.Пенджикент против магазин Сумая Кафе Симин">
+                        г.Пенджикент, напротив магазина Сумая
                       </option>
                     </select>
                   </div>
@@ -647,7 +638,7 @@ ${orderType === "delivery" ? "🏃🏻‍♂️‍➡️ Стоимость до
                     <option value="" disabled>
                       Выберите способ оплаты
                     </option>
-                    <option value="card">Карта онлайн Dc - Эсхата</option>
+                    <option value="card">Карта онлайн</option>
                     <option value="cash">Наличные</option>
                   </select>
                 </div>
