@@ -19,7 +19,7 @@ export async function POST(request: Request) {
     const normalizedPhone = normalizePhoneNumber(phone)
     console.log("[v0] Normalized phone:", normalizedPhone)
 
-    const smsApiUrl = "http://tajstore.ru/simin/sms.php"
+    const smsApiUrl = "https://tajstore.ru/simin/sms.php"
 
     const requestBody = {
       phone: normalizedPhone, // Используем нормализованный номер
