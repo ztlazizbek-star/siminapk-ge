@@ -47,8 +47,9 @@ export default function CartPage(): ReactElement {
   const [isSubmitting, setIsSubmitting] = useState(false) // New state for loading indicator
   const [orderType, setOrderType] = useState("")
   const [paymentType, setPaymentType] = useState("")
+  const [showDeliveryNotification, setShowDeliveryNotification] = useState(false)
 
-  const PROMO_CODE = "скидка10"
+  const PROMO_CODE = "скидк77"
   const discount = isPromoApplied ? 0.1 : 0
 
   useEffect(() => {
@@ -81,28 +82,28 @@ export default function CartPage(): ReactElement {
     // Fallback suggestions
     const fallbackSuggestions: SuggestionItem[] = [
       {
-        id: 3,
+        id: 37,
         name: "Наггетсы порция",
         price: 24,
         image: "https://tajstore.ru/simin/file/photo/692a001fb11d5_1764360223.png",
         description: "1 шт",
       },
-      {
-        id: 4,
-        name: "Fanta",
-        price: 6,
-        image: "https://tajstore.ru/simin/file/photo/692a04e0307d2_1764361440.png",
-        description: "0.5 л",
-      },
-      {
-        id: 5,
+        {
+        id: 32,
         name: "Твистер",
         price: 18,
         image: "https://tajstore.ru/simin/file/photo/6929feead680f_1764359914.png",
         description: "вкусно",
       },
       {
-        id: 6,
+        id: 52,
+        name: "Fanta",
+        price: 6,
+        image: "https://tajstore.ru/simin/file/photo/692a04e0307d2_1764361440.png",
+        description: "0.5 л",
+      },
+      {
+        id: 26,
         name: "Хот-дог НАЧО",
         price: 15,
         image: "https://tajstore.ru/simin/file/photo/6929fd4ed953c_1764359502.png",
@@ -216,6 +217,16 @@ export default function CartPage(): ReactElement {
   const totalPrice = calculateTotal()
   const itemText = totalItems === 1 ? "товар" : totalItems >= 2 && totalItems <= 4 ? "товара" : "товаров"
 
+  const handleOrderTypeChange = (type: string) => {
+    setOrderType(type)
+    if (type === "delivery") {
+      setShowDeliveryNotification(true)
+      setTimeout(() => {
+        setShowDeliveryNotification(false)
+      }, 3500)
+    }
+  }
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const formData = new FormData(e.currentTarget)
@@ -240,22 +251,36 @@ export default function CartPage(): ReactElement {
       return
     }
 
+    if (orderType === "pickup" && !pickupAddress) {
+      showNotification("Пожалуйста, выберите адрес самовывоза", "error")
+      return
+    }
+
     const TELEGRAM_BOT_TOKEN = "8267879429:AAE-P7BuRbwK3kWy1-XD-_WR_i8yjqTOdZQ"
-    const TELEGRAM_CHAT_ID = "7436669286"
+    const TELEGRAM_CHAT_ID = "-1003693959517"
+    const orderNumber = Math.floor(100000 + Math.random() * 900000);
 
     const message = `
-*Новый заказ*
-Имя: ${name}
-Телефон: +992${phone}
-Тип заказа: ${orderType === "delivery" ? "Доставка" : "Собой"}
+*Поступил новый заказ* #${orderNumber}
+----------------------------------
+👤 Имя: *${name}*
+----------------------------------
 Адрес: ${orderType === "delivery" ? deliveryAddress : pickupAddress}
-Тип оплаты: ${paymentType === "card" ? "Карта онлайн" : "Наличные"}
-Комментарий: ${comment || "Нет"}
+----------------------------------
+Тип заказа: *${orderType === "delivery" ? "Доставка" : "Собой"}*
+----------------------------------
+Телефон: +992${phone}
+----------------------------------
+*Тип оплаты:* ${paymentType === "card" ? "Карта онлайн Dc - Эсхата" : "Наличные"}
+----------------------------------
 *Товары:*
-${cart.map((item) => `- ${item.name} (${item.quantity} шт): ${(getNumericPrice(item.price) * item.quantity).toFixed(2)} TJS`).join("\n")}
+${cart.map((item) => `- ${item.name} *(${item.quantity} шт)*: ${(getNumericPrice(item.price) * item.quantity).toFixed(2)} TJS`).join("\n")}
 ${isPromoApplied ? "Скидка: 10%" : ""}
-${orderType === "delivery" ? "Стоимость доставки: 10.00 TJS" : ""}
-*Общая сумма: ${totalPrice.toFixed(2)} TJS*
+${orderType === "delivery" ? "🏃🏻‍♂️‍➡️ Стоимость доставки: 10.00 TJS" : ""}
+----------------------------------
+Комментарий: ${comment || "*Нет*"}
+----------------------------------
+*🛍 Общая сумма: ${totalPrice.toFixed(2)} TJS*
     `
 
     setIsSubmitting(true)
@@ -340,14 +365,15 @@ ${orderType === "delivery" ? "Стоимость доставки: 10.00 TJS" : 
         <div className="delivery-info-banner">
           <div className="delivery-info-icon">
             {/* Pin/Закреплено icon */}
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M12 17v5" />
-              <path d="M9 10.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4H8a2 2 0 0 0 0 4 1 1 0 0 1 1 1z" />
-            </svg>
+           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+  <path d="M12 2L2 20h20L12 2z" />
+  <path d="M12 9v4" />
+  <circle cx="12" cy="17" r="1" fill="currentColor" />
+</svg>
           </div>
           <div className="delivery-info-text">
-            <div className="delivery-info-title">Доставка в Пенджикент</div>
-            <div className="delivery-info-description">Стоимость доставки: 10 сомон</div>
+            <div className="delivery-info-title">Доставка</div>
+            <div className="delivery-info-description">Внутри города Пенджикента — 10 сомони</div>
           </div>
         </div>
       )}
@@ -463,152 +489,217 @@ ${orderType === "delivery" ? "Стоимость доставки: 10.00 TJS" : 
       {/* Checkout Modal */}
       {showCheckoutModal && (
         <div id="checkout-modal" onClick={(e) => e.target === e.currentTarget && setShowCheckoutModal(false)}>
+          {showDeliveryNotification && (
+            <div className="delivery-notification">
+              <div className="delivery-notification-content">
+                <div className="delivery-notification-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <rect x="1" y="3" width="15" height="13"></rect>
+                    <path d="M16 8h5l3 3v5h-2"></path>
+                    <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                    <circle cx="18.5" cy="18.5" r="2.5"></circle>
+                  </svg>
+                </div>
+                <div className="delivery-notification-body">
+                  <div className="delivery-notification-title">Доставка добавлена</div>
+                  <div className="delivery-notification-text">К заказу добавлено 10 TJS</div>
+                </div>
+              </div>
+            </div>
+          )}
+
           <div className="modal-content">
             {isSubmitting && (
               <div className="loading-overlay">
                 <div className="loading-spinner">
                   <div className="spinner"></div>
-                  <p>Оформление заказа...</p>
+                  <p>Отправка заказа...</p>
                 </div>
               </div>
             )}
-            <h2>Оформление заказа</h2>
+
+            <div className="modal-header">
+              <h2 className="modal-title">Оформление заказа</h2>
+            </div>
+
             <form onSubmit={handleSubmit}>
-              <div className="input-group">
-                <svg
-                  className="input-icon"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                >
-                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                  <circle cx="12" cy="7" r="4"></circle>
-                </svg>
-                <input
-                  type="text"
-                  name="name"
-                  placeholder="Введите ваше имя"
-                  defaultValue={user?.name || ""}
-                  required
-                />
-              </div>
-              <div className="input-group phone-group">
-                <img src="/images/design-mode/tj.png" alt="Tajikistan Flag" className="phone-flag" />
-                <span className="phone-code">+992</span>
-                <input type="tel" name="phone" placeholder="123456789" pattern="[0-9]{9}" maxLength={9} required />
-              </div>
-              <div className="input-group">
-                <svg
-                  className="input-icon"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                >
-                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                  <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                </svg>
-                <select name="orderType" value={orderType} onChange={(e) => setOrderType(e.target.value)} required>
-                  <option value="" disabled>
-                    Выберите тип заказа
-                  </option>
-                  <option value="delivery">Доставка</option>
-                  <option value="pickup">Собой</option>
-                </select>
-              </div>
-              {orderType === "delivery" && (
+              <div className="form-section">
+                <label className="form-label">Имя</label>
                 <div className="input-group">
                   <svg
                     className="input-icon"
-                    width="24"
-                    height="24"
+                    width="20"
+                    height="20"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
                     strokeWidth="2"
                   >
-                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                    <circle cx="12" cy="10" r="3"></circle>
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
                   </svg>
-                  <input type="text" name="deliveryAddress" placeholder="Введите адрес доставки" required />
+                  <input type="text" name="name" placeholder="Ваше имя" defaultValue={user?.name || ""} required />
                 </div>
-              )}
-              {orderType === "pickup" && (
+              </div>
+
+              <div className="form-section">
+                <label className="form-label">Тип заказа</label>
                 <div className="input-group">
                   <svg
                     className="input-icon"
-                    width="24"
-                    height="24"
+                    width="20"
+                    height="20"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
                     strokeWidth="2"
                   >
-                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                    <rect x="1" y="3" width="15" height="13"></rect>
+                    <path d="M16 8h5l3 3v5h-2"></path>
+                    <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                    <circle cx="18.5" cy="18.5" r="2.5"></circle>
                   </svg>
-                  <select name="pickupAddress">
-                    <option value="">Выберите адрес самовывоза</option>
-                    <option value="Хиёбони рудаки 151">Хиёбони рудаки 151 (загс)</option>
-                    <option value="г.Пенджикент против магазин Сумая Кафе Симин">
-                      против магазин Сумая Кафе Симин
+                  <select
+                    name="orderType"
+                    value={orderType}
+                    onChange={(e) => handleOrderTypeChange(e.target.value)}
+                    required
+                  >
+                    <option value="" disabled>
+                      Выберите тип заказа
                     </option>
+                    <option value="delivery">Доставка (+10 TJS)</option>
+                    <option value="pickup">Собой (Бо худ бар)</option>
                   </select>
                 </div>
+              </div>
+
+              {orderType === "delivery" && (
+                <div className="form-section">
+                  <label className="form-label">Адрес доставки</label>
+                  <div className="input-group">
+                    <svg
+                      className="input-icon"
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                    >
+                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                      <circle cx="12" cy="10" r="3"></circle>
+                    </svg>
+                    <input type="text" name="deliveryAddress" placeholder="Улица, дом, квартира" required />
+                  </div>
+                </div>
               )}
-              <div className="input-group">
-                <svg
-                  className="input-icon"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                >
-                  <rect x="2" y="4" width="20" height="16" rx="2"></rect>
-                  <path d="M2 10h20"></path>
-                </svg>
-                <select
-                  name="paymentType"
-                  value={paymentType}
-                  onChange={(e) => setPaymentType(e.target.value)}
-                  required
-                >
-                  <option value="" disabled>
-                    Выберите тип оплаты
-                  </option>
-                  <option value="card">Карта онлайн</option>
-                  <option value="cash">Наличные</option>
-                </select>
+
+              {orderType === "pickup" && (
+                <div className="form-section">
+                  <label className="form-label">
+                    Адрес самовывоза <span className="required-star">*</span>
+                  </label>
+                  <div className="input-group">
+                    <svg
+                      className="input-icon"
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                    >
+                      <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                      <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                    </svg>
+                    <select name="pickupAddress" required>
+                      <option value="">Выберите адрес</option>
+                      <option value="Хиёбони рудаки 151">Хиёбони рудаки 151 (ЗАГС)</option>
+                      <option value="г.Пенджикент против магазин Сумая Кафе Симин">Напротив магазина Сумая
+                      </option>
+                    </select>
+                  </div>
+                </div>
+              )}
+
+              <div className="form-section">
+                <label className="form-label">Способ оплаты</label>
+                <div className="input-group">
+                  <svg
+                    className="input-icon"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                  >
+                    <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                    <path d="M2 10h20"></path>
+                  </svg>
+                  <select
+                    name="paymentType"
+                    value={paymentType}
+                    onChange={(e) => setPaymentType(e.target.value)}
+                    required
+                  >
+                    <option value="" disabled>
+                      Выберите способ оплаты
+                    </option>
+                    <option value="card">Карта онлайн Dc - Эсхата</option>
+                    <option value="cash">Наличные</option>
+                  </select>
+                </div>
               </div>
-              <div className="input-group">
-                <svg
-                  className="input-icon"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                >
-                  <path d="M14 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                  <polyline points="7 10 12 15 17 10"></polyline>
-                  <line x1="12" y1="15" x2="12" y2="3"></line>
-                </svg>
-                <textarea name="comment" placeholder="Ваш комментарий (необязательно)"></textarea>
+
+              <div className="form-section">
+                <label className="form-label">Номер телефона</label>
+                {user?.phone && (
+                  <div
+                    className="phone-suggestion"
+                    onClick={() => {
+                      const phoneInput = document.querySelector('input[name="phone"]') as HTMLInputElement
+                      if (phoneInput) phoneInput.value = user.phone.replace("+992", "")
+                    }}
+                  >
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                    </svg>
+                    <span>Использовать {user.phone}</span>
+                  </div>
+                )}
+                <div className="input-group phone-input-group">
+                  <img src="/images/design-mode/tj.png" alt="TJ" className="phone-flag" />
+                  <span className="phone-code">+992</span>
+                  <input type="tel" name="phone" placeholder="901234567" pattern="[0-9]{9}" maxLength={9} required />
+                </div>
               </div>
+
+              <div className="form-section">
+                <label className="form-label">Комментарий к заказу</label>
+                <div className="input-group textarea-group">
+                  <svg
+                    className="input-icon textarea-icon"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                  >
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                  </svg>
+                  <textarea name="comment" placeholder="Дополнительные пожелания (необязательно)" rows={3}></textarea>
+                </div>
+              </div>
+
               <div className="form-actions">
                 <button type="button" className="cancel-btn" onClick={onClose} disabled={isSubmitting}>
                   Отмена
                 </button>
                 <button type="submit" className="submit-btn" disabled={isSubmitting}>
-                  {isSubmitting ? "Отправка..." : "Отправить заказ"}
+                  {isSubmitting ? "Отправка..." : `Заказать ${totalPrice.toFixed(2)} TJS`}
                 </button>
               </div>
             </form>
