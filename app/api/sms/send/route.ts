@@ -55,6 +55,6 @@ export async function POST(request: Request) {
     }
   } catch (error) {
     console.error("[v0] SMS API error:", error)
-    return NextResponse.json({ success: false, error: "Ошибка сервера" }, { status: 500 })
+    return NextResponse.json({ success: false, error: "Иштибох дар коркарди сервер" }, { status: 500 })
   }
 }
