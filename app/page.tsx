@@ -62,9 +62,9 @@ const mockStories = [
     title: "Адрес",
     image: "https://tajstore.ru/simin/file/photo/address.png",
     images: [
-      "https://tajstore.ru/simin/file/photo/address3.png",
+      "https://tajstore.ru/simin/file/photo/address1.png",
       "https://tajstore.ru/simin/file/photo/address2.png",
-      "https://tajstore.ru/simin/file/photo/support.png"
+      "https://tajstore.ru/simin/file/photo/support.png",
     ],
   },
   {

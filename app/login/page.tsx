@@ -173,12 +173,12 @@ export default function LoginPage() {
         <div className="login-header">
           <div className="login-logo">
             <div className="logo-circle">
-              <i className="fas fa-user"></i>
+              <i className="fas fa-utensils"></i>
             </div>
           </div>
-          <h1 className="login-title">Регистрация</h1>
+          <h1 className="login-title">Cafe Simin</h1>
           <p className="login-subtitle">
-            {step === "phone" && "Введите свой номер телефона — мы поможем войти или создать аккаунт"}
+            {step === "phone" && "Введите номер телефона для входа"}
             {step === "verification" && "Введите код подтверждения"}
             {step === "details" && "Расскажите нам о себе"}
           </p>
@@ -191,10 +191,7 @@ export default function LoginPage() {
                 Номер телефона
               </label>
               <div className="input-wrapper">
-                <div className="input-icon">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/Flag_of_Tajikistan.svg" alt="Tajikistan flag" width="24" />
-</div>
-
+                <i className="fas fa-phone input-icon"></i>
                 <span className="phone-prefix">+992</span>
                 <input
                   type="tel"

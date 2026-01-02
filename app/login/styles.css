@@ -257,49 +257,10 @@
   color: #f7931e;
 }
 
-/* Sahifa to‘liq balandligi */
-.login-page {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column; /* vertical tartib */
-  justify-content: center; /* markazlashtirish */
-  align-items: center;
-  padding: 20px;
-  position: relative;
-  background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
-  overflow: hidden;
-}
-
-/* Login konteyner */
-.login-container {
-  width: 100%;
-  max-width: 440px;
-  background: white;
-  border-radius: 24px;
-  box-shadow: 0 20px 60px rgba(255, 107, 53, 0.3);
-  overflow: hidden;
-  position: relative;
-  z-index: 1;
-}
-
-/* Header */
-.login-header {
-  text-align: center;
-  padding: 40px 30px 30px;
-  background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
-  color: white;
-  position: relative;
-}
-
-/* Footer har doim pastda */
 .login-footer {
   padding: 20px 30px 30px;
   text-align: center;
   background: #fafafa;
-  width: 100%;
-  position: absolute;
-  bottom: 0; /* pastga yopish */
-  left: 0;
 }
 
 .footer-text {
@@ -308,7 +269,6 @@
   line-height: 1.6;
   margin: 0;
 }
-
 
 /* Добавлены анимации для плавного появления */
 @keyframes fadeIn {
