@@ -270,12 +270,6 @@ body {
   justify-content: center;
   align-items: center;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  
-  font-weight: 700;           /* yoki 800 / 900 */
-  font-size: clamp(1.1rem, 4vw, 1.6rem);
-  line-height: 1.2;
-  letter-spacing: -0.01em;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.3); /* ixtiyoriy - yaxshiroq o‘qilishi uchun */
 }
 
 .story-circle img {
